@@ -1,4 +1,4 @@
-package edu.oregonstate.cs361.teamname;
+package edu.oregonstate.cs361.pomegranate;
 
 public enum Status {
 
