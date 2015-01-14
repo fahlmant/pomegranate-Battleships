@@ -2,15 +2,15 @@ package edu.oregonstate.cs361.teamname;
 
 public class Board {
 
-	public Board(int size) {
+	public Board() {
 		// TODO Implement
 	}
 	
-	public void placeShip(Ship ship, int x, int y) {
+	public void placeShip(Ship ship, char x, int y, boolean isVertical) {
 		//TODO Implement
 	}
 	
-	public Status attack(int x, int y) {
+	public Result attack(char x, int y) {
 		//TODO Implement
 		return null;
 	}

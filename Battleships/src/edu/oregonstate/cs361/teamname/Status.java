@@ -16,6 +16,11 @@ public enum Status {
 	 * The results if an attack results in the defeat of the opponent (a
 	 * surrender).
 	 */
-	SURRENDER
+	SURRENDER,
+	
+	/**
+	 * The result if the coordinates given are invalid.
+	 */
+	INVALID
 
 }
