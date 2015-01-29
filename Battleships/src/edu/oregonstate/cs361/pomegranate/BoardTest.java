@@ -9,7 +9,7 @@ public class BoardTest {
 	@Test
 	public void testValidPlacement()
 	{
-		Ship s = new Ship("Submarine",3);
+		Ship s = new Ship("Submarine");
 		Board b = new Board();
 		boolean valid;
 		valid = b.placeShip(s, 'A', 1, true);
@@ -19,7 +19,7 @@ public class BoardTest {
 	@Test
 	public void testYMax()
 	{
-		Ship s = new Ship("Submarine",3);
+		Ship s = new Ship("Submarine");
 		Board b = new Board();
 		boolean valid;
 		valid = b.placeShip(s, 'A', 11, true);
@@ -29,7 +29,7 @@ public class BoardTest {
 	@Test
 	public void testYMin()
 	{
-		Ship s = new Ship("Submarine",3);
+		Ship s = new Ship("Submarine");
 		Board b = new Board();
 		boolean valid;
 		valid = b.placeShip(s, 'A', 0, true);
