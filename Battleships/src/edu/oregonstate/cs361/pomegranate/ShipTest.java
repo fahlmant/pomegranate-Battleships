@@ -19,5 +19,4 @@ public class ShipTest {
 		String k = ship.getKind();
 		assertEquals("Submarine", k);
 	}
-
 }

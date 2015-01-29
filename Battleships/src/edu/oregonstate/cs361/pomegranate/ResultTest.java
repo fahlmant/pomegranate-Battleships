@@ -7,10 +7,10 @@ import org.junit.Test;
 public class ResultTest {
 
 	@Test
-	public void testGetResult() {
+	public void testGetResultMiss() {
 		Result result = new Result();
-		Status valid = result.getResult("A",7);
-		assertEquals(valid, MISS);
+		Status valid = result.getResult();
+		assertEquals(valid, Status.MISS);
 	}
 
 }
