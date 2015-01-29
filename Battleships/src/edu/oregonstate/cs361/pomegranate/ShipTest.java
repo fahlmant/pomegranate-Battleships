@@ -12,4 +12,11 @@ public class ShipTest {
 		String k = ship.getKind();
 		assertEquals("Submarine", k);
 	}
+	
+	@Test
+	public void testShipLife() {
+		Ship ship = new Ship("Submarine");
+		ship.setHealth(3);
+		assertEquals(3, ship.getHealth());
+	}
 }

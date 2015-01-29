@@ -7,8 +7,14 @@ import org.junit.Test;
 public class BoardTest {
 	
 	@Test
-	public void testValidPlacement()
-	{
+	public void testBoard() {
+		Board b = new Board();
+		int[][] s = new int [10][10];
+		assertArrayEquals(s, b.getGrid());
+	}
+	
+	@Test
+	public void testValidPlacement() {
 		Ship s = new Ship("Submarine");
 		Board b = new Board();
 		boolean valid;
@@ -17,8 +23,7 @@ public class BoardTest {
 	}
 	
 	@Test
-	public void testYMax()
-	{
+	public void testYMax() {
 		Ship s = new Ship("Submarine");
 		Board b = new Board();
 		boolean valid;
@@ -27,8 +32,7 @@ public class BoardTest {
 	}
 	
 	@Test
-	public void testYMin()
-	{
+	public void testYMin() {
 		Ship s = new Ship("Submarine");
 		Board b = new Board();
 		boolean valid;
@@ -36,5 +40,47 @@ public class BoardTest {
 		assertEquals(false, valid);
 	}
 	
+	@Test
+	public void testXMax() {
+		Ship s = new Ship("Submarine");
+		Board b = new Board();
+		boolean valid = b.placeShip(s, 'K', 1, true);
+		assertEquals(false, valid);
+	}
+	
+	@Test
+	public void testXMin() {
+		Ship s = new Ship("Submarine");
+		Board b = new Board();
+		boolean valid = b.placeShip(s, 'z', 1, true);
+		assertEquals(false, valid);
+	}
+	
+	@Test
+	public void testInvalidVertical() {
+		Ship s = new Ship("Submarine");
+		s.setHealth(3);
+		Board b = new Board();
+		boolean valid = b.placeShip(s, 'A', 2, true);
+		assertEquals(false, valid);
+	}
+	
+	@Test
+	public void testValidVertical() {
+		Ship s = new Ship("Submarine");
+		s.setHealth(3);
+		Board b = new Board();
+		boolean valid = b.placeShip(s, 'A', 3, true);
+		assertEquals(true, valid);
+	}
+	
+	@Test
+	public void testInvalidHorizontal() {
+		Ship s = new Ship("Submarine");
+		s.setHealth(3);
+		Board b = new Board();
+		boolean valid = b.placeShip(s, 'H', 1, false);
+		assertEquals(false, valid);
+	}
 
 }

@@ -3,7 +3,7 @@ package edu.oregonstate.cs361.pomegranate;
 public class Ship {
 	
 	private String kind;
-	private int size;
+	private int health;
 
 	public Ship(String kind) {
 		this.setKind(kind);
@@ -15,6 +15,14 @@ public class Ship {
 
 	public void setKind(String kind) {
 		this.kind = kind;
+	}
+
+	public int getHealth() {
+		return health;
+	}
+
+	public void setHealth(int health) {
+		this.health = health;
 	}
 	
 	
