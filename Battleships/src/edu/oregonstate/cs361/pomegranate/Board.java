@@ -4,9 +4,16 @@ public class Board {
 
 	public Board() {
 		// TODO Implement
+		
 	}
 	
-	public void placeShip(Ship ship, char x, int y, boolean isVertical) {
+	public boolean placeShip(Ship ship, char x, int y, boolean isVertical) {
+		boolean valid = true;
+		if (y > 10 || y < 1)
+		{
+			valid = false;
+		}
+		return valid;
 		//TODO Implement
 	}
 	
