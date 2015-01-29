@@ -5,21 +5,11 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class BoardTest {
-
-	@Test
-	public void test() 
-	{
-		Ship s = new Ship("Submarine");
-		Board b = new Board();
-		Result r = new Result();
-		boolean valid;
-		
-	}
 	
 	@Test
 	public void testValidPlacement()
 	{
-		Ship s = new Ship("Submarine");
+		Ship s = new Ship("Submarine",3);
 		Board b = new Board();
 		boolean valid;
 		valid = b.placeShip(s, 'A', 1, true);
@@ -29,7 +19,7 @@ public class BoardTest {
 	@Test
 	public void testYMax()
 	{
-		Ship s = new Ship("Submarine");
+		Ship s = new Ship("Submarine",3);
 		Board b = new Board();
 		boolean valid;
 		valid = b.placeShip(s, 'A', 11, true);
@@ -39,7 +29,7 @@ public class BoardTest {
 	@Test
 	public void testYMin()
 	{
-		Ship s = new Ship("Submarine");
+		Ship s = new Ship("Submarine",3);
 		Board b = new Board();
 		boolean valid;
 		valid = b.placeShip(s, 'A', 0, true);
