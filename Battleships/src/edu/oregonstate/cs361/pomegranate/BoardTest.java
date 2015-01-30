@@ -81,14 +81,33 @@ public class BoardTest {
 	}
 	
 	@Test
-	public void testPlaceShip() {
+	public void testValidHorizontal() {
 		Ship s = new Ship("Submarine");
 		Board b = new Board();
-		b.placeShip(s, 'B', 10, true);
+		boolean valid = b.placeShip(s, 'A', 1, false);
+		assertEquals(true, valid);
+	}
+	
+	@Test
+	public void testPlaceShipVertical() {
+		Ship s = new Ship("Battleship");
+		Board b = new Board();
+		b.placeShip(s, 'A', 4, true);
 		int[][] g = b.getGrid();
-		assertEquals(g[1][9], 3);
-		assertEquals(g[1][8], 3);
-		assertEquals(g[1][7], 3);
+		assertEquals(g[0][3], 4);
+		assertEquals(g[0][2], 4);
+		assertEquals(g[0][1], 4);
+		assertEquals(g[0][0], 4);
+	}
+
+	@Test
+	public void testPlaceShipHorizontal() {
+		Ship s = new Ship("Minesweeper");
+		Board b = new Board();
+		b.placeShip(s, 'A', 3, false);
+		int[][] g = b.getGrid();
+		assertEquals(g[0][2], 2);
+		assertEquals(g[1][2], 2);
 	}
 	
 	@Test
