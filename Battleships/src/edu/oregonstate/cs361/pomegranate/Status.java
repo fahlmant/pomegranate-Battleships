@@ -17,6 +17,10 @@ public enum Status {
 	 * surrender).
 	 */
 	SURRENDER,
+	/**
+	 * The results if an attack results in a ship sinking).
+	 */
+	SUNK,
 	
 	/**
 	 * The result if the coordinates given are invalid.

@@ -114,26 +114,64 @@ public class BoardTest {
 	public void testAttackInvalid(){
 		Ship s = new Ship("Submarine");
 		Board b = new Board();
-		Result r = new Result();
+		Result r = new Result(s, Status.MISS);
 		b.placeShip(s, 'B', 10, true);
 		r = b.attack('Z', 10);
-		assertEquals(r.status, Status.INVALID);
+		assertEquals(r.getResult(), Status.INVALID);
 		r = b.attack('B', 11);
-		assertEquals(r.status, Status.INVALID);
+		assertEquals(r.getResult(), Status.INVALID);
+
 	}
 	
 	@Test
 	public void testAttackValid(){
 		Ship s = new Ship("Submarine");
 		Board b = new Board();
-		Result r = new Result();
+		Result r = null;
 		b.placeShip(s, 'B', 10, true);
 		r = b.attack('B', 10);
-		assertEquals(r.status, Status.HIT);
-		r = b.attack('D', 9);
-		assertEquals(r.status, Status.MISS);
+		assertEquals(r.getResult(), Status.HIT);
+		r = b.attack('C', 5);
+		assertEquals(r.getResult(), Status.MISS);
+
+	}
+	
+	@Test
+	public void testDestroyed() {
+		Ship s = new Ship("Submarine");
+		Ship s2 = new Ship("Minesweeper");
+		Board b = new Board();
+		Result r = null;
+		b.placeShip(s, 'B', 10, true);
+		b.placeShip(s2, 'A', 1, false);
+		r = b.attack('B', 10);
+		assertEquals(r.getResult(), Status.HIT);
 		r = b.attack('B', 9);
-		assertEquals(r.status, Status.HIT);
+		assertEquals(r.getResult(), Status.HIT);
+		r = b.attack('B', 8);
+		assertEquals(r.getResult(), Status.SUNK);
+	}
+	
+	@Test
+	public void testSurrender() {
+		Ship s = new Ship("Submarine");
+		Ship s2 = new Ship("Minesweeper");
+		Ship s3 = new Ship("Battleship");
+		Board b = new Board();
+		Result r = null;
+		b.placeShip(s, 'A', 10, true);
+		b.placeShip(s2, 'A', 1, false);
+		b.placeShip(s3, 'J', 10, true);
+		r = b.attack('A', 10);
+		r = b.attack('A', 9);
+		r = b.attack('A', 8);
+		r = b.attack('A', 1);
+		r = b.attack('B', 1);
+		r = b.attack('J', 10);
+		r = b.attack('J', 9);
+		r = b.attack('J', 8);
+		r = b.attack('J', 7);
+		assertEquals(r.getResult(), Status.SURRENDER);
 	}
 	
 }
