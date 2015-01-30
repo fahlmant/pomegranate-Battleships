@@ -18,7 +18,7 @@ public class BoardTest {
 		Ship s = new Ship("Submarine");
 		Board b = new Board();
 		boolean valid;
-		valid = b.placeShip(s, 'A', 1, true);
+		valid = b.placeShip(s, 'A', 10, true);
 		assertEquals(true, valid);
 	}
 	
@@ -59,7 +59,6 @@ public class BoardTest {
 	@Test
 	public void testInvalidVertical() {
 		Ship s = new Ship("Submarine");
-		s.setHealth(3);
 		Board b = new Board();
 		boolean valid = b.placeShip(s, 'A', 2, true);
 		assertEquals(false, valid);
@@ -68,7 +67,6 @@ public class BoardTest {
 	@Test
 	public void testValidVertical() {
 		Ship s = new Ship("Submarine");
-		s.setHealth(3);
 		Board b = new Board();
 		boolean valid = b.placeShip(s, 'A', 3, true);
 		assertEquals(true, valid);
@@ -77,10 +75,19 @@ public class BoardTest {
 	@Test
 	public void testInvalidHorizontal() {
 		Ship s = new Ship("Submarine");
-		s.setHealth(3);
 		Board b = new Board();
 		boolean valid = b.placeShip(s, 'H', 1, false);
 		assertEquals(false, valid);
 	}
-
+	
+	@Test
+	public void testPlaceShip() {
+		Ship s = new Ship("Submarine");
+		Board b = new Board();
+		b.placeShip(s, 'B', 10, true);
+		int[][] g = b.getGrid();
+		assertEquals(g[1][9], 3);
+		assertEquals(g[1][8], 3);
+		assertEquals(g[1][7], 3);
+	}
 }

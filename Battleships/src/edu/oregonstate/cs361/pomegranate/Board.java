@@ -15,7 +15,19 @@ public class Board {
 	}
 	
 	public boolean placeShip(Ship ship, char x, int y, boolean isVertical) {
+		
+		int type = 0;
 		boolean valid = true;
+		
+		switch(ship.getKind()) {
+		case "Minesweaper": type = 2;
+		break;
+		case "Submarine": type = 3;
+		break;
+		case "Battleship": type = 4;
+		break;
+		}
+		
 		if (y > 10 || y < 1) {
 			valid = false;
 		}
@@ -24,12 +36,19 @@ public class Board {
 			valid = false;
 		}
 		
-		if(y - ship.getHealth() < 0 && isVertical == true) {
+		if(y - type < 0 && isVertical == true) {
 			valid = false;
 		}
 		
-		if(x + ship.getHealth() > 'J' && isVertical == false) {
+		if(x + type > 'J' && isVertical == false) {
 			valid = false;
+		}
+		
+		//place ship if vertical
+		if(isVertical == true && valid == true) {
+			for(int i = 0; i < type; i++) {
+				grid[x - 'A'][y - i - 1] = type;
+			}
 		}
 		
 		return valid;
