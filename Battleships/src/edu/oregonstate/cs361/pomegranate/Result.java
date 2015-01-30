@@ -1,9 +1,11 @@
 package edu.oregonstate.cs361.pomegranate;
 
 public class Result {
+	
+	Status status;
 
 	public Status getResult() {
-		return Status.MISS;
+		return status;
 	}
 	
 	public Ship getShip() {

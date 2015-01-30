@@ -109,4 +109,31 @@ public class BoardTest {
 		assertEquals(g[0][2], 2);
 		assertEquals(g[1][2], 2);
 	}
+	
+	@Test
+	public void testAttackInvalid(){
+		Ship s = new Ship("Submarine");
+		Board b = new Board();
+		Result r = new Result();
+		b.placeShip(s, 'B', 10, true);
+		r = b.attack('Z', 10);
+		assertEquals(r.status, Status.INVALID);
+		r = b.attack('B', 11);
+		assertEquals(r.status, Status.INVALID);
+	}
+	
+	@Test
+	public void testAttackValid(){
+		Ship s = new Ship("Submarine");
+		Board b = new Board();
+		Result r = new Result();
+		b.placeShip(s, 'B', 10, true);
+		r = b.attack('B', 10);
+		assertEquals(r.status, Status.HIT);
+		r = b.attack('D', 9);
+		assertEquals(r.status, Status.MISS);
+		r = b.attack('B', 9);
+		assertEquals(r.status, Status.HIT);
+	}
+	
 }
