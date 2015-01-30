@@ -56,8 +56,30 @@ public class Board {
 	}
 	
 	public Result attack(char x, int y) {
-		//TODO Implement 
-		return null;
+		Result r = new Result();
+		
+		if( x > 'J' || x < 'A')
+		{
+			r.status = Status.INVALID;
+			return r;
+		}
+		else if(y > 10 || y < 0)
+		{
+			r.status = Status.INVALID;
+			return r;
+		}
+		
+		if(grid[x - 'A'][y - 1] >= 2)
+		{
+			r.status = Status.HIT;
+		}
+		else
+		{
+			r.status = Status.MISS;
+		}
+		
+		
+		return r;
 	}
 
 }
