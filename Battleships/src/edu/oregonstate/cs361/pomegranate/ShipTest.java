@@ -27,6 +27,7 @@ public class ShipTest {
 	}
 	
 	//Destroyer 
+	//I don't think we have a destroyer ship type
 	@Test
 	public void testShipDestroyer() {
 		Ship ship = new Ship("Destroyer");

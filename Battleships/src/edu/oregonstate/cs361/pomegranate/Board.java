@@ -6,8 +6,6 @@ public class Board {
 
 	public Board() {
 		grid = new int [10][10];
-		// TODO Implement 2d array that keeps track of ship placement
-		
 	}
 	
 	public int[][] getGrid() {
