@@ -2,7 +2,7 @@ package edu.oregonstate.cs361.pomegranate;
 
 public class Result {
 	
-	Status status;
+	public Status status;
 
 	public Status getResult() {
 		return status;
