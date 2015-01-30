@@ -114,26 +114,26 @@ public class BoardTest {
 	public void testAttackInvalid(){
 		Ship s = new Ship("Submarine");
 		Board b = new Board();
-		Result r = new Result();
+		Result r = new Result(s, Status.MISS);
 		b.placeShip(s, 'B', 10, true);
 		r = b.attack('Z', 10);
-		assertEquals(r.status, Status.INVALID);
+		assertEquals(r.getResult(), Status.INVALID);
 		r = b.attack('B', 11);
-		assertEquals(r.status, Status.INVALID);
+		assertEquals(r.getResult(), Status.INVALID);
+
 	}
 	
 	@Test
 	public void testAttackValid(){
 		Ship s = new Ship("Submarine");
 		Board b = new Board();
-		Result r = new Result();
+		Result r = null;
 		b.placeShip(s, 'B', 10, true);
 		r = b.attack('B', 10);
-		assertEquals(r.status, Status.HIT);
-		r = b.attack('D', 9);
-		assertEquals(r.status, Status.MISS);
-		r = b.attack('B', 9);
-		assertEquals(r.status, Status.HIT);
+		assertEquals(r.getResult(), Status.HIT);
+		r = b.attack('C', 5);
+		assertEquals(r.getResult(), Status.MISS);
+
 	}
 	
 }

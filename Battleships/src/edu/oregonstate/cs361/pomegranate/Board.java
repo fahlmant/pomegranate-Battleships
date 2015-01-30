@@ -63,30 +63,41 @@ public class Board {
 	}
 	
 	public Result attack(char x, int y) {
-		Result r = new Result();
+		String shipName = "No Ship";
+		Ship s = new Ship(shipName);
+		int location;
 		
-		if( x > 'J' || x < 'A')
+		if(x < 'A' || x > 'J')
 		{
-			r.status = Status.INVALID;
+			Result r = new Result(s, Status.INVALID);
 			return r;
 		}
-		else if(y > 10 || y < 0)
+		else if( y < 1  || y > 10)
 		{
-			r.status = Status.INVALID;
+			Result r = new Result(s, Status.INVALID);
+			return r;		
+		}
+		
+		location = grid[x - 'A'][y - 1];
+		if(location > 1 )
+		{
+			switch(location)
+			{
+			case(2):
+				shipName = "Minesweeper";
+			case(3):
+				shipName = "Submarine";
+			case(4):
+				shipName = "Battleship";
+			}
+			Ship s2 = new Ship(shipName);
+			Result r = new Result(s2, Status.HIT);
 			return r;
 		}
 		
-		if(grid[x - 'A'][y - 1] >= 2)
-		{
-			r.status = Status.HIT;
-		}
-		else
-		{
-			r.status = Status.MISS;
-		}
-		
-		
+		Result r = new Result(s, Status.MISS);
 		return r;
 	}
+
 
 }
