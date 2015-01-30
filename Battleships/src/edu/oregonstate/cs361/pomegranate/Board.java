@@ -20,7 +20,7 @@ public class Board {
 		boolean valid = true;
 		
 		switch(ship.getKind()) {
-		case "Minesweaper": type = 2;
+		case "Minesweeper": type = 2;
 		break;
 		case "Submarine": type = 3;
 		break;
@@ -51,8 +51,15 @@ public class Board {
 			}
 		}
 		
+		//place ship if horizontal
+		if(isVertical == false && valid == true) {
+			for(int i = 0; i < type; i++) {
+				grid[x - 'A' + i][y - 1] = type;
+			}
+		}
+		
 		return valid;
-		//TODO Implement
+		
 	}
 	
 	public Result attack(char x, int y) {

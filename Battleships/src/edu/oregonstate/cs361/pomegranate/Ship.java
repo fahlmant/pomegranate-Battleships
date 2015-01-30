@@ -24,7 +24,4 @@ public class Ship {
 	public void setHealth(int health) {
 		this.health = health;
 	}
-	
-	
-
 }
