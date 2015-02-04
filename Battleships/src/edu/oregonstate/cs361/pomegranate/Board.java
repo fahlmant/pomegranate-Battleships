@@ -1,5 +1,11 @@
 package edu.oregonstate.cs361.pomegranate;
 
+import java.util.List;
+
+import edu.oregonstate.cs361.api.AmmoExhaustedException;
+import edu.oregonstate.cs361.api.Coordinates;
+import edu.oregonstate.cs361.api.WeaponUnavailableException;
+
 public class Board {
 
 	private int[][] grid;
@@ -133,5 +139,17 @@ public class Board {
 	
 		r = new Result(s, Status.MISS);
 		return r;
+	}
+	
+	/**
+	 * This method returns the result of a sonar pulse
+	 * @param x the column of the attack cell
+	 * @param y the row of the attack cell
+	 * @return a list of coordinates revealed as containing enemy ships
+	 * @throws WeaponUnavailableException if the weapon is not available for use
+	 * @throws AmmoExhaustedException if the ammo is exhausted
+	 */
+	public List<Coordinates> sonarPulse(char x, int y) throws WeaponUnavailableException, AmmoExhaustedException {
+		return null;
 	}
 }
