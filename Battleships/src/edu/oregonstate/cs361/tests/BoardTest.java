@@ -52,37 +52,37 @@ public class BoardTest {
 	@Test
 	public void testAttackMinesweeper() {
 		placeDummyShip();
-		board.placeShip(createMinesweeper(), 'A', 2, true);
-		Result result = board.attack('A', 2);
+		board.placeShip(createMinesweeper(), 'A', 9, true);
+		Result result = board.attack('A', 9);
 		assertEquals(Status.HIT, result.getResult());
-		result = board.attack('A', 3);
+		result = board.attack('A', 8);
 		assertEquals(Status.SUNK, result.getResult());
 	}
 	
 	@Test
 	public void testAttackDestroyer() {
 		placeDummyShip();
-		board.placeShip(createDestroyer(), 'A', 2, true);
-		assertEquals(Status.HIT, board.attack('A',2).getResult());
-		assertEquals(Status.HIT, board.attack('A',3).getResult());
-		assertEquals(Status.SUNK, board.attack('A',4).getResult());
+		board.placeShip(createDestroyer(), 'A', 9, true);
+		assertEquals(Status.HIT, board.attack('A',9).getResult());
+		assertEquals(Status.HIT, board.attack('A',8).getResult());
+		assertEquals(Status.SUNK, board.attack('A',7).getResult());
 	}
 	
 	@Test
 	public void testAttackBattleship() {
 		placeDummyShip();
-		board.placeShip(createBattleship(), 'A', 2, true);
-		assertEquals(Status.HIT, board.attack('A',2).getResult());
-		assertEquals(Status.HIT, board.attack('A',3).getResult());
-		assertEquals(Status.HIT, board.attack('A',4).getResult());
-		assertEquals(Status.SUNK, board.attack('A',5).getResult());
+		board.placeShip(createBattleship(), 'A', 9, true);
+		assertEquals(Status.HIT, board.attack('A',9).getResult());
+		assertEquals(Status.HIT, board.attack('A',8).getResult());
+		assertEquals(Status.HIT, board.attack('A',7).getResult());
+		assertEquals(Status.SUNK, board.attack('A',6).getResult());
 	}
 
 	@Test
 	public void testSurrender() {
-		board.placeShip(createMinesweeper(), 'A', 2, true);
-		assertEquals(Status.HIT, board.attack('A', 2).getResult());
-		assertEquals(Status.SURRENDER, board.attack('A', 3).getResult());
+		board.placeShip(createMinesweeper(), 'A', 9, true);
+		assertEquals(Status.HIT, board.attack('A', 9).getResult());
+		assertEquals(Status.SURRENDER, board.attack('A', 8).getResult());
 	}
 	
 	@Test

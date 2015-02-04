@@ -3,12 +3,14 @@ package edu.oregonstate.cs361.pomegranate;
 public class Board {
 
 	private int[][] grid;
-	private Ship minesweeper;
-	private Ship submarine;
-	private Ship battleship;
+	private Ship minesweeper = null;
+	private Ship submarine = null;
+	private Ship battleship = null;
+	private int shipsLeft;
 
 	public Board() {
 		grid = new int [10][10];
+		shipsLeft = 0;
 	}
 	
 	public int[][] getGrid() {
@@ -54,14 +56,17 @@ public class Board {
 			case 2:
 				minesweeper = ship;
 				minesweeper.setHealth(2);
+				shipsLeft += 1;
 				break;
 			case 3:
 				submarine = ship;
 				submarine.setHealth(3);
+				shipsLeft += 1;
 				break;
 			case 4: 
 				battleship = ship;
 				battleship.setHealth(4);
+				shipsLeft += 1;
 				break;
 			}
 			
@@ -115,9 +120,8 @@ public class Board {
 			}
 			
 			if(r.getShip().getHealth() <= 0) {
-				if(minesweeper.getHealth() <= 0 &&
-				   submarine.getHealth() <= 0 &&
-				   battleship.getHealth() <= 0) {
+				shipsLeft--;
+				if(shipsLeft <= 0) {
 					r = new Result(r.getShip(), Status.SURRENDER);
 				} else {
 					r = new Result(r.getShip(), Status.SUNK);
