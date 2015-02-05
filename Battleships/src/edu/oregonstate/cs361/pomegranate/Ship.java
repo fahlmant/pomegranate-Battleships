@@ -1,5 +1,7 @@
 package edu.oregonstate.cs361.pomegranate;
 
+
+//todo create stuff
 public class Ship {
 	
 	private String kind;
