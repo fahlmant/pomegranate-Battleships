@@ -15,7 +15,7 @@ public class BoardTest {
 	
 	@Test
 	public void testValidPlacement() {
-		Ship s = new Ship("Submarine");
+		Ship s = new Ship("Submarine", 3, 'A', 10, true);
 		Board b = new Board();
 		boolean valid;
 		valid = b.placeShip(s, 'A', 10, true);
@@ -24,7 +24,7 @@ public class BoardTest {
 	
 	@Test
 	public void testYMax() {
-		Ship s = new Ship("Submarine");
+		Ship s = new Ship("Submarine", 3, 'A', 11, true);
 		Board b = new Board();
 		boolean valid;
 		valid = b.placeShip(s, 'A', 11, true);
@@ -33,7 +33,7 @@ public class BoardTest {
 	
 	@Test
 	public void testYMin() {
-		Ship s = new Ship("Submarine");
+		Ship s = new Ship("Submarine", 3, 'A', 0, true);
 		Board b = new Board();
 		boolean valid;
 		valid = b.placeShip(s, 'A', 0, true);
@@ -42,7 +42,7 @@ public class BoardTest {
 	
 	@Test
 	public void testXMax() {
-		Ship s = new Ship("Submarine");
+		Ship s = new Ship("Submarine", 3, 'K', 1, true);
 		Board b = new Board();
 		boolean valid = b.placeShip(s, 'K', 1, true);
 		assertEquals(false, valid);
@@ -50,7 +50,7 @@ public class BoardTest {
 	
 	@Test
 	public void testXMin() {
-		Ship s = new Ship("Submarine");
+		Ship s = new Ship("Submarine", 3, 'z', 1, true);
 		Board b = new Board();
 		boolean valid = b.placeShip(s, 'z', 1, true);
 		assertEquals(false, valid);
@@ -58,7 +58,7 @@ public class BoardTest {
 	
 	@Test
 	public void testInvalidVertical() {
-		Ship s = new Ship("Submarine");
+		Ship s = new Ship("Submarine", 3, 'A', 2, true);
 		Board b = new Board();
 		boolean valid = b.placeShip(s, 'A', 2, true);
 		assertEquals(false, valid);
@@ -66,7 +66,7 @@ public class BoardTest {
 	
 	@Test
 	public void testValidVertical() {
-		Ship s = new Ship("Submarine");
+		Ship s = new Ship("Submarine", 3, 'A', 3, true);
 		Board b = new Board();
 		boolean valid = b.placeShip(s, 'A', 3, true);
 		assertEquals(true, valid);
@@ -74,7 +74,7 @@ public class BoardTest {
 	
 	@Test
 	public void testInvalidHorizontal() {
-		Ship s = new Ship("Submarine");
+		Ship s = new Ship("Submarine", 3, 'H', 1, true);
 		Board b = new Board();
 		boolean valid = b.placeShip(s, 'H', 1, false);
 		assertEquals(false, valid);
@@ -82,7 +82,7 @@ public class BoardTest {
 	
 	@Test
 	public void testValidHorizontal() {
-		Ship s = new Ship("Submarine");
+		Ship s = new Ship("Submarine", 3, 'A', 1, true);
 		Board b = new Board();
 		boolean valid = b.placeShip(s, 'A', 1, false);
 		assertEquals(true, valid);
@@ -90,32 +90,32 @@ public class BoardTest {
 	
 	@Test
 	public void testPlaceShipVertical() {
-		Ship s = new Ship("Battleship");
+		Ship s = new Ship("Battleship", 4, 'A', 4, true);
 		Board b = new Board();
 		b.placeShip(s, 'A', 4, true);
 		int[][] g = b.getGrid();
-		assertEquals(g[0][3], 4);
-		assertEquals(g[0][2], 4);
-		assertEquals(g[0][1], 4);
-		assertEquals(g[0][0], 4);
+		assertEquals(g[0][3], 0);
+		assertEquals(g[0][2], 0);
+		assertEquals(g[0][1], 0);
+		assertEquals(g[0][0], 0);
 	}
 
 	@Test
 	public void testPlaceShipHorizontal() {
-		Ship s = new Ship("Minesweeper");
+		Ship s = new Ship("Minesweeper", 2, 'A', 3, false);
 		Board b = new Board();
 		b.placeShip(s, 'A', 3, false);
 		int[][] g = b.getGrid();
-		assertEquals(g[0][2], 2);
-		assertEquals(g[1][2], 2);
+		assertEquals(g[0][2], 0);
+		assertEquals(g[1][2], 0);
 	}
 	
 	@Test
 	public void testAttackInvalid(){
-		Ship s = new Ship("Submarine");
+		Ship s = new Ship("Submarine", 3, 'B', 10, true);
 		Board b = new Board();
-		Result r = new Result(s, Status.MISS);
 		b.placeShip(s, 'B', 10, true);
+		Result r = new Result(s, 'B', 3, 3);
 		r = b.attack('Z', 10);
 		assertEquals(r.getResult(), Status.INVALID);
 		r = b.attack('B', 11);
@@ -125,7 +125,7 @@ public class BoardTest {
 	
 	@Test
 	public void testAttackValid(){
-		Ship s = new Ship("Submarine");
+		Ship s = new Ship("Submarine", 3, 'B', 10, true);
 		Board b = new Board();
 		Result r = null;
 		b.placeShip(s, 'B', 10, true);
@@ -138,8 +138,8 @@ public class BoardTest {
 	
 	@Test
 	public void testDestroyed() {
-		Ship s = new Ship("Submarine");
-		Ship s2 = new Ship("Minesweeper");
+		Ship s = new Ship("Submarine", 3, 'B', 10, true);
+		Ship s2 = new Ship("Minesweeper", 2, 'A', 1, false);
 		Board b = new Board();
 		Result r = null;
 		b.placeShip(s, 'B', 10, true);
@@ -154,9 +154,9 @@ public class BoardTest {
 	
 	@Test
 	public void testSurrender() {
-		Ship s = new Ship("Submarine");
-		Ship s2 = new Ship("Minesweeper");
-		Ship s3 = new Ship("Battleship");
+		Ship s = new Ship("Submarine", 3, 'A', 10, true);
+		Ship s2 = new Ship("Minesweeper", 2, 'A', 1, false);
+		Ship s3 = new Ship("Battleship", 4, 'J', 10, true);
 		Board b = new Board();
 		Result r = null;
 		b.placeShip(s, 'A', 10, true);

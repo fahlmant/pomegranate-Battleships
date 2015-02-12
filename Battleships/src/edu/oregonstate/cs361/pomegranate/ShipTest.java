@@ -11,41 +11,28 @@ public class ShipTest {
 	//Submarine
 	@Test
 	public void testShipSubmarine() {
-		Ship ship = new Ship("Submarine");
+		Ship ship = new Ship("Submarine", 3, 'A', 1, true);
 		String k = ship.getKind();
 		assertEquals("Submarine", k);
-		ship.setHealth(3);
 		assertEquals(3, ship.getHealth());
-	}
-	
-	//Battleship
-	@Test
-	public void testShipBattleship() {
-		Ship ship = new Ship("Battleship");
-		String k = ship.getKind();
-		assertEquals("Battleship", k);
-		ship.setHealth(4);
-		assertEquals(4, ship.getHealth());
 	}
 	
 	//Destroyer 
 	//I don't think we have a destroyer ship type
 	@Test
 	public void testShipDestroyer() {
-		Ship ship = new Ship("Destroyer");
+		Ship ship = new Ship("Destroyer",4 , 'A', 1, true);
 		String k = ship.getKind();
 		assertEquals("Destroyer", k);
-		ship.setHealth(3);
-		assertEquals(3, ship.getHealth());
+		assertEquals(4, ship.getHealth());
 	}
 	
 	//Minesweeper
 	@Test
 	public void testShipMinesweeper() {
-		Ship ship = new Ship("Minesweeper");
+		Ship ship = new Ship("Minesweeper", 2, 'A', 1, true);
 		String k = ship.getKind();
 		assertEquals("Minesweeper", k);
-		ship.setHealth(2);
 		assertEquals(2, ship.getHealth());
 	}	
 }
