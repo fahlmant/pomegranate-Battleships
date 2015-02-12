@@ -1,29 +1,90 @@
 package edu.oregonstate.cs361.pomegranate;
 
+import java.util.ArrayList;
+import java.util.List;
 
-//todo create stuff
+import edu.oregonstate.cs361.api.Coordinates;
+
 public class Ship {
 	
 	private String kind;
+	private int size;
 	private int health;
+	private List<Coordinates> location;
+	private boolean valid;
+	private boolean isVertical;
 
-	public Ship(String kind) {
-		this.setKind(kind);
+	public Ship(String kind, int size, char x, int y, boolean isVertical) {
+		this.kind = kind;
+		this.health = size;
+		this.size = size;
+		this.valid = checkInput(x, y, isVertical);
+		this.isVertical = isVertical;
+		this.location = setLocation(x, y);
+	}
+	
+	public void takeDamage() {
+		health--;
 	}
 
 	public String getKind() {
 		return kind;
 	}
 
-	public void setKind(String kind) {
-		this.kind = kind;
-	}
-
 	public int getHealth() {
 		return health;
 	}
 
-	public void setHealth(int health) {
-		this.health = health;
+	public List<Coordinates> getLocation() {
+		return location;
+	}
+	
+	private boolean checkInput(char x, int y, boolean isVertical) {
+		boolean valid = true;
+		
+		if (y > 10 || y < 1) {
+			valid = false;
+		}
+		
+		if (x > 'J' || x < 'A') {
+			valid = false;
+		}
+		
+		if(y - size < 0 && isVertical == true) {
+			valid = false;
+		}
+		
+		if(x + size > 'J' && isVertical == false) {
+			valid = false;
+		}
+		
+		return valid;
+	}
+	
+	private List<Coordinates> setLocation(char x, int y) {
+		List<Coordinates> location = new ArrayList<Coordinates>();
+		
+		if(this.isVertical == true) {
+			for(int i = 0; i < size; i++) {
+				location.add(new Coordinates((char) (x-i), y));
+			}
+		} else {
+			for(int i = 0; i < size; i++) {
+				location.add(new Coordinates(x, y+i));
+			}
+		}
+		return location;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public boolean isValid() {
+		return valid;
+	}
+
+	public boolean isVertical() {
+		return isVertical;
 	}
 }

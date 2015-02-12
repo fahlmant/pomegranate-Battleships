@@ -13,6 +13,8 @@ import edu.oregonstate.cs361.pomegranate.Ship;
 import edu.oregonstate.cs361.pomegranate.Status;
 
 public class BoardTest {
+	
+	//TODO fix failing tests
 
 	private Board board;
 

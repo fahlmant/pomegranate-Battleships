@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class ShipTest {
+	
+	//TODO fix failing tests
 
 	//Submarine
 	@Test

@@ -9,13 +9,12 @@ import edu.oregonstate.cs361.api.WeaponUnavailableException;
 public class Board {
 
 	private int[][] grid;
-	private Ship minesweeper = null;
-	private Ship submarine = null;
-	private Ship battleship = null;
+	private Ship[] ships;
 	private int shipsLeft;
 
 	public Board() {
 		grid = new int [10][10];
+		ships = new Ship [3];
 		shipsLeft = 0;
 	}
 	
@@ -25,119 +24,49 @@ public class Board {
 	
 	public boolean placeShip(Ship ship, char x, int y, boolean isVertical) {
 		
-		int type = 0;
-		boolean valid = true;
+		//TODO check to make sure ships aren't placed on top of eachother
 		
-		switch(ship.getKind()) {
-		case "Minesweeper":
-			type = 2;
-			break;
-		case "Submarine":
-			type = 3;
-			break;
-		case "Battleship": 
-			type = 4;
-			break;
+		if(ship.isValid() == true) {
+			ships[shipsLeft] = ship;
+			shipsLeft++;
 		}
-		
-		if (y > 10 || y < 1) {
-			valid = false;
-		}
-		
-		if (x > 'J' || x < 'A') {
-			valid = false;
-		}
-		
-		if(y - type < 0 && isVertical == true) {
-			valid = false;
-		}
-		
-		if(x + type > 'J' && isVertical == false) {
-			valid = false;
-		}
-		
-		if(valid == true) {
-			
-			switch(type) {
-			case 2:
-				minesweeper = ship;
-				minesweeper.setHealth(2);
-				shipsLeft += 1;
-				break;
-			case 3:
-				submarine = ship;
-				submarine.setHealth(3);
-				shipsLeft += 1;
-				break;
-			case 4: 
-				battleship = ship;
-				battleship.setHealth(4);
-				shipsLeft += 1;
-				break;
-			}
-			
-			if(isVertical == true) {
-				for(int i = 0; i < type; i++) {
-					grid[x - 'A'][y - i - 1] = type;
-				}
-			} else {
-				for(int i = 0; i < type; i++) {
-					grid[x - 'A' + i][y - 1] = type;
+		return ship.isValid();
+	}
+	
+	private int checkLocation(char x, int y) {
+		Coordinates location = new Coordinates(x, y);
+		for(int i = 0; i < shipsLeft; i++) {
+			for(int j = 0; j < ships[i].getSize(); j++) {
+				if(ships[i].getLocation().get(j) == location) {
+					return i;
 				}
 			}
 		}
-		
-		return valid;
-		
+
+		return -1;
 	}
 	
 	public Result attack(char x, int y) {
-		String shipName = "No Ship";
-		Ship s = new Ship(shipName);
-		Result r = new Result(s, Status.INVALID);
-		int location;
 		
-		if(x < 'A' || x > 'J')
-		{
-			return r;
-		}
-		else if( y < 1  || y > 10)
-		{
-			return r;		
+		//TODO implement a way to keep track of misses
+		//     implement a way to keep track of hits
+		
+		int i = checkLocation(x, y);
+		Ship s;
+		if(i == -1) {
+			s = null;
+		} else {
+			s = ships[i];
 		}
 		
-		location = grid[x - 'A'][y - 1];
-		if(location > 1 )
-		{
-			switch(location)
-			{
-			case(2):
-				minesweeper.setHealth(minesweeper.getHealth() - 1);
-				r = new Result(minesweeper, Status.HIT);
-				break;
-			case(3):
-				submarine.setHealth(submarine.getHealth() - 1);
-				r = new Result(submarine, Status.HIT);
-				break;
-			case(4):
-				battleship.setHealth(battleship.getHealth() - 1);
-				r = new Result(battleship, Status.HIT);
-				break;
-			}
-			
-			if(r.getShip().getHealth() <= 0) {
-				shipsLeft--;
-				if(shipsLeft <= 0) {
-					r = new Result(r.getShip(), Status.SURRENDER);
-				} else {
-					r = new Result(r.getShip(), Status.SUNK);
-				}
-			}
-			
-			return r;
+		Result r = new Result(s, x, y, this.shipsLeft);
+		
+		if(r.getResult() == Status.HIT) {
+			s.takeDamage();
+			ships[i] = s;
+		} else if(r.getResult() == Status.SUNK) {
+			shipsLeft--;
 		}
-	
-		r = new Result(s, Status.MISS);
 		return r;
 	}
 	
