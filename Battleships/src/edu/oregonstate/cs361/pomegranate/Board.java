@@ -19,11 +19,15 @@ public class Board {
 		shipsLeft = 0;
 	}
 	
+	public Ship getShip(int i) {
+		return ships.get(i);
+	}
+	
 	public Grid[][] getGrid() {
 		return grid;
 	}
 	
-	public boolean placeShip(Ship ship, char x, int y, boolean isVertical) {
+	public boolean placeShip(Ship ship) {
 		
 		//TODO check to make sure ships aren't placed on top of each other
 		
@@ -40,9 +44,11 @@ public class Board {
 		Coordinates location = new Coordinates(x, y);
 		for(int i = 0; i < shipsLeft; i++) {
 			for(int j = 0; j < ships.get(i).getSize(); j++) {
-				if(ships.get(i).getLocation().get(j) == location) {
-					checkCQ(ships.get(i), location);
-					return ships.get(i);
+				if(ships.get(i).getLocation().get(j).getX() == location.getX()
+				   && ships.get(i).getLocation().get(j).getY() == location.getY()) {
+					s = checkCQ(ships.get(i), location);
+					ships.set(i, s);
+					return s;
 				}
 			}
 		}
@@ -53,9 +59,11 @@ public class Board {
 	private Ship checkCQ(Ship s, Coordinates c) {
 		if(s.getCq().getX() == c.getX() && s.getCq().getY() == c.getY()) {
 			if(s.isArmor()) {
-				s.setArmor(false);
+				s.destroyArmor();
+				return s;
 			} else {
 				s.cqDestroyed();
+				return s;
 			}
 		}
 		s.takeDamage();
@@ -87,7 +95,7 @@ public class Board {
 	 */
 	public List<Coordinates> sonarPulse(char x, int y) throws WeaponUnavailableException, AmmoExhaustedException {
 		
-		List<Coordinates> list = new ArrayList();
+		List<Coordinates> list = new ArrayList<Coordinates>();
 		Coordinates c = new Coordinates(x,y);
 		
 		if(grid[x - 'A'][y] == Grid.SHIP || grid[x - 'A'][y] == Grid.HIT)

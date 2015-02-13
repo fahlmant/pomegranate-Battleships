@@ -6,40 +6,33 @@ public class Destroyer extends Ship{
 
 	private Coordinates cq;
 	private boolean armor;
-	
 
 	public Destroyer(String kind, int size, char x, int y, boolean isVertical) {
 		super(kind, size, x, y, isVertical);
 		if (isVertical){
-			setCq(new Coordinates(x,y-1));
+			setCq(new Coordinates(x, y-1));
 		}
 		else {
-			setCq(new Coordinates((char) (x-1), y));
+			setCq(new Coordinates((char) (x+1), y));
 		}
 		
-		setArmor(true);
-	
+		this.armor = true;
 	}
-
 
 	public Coordinates getCq() {
-		return cq;
+		return this.cq;
 	}
-
 
 	public void setCq(Coordinates cq) {
 		this.cq = cq;
 	}
 
-
+	public void destroyArmor() {
+		armor = false;
+	}
+	
 	public boolean isArmor() {
 		return armor;
 	}
-
-
-	public void setArmor(boolean armor) {
-		this.armor = armor;
-	}
-
 }
 

@@ -5,7 +5,7 @@ import java.util.List;
 
 import edu.oregonstate.cs361.api.Coordinates;
 
-public class Ship {
+public abstract class Ship {
 	
 	private String kind;
 	private int size;
@@ -13,8 +13,6 @@ public class Ship {
 	private List<Coordinates> location;
 	private boolean valid;
 	private boolean isVertical;
-	private Coordinates cq = null;
-	private boolean armor= false;
 
 	public Ship(String kind, int size, char x, int y, boolean isVertical) {
 		this.kind = kind;
@@ -68,11 +66,11 @@ public class Ship {
 		
 		if(this.isVertical == true) {
 			for(int i = 0; i < size; i++) {
-				location.add(new Coordinates((char) (x-i), y));
+				location.add(new Coordinates(x, y-i));
 			}
 		} else {
 			for(int i = 0; i < size; i++) {
-				location.add(new Coordinates(x, y+i));
+				location.add(new Coordinates((char) (x+i), y));
 			}
 		}
 		return location;
@@ -90,22 +88,6 @@ public class Ship {
 		return isVertical;
 	}
 
-	public Coordinates getCq() {
-		return cq;
-	}
-
-	public void setCq(Coordinates cq) {
-		this.cq = cq;
-	}
-
-	public boolean isArmor() {
-		return armor;
-	}
-
-	public void setArmor(boolean armor) {
-		this.armor = armor;
-	}
-	
 	public void cqDestroyed() {
 		this.health = 0;
 	}

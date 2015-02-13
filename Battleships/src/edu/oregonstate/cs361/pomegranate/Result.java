@@ -20,19 +20,35 @@ public class Result {
 	}
 	
 	private Status checkStatus(char x, int y, int shipsLeft) {
-		if(x < 'A' || x > 'J') {
+		if(isInvalid(x, y)) {
 			return Status.INVALID;
-		} else if( y < 1  || y > 10) {
-			return Status.INVALID;		
-		} else if(ship != null) {
-			if(shipsLeft == 0) {
-				return Status.SURRENDER;
-			} else if(ship.getHealth() == 0) {
+		} else if(shipsLeft == 0) {
+			return Status.SURRENDER;
+		} else if(ship.getHealth() == 0) {
 				return Status.SUNK;
-			} else {
-				return Status.HIT;
-			}
+		} else if(isCQ(ship, x, y)) {
+				return Status.MISS;
+		} else if(ship == null){
+			return Status.MISS;
+		} else {
+			return Status.HIT;
 		}
-		return Status.MISS;
+	}
+	
+	private boolean isInvalid(char x, int y) {
+		if(x < 'A' || x > 'J') {
+			return true;
+		} else if( y < 1  || y > 10) {
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean isCQ(Ship s, char x, int y) {
+		if(ship.getCq().getX() == x
+				&& ship.getCq().getY() == y) {
+			return true;
+		}
+		return false;
 	}
 }

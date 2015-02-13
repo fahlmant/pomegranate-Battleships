@@ -6,36 +6,32 @@ public class Battleship extends Ship{
 
 	private Coordinates cq;
 	private boolean armor;
-	
 
 	public Battleship(String kind, int size, char x, int y, boolean isVertical) {
 		super(kind, size, x, y, isVertical);
 		if (isVertical){
-			setCq(new Coordinates(x,y-2));
+			setCq(new Coordinates(x, y-2));
 		}
 		else {
-			setCq(new Coordinates((char) (x-2), y));
+			setCq(new Coordinates((char) (x+2), y));
 		}
 		
-		setArmor(true);
-		
+		this.armor = true;
 	}
 
 	public Coordinates getCq() {
-		return cq;
+		return this.cq;
 	}
 
 	public void setCq(Coordinates cq) {
 		this.cq = cq;
 	}
 
+	public void destroyArmor() {
+		armor = false;
+	}
+	
 	public boolean isArmor() {
 		return armor;
 	}
-
-	public void setArmor(boolean armor) {
-		this.armor = armor;
-	}
-	
-
 }
