@@ -74,6 +74,17 @@ public class Board {
 	 * @throws AmmoExhaustedException if the ammo is exhausted
 	 */
 	public List<Coordinates> sonarPulse(char x, int y) throws WeaponUnavailableException, AmmoExhaustedException {
-		return null;
+		
+		List<Coordinates> list = new ArrayList();
+		Coordinates c = new Coordinates(x,y);
+		
+		if(grid[x - 'A'][y] == Grid.SHIP || grid[x - 'A'][y] == Grid.HIT)
+		{
+			list.add(c);
+			
+		}
+			
+		return list;
 	}
+	
 }
