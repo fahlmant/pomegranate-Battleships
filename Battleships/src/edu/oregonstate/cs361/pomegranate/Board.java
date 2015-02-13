@@ -41,12 +41,24 @@ public class Board {
 		for(int i = 0; i < shipsLeft; i++) {
 			for(int j = 0; j < ships.get(i).getSize(); j++) {
 				if(ships.get(i).getLocation().get(j) == location) {
-					ships.get(i).takeDamage();
+					checkCQ(ships.get(i), location);
 					return ships.get(i);
 				}
 			}
 		}
 
+		return s;
+	}
+	
+	private Ship checkCQ(Ship s, Coordinates c) {
+		if(s.getCq().getX() == c.getX() && s.getCq().getY() == c.getY()) {
+			if(s.isArmor()) {
+				s.setArmor(false);
+			} else {
+				s.cqDestroyed();
+			}
+		}
+		s.takeDamage();
 		return s;
 	}
 	

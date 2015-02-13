@@ -10,7 +10,6 @@ public class Minesweeper extends Ship {
 	public Minesweeper(String kind, int size, char x, int y, boolean isVertical) {
 		super(kind, size, x, y, isVertical);
 		setCq(new Coordinates(x, y));
-		setArmor(false);
 	}
 
 	public Coordinates getCq() {

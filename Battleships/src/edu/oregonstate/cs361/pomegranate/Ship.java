@@ -13,6 +13,8 @@ public class Ship {
 	private List<Coordinates> location;
 	private boolean valid;
 	private boolean isVertical;
+	private Coordinates cq = null;
+	private boolean armor= false;
 
 	public Ship(String kind, int size, char x, int y, boolean isVertical) {
 		this.kind = kind;
@@ -86,5 +88,25 @@ public class Ship {
 
 	public boolean isVertical() {
 		return isVertical;
+	}
+
+	public Coordinates getCq() {
+		return cq;
+	}
+
+	public void setCq(Coordinates cq) {
+		this.cq = cq;
+	}
+
+	public boolean isArmor() {
+		return armor;
+	}
+
+	public void setArmor(boolean armor) {
+		this.armor = armor;
+	}
+	
+	public void cqDestroyed() {
+		this.health = 0;
 	}
 }
