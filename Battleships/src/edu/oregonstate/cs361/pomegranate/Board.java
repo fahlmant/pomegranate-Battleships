@@ -9,17 +9,17 @@ import edu.oregonstate.cs361.api.WeaponUnavailableException;
 
 public class Board {
 
-	private int[][] grid;
+	private Grid[][] grid;
 	private List<Ship> ships;
 	private int shipsLeft;
 
 	public Board() {
-		grid = new int [10][10];
+		grid = new Grid [10][10];
 		ships = new ArrayList<Ship>();
 		shipsLeft = 0;
 	}
 	
-	public int[][] getGrid() {
+	public Grid[][] getGrid() {
 		return grid;
 	}
 	
@@ -35,17 +35,19 @@ public class Board {
 		return false;
 	}
 	
-	private int checkLocation(char x, int y) {
+	private Ship checkLocation(char x, int y) {
+		Ship s = null;
 		Coordinates location = new Coordinates(x, y);
 		for(int i = 0; i < shipsLeft; i++) {
 			for(int j = 0; j < ships.get(i).getSize(); j++) {
 				if(ships.get(i).getLocation().get(j) == location) {
-					return i;
+					ships.get(i).takeDamage();
+					return ships.get(i);
 				}
 			}
 		}
 
-		return -1;
+		return s;
 	}
 	
 	public Result attack(char x, int y) {
@@ -53,20 +55,11 @@ public class Board {
 		//TODO implement a way to keep track of misses
 		//     implement a way to keep track of hits
 		
-		int i = checkLocation(x, y);
-		Ship s;
-		if(i == -1) {
-			s = null;
-		} else {
-			s = ships[i];
-		}
+		Ship s = checkLocation(x, y);
 		
 		Result r = new Result(s, x, y, this.shipsLeft);
 		
-		if(r.getResult() == Status.HIT) {
-			s.takeDamage();
-			ships[i] = s;
-		} else if(r.getResult() == Status.SUNK) {
+		if(r.getResult() == Status.SUNK) {
 			shipsLeft--;
 		}
 		return r;
