@@ -95,15 +95,53 @@ public class Board {
 	 */
 	public List<Coordinates> sonarPulse(char x, int y) throws WeaponUnavailableException, AmmoExhaustedException {
 		
+<<<<<<< HEAD
 		List<Coordinates> list = new ArrayList<Coordinates>();
 		Coordinates c = new Coordinates(x,y);
+=======
+		List<Coordinates> list = new ArrayList();
+		int xCord = x - 'A' -1;
+		int yCord = y - 1;
+>>>>>>> 6827b74ac1ac811960c8062e9cc263c9262e6379
 		
-		if(grid[x - 'A'][y] == Grid.SHIP || grid[x - 'A'][y] == Grid.HIT)
+		for(; xCord < x + 2; xCord ++)
 		{
-			list.add(c);
+			for(;yCord < y + 2; yCord ++)
+			{
+				
+				if(grid[xCord - 'A'][yCord] == Grid.SHIP || grid[xCord - 'A'][yCord] == Grid.HIT)
+				{
+					Coordinates c = new Coordinates((char)(xCord + 'A'),yCord);
+					list.add(c);				
+				}
+			}
 			
+			yCord = y -1; 
 		}
-			
+		
+		if(grid[(x - 'A')-2][y] == Grid.SHIP)
+		{
+			Coordinates c = new Coordinates((char)(x + 'A'),y);
+			list.add(c);
+		}
+		
+		if(grid[(x - 'A')+2][y] == Grid.SHIP)
+		{
+			Coordinates c = new Coordinates((char)(x + 'A'),y);
+			list.add(c);
+		}
+		
+		if(grid[x - 'A'][y-2] == Grid.SHIP)
+		{
+			Coordinates c = new Coordinates((char)(x + 'A'),(y-2));
+			list.add(c);
+		}
+		
+		if(grid[x - 'A'][y+2] == Grid.SHIP)
+		{
+			Coordinates c = new Coordinates((char)(x + 'A'),(y+2));
+			list.add(c);
+		}
 		return list;
 	}
 	
