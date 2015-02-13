@@ -15,7 +15,7 @@ public enum Grid {
 	/**
 	 * Represents a space on the grid that has no ship, hit, or miss.
 	 */
-	EMPTY, SHIP,
+	EMPTY,
 	
 	/**
 	 * Represents a ship on the grid.
