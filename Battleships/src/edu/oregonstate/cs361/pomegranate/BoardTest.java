@@ -128,6 +128,7 @@ public class BoardTest {
 		Ship s = new Ship("Submarine", 3, 'B', 10, true);
 		Board b = new Board();
 		Result r = null;
+		assertEquals(s.isValid(), true);
 		b.placeShip(s, 'B', 10, true);
 		r = b.attack('B', 10);
 		assertEquals(r.getResult(), Status.HIT);

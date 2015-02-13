@@ -4,7 +4,6 @@ public class Coordinates {
 	
 	private char x;
 	private int y;
-	private boolean isVertical;
 
 	public Coordinates(char x,int y) {
 		this.x = x;

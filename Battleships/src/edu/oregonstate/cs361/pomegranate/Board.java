@@ -1,5 +1,6 @@
 package edu.oregonstate.cs361.pomegranate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.oregonstate.cs361.api.AmmoExhaustedException;
@@ -9,12 +10,12 @@ import edu.oregonstate.cs361.api.WeaponUnavailableException;
 public class Board {
 
 	private int[][] grid;
-	private Ship[] ships;
+	private List<Ship> ships;
 	private int shipsLeft;
 
 	public Board() {
 		grid = new int [10][10];
-		ships = new Ship [3];
+		ships = new ArrayList<Ship>();
 		shipsLeft = 0;
 	}
 	
@@ -24,20 +25,21 @@ public class Board {
 	
 	public boolean placeShip(Ship ship, char x, int y, boolean isVertical) {
 		
-		//TODO check to make sure ships aren't placed on top of eachother
+		//TODO check to make sure ships aren't placed on top of each other
 		
 		if(ship.isValid() == true) {
-			ships[shipsLeft] = ship;
+			ships.add(ship);
 			shipsLeft++;
+			return true;
 		}
-		return ship.isValid();
+		return false;
 	}
 	
 	private int checkLocation(char x, int y) {
 		Coordinates location = new Coordinates(x, y);
 		for(int i = 0; i < shipsLeft; i++) {
-			for(int j = 0; j < ships[i].getSize(); j++) {
-				if(ships[i].getLocation().get(j) == location) {
+			for(int j = 0; j < ships.get(i).getSize(); j++) {
+				if(ships.get(i).getLocation().get(j) == location) {
 					return i;
 				}
 			}
