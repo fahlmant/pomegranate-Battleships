@@ -8,7 +8,7 @@ import edu.oregonstate.cs361.api.Coordinates;
 import edu.oregonstate.cs361.api.WeaponUnavailableException;
 
 public class Board {
-
+	
 	private Grid[][] grid;
 	private List<Ship> ships;
 	private int totalShips;
