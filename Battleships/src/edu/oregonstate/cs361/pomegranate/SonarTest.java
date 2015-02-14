@@ -15,12 +15,12 @@ public class SonarTest {
 	
 	public void testSonar() throws WeaponUnavailableException, AmmoExhaustedException{
 		Board b = new Board();
-		Result r = null;
 		Coordinates c = new Coordinates('E', 5);
-		Ship s = new Ship("Submarine", 3, 'E', 5, true);
-		List<Coordinates> sonarResult; 
-		sonarResult = b.sonarPulse('E', 5);
-		assertEquals(sonarResult.get(0),  c);
+		Ship s = new Destroyer("Submarine", 3, 'E', 5, true);
+		b.placeShip(s);
+		List<Coordinates> sonarResult = b.sonarPulse('E', 5);
+		assertEquals(sonarResult.get(0).getX(), c.getX());
+		assertEquals(sonarResult.get(0).getY(), c.getY());
 		
 	}
 	

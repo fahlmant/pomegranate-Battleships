@@ -4,10 +4,12 @@ public class Coordinates {
 	
 	private char x;
 	private int y;
+	private boolean isHit;
 
 	public Coordinates(char x,int y) {
 		this.x = x;
 		this.y = y;
+		isHit = false;
 	}
 
 	public char getX() {
@@ -24,5 +26,13 @@ public class Coordinates {
 	
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	public void hit() {
+		isHit = true;
+	}
+	
+	public boolean isHit() {
+		return isHit;
 	}
 }

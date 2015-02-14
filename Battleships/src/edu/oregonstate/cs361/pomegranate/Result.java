@@ -5,10 +5,12 @@ public class Result {
 
 	private Status status;
 	private Ship ship;
+	private boolean isHit;
 	
 	Result(Ship ship, char x, int y, int shipsLeft){
 		this.ship = ship;
 		this.status = checkStatus(x, y, shipsLeft);
+		isHit = false;
 	}
 
 	public Status getResult() {
@@ -22,13 +24,15 @@ public class Result {
 	private Status checkStatus(char x, int y, int shipsLeft) {
 		if(isInvalid(x, y)) {
 			return Status.INVALID;
+		} else if(isHit) {
+			return Status.INVALID;
 		} else if(shipsLeft == 0) {
 			return Status.SURRENDER;
-		} else if(ship.getHealth() == 0) {
-				return Status.SUNK;
-		} else if(isCQ(ship, x, y)) {
-				return Status.MISS;
 		} else if(ship == null){
+			return Status.MISS;
+		} else if(ship.getHealth() == 0) {
+			return Status.SUNK;
+		} else if(isCQ(x, y)) {
 			return Status.MISS;
 		} else {
 			return Status.HIT;
@@ -44,11 +48,19 @@ public class Result {
 		return false;
 	}
 	
-	private boolean isCQ(Ship s, char x, int y) {
+	private boolean isCQ(char x, int y) {
 		if(ship.getCq().getX() == x
 				&& ship.getCq().getY() == y) {
 			return true;
 		}
 		return false;
+	}
+
+	public boolean isHit() {
+		return isHit;
+	}
+
+	public void setHit(boolean isHit) {
+		this.isHit = isHit;
 	}
 }

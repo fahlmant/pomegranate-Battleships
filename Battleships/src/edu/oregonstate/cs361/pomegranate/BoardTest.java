@@ -1,8 +1,5 @@
 package edu.oregonstate.cs361.pomegranate;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -124,13 +121,12 @@ public class BoardTest {
 	public void testAttackValid(){
 		Ship s = new Destroyer("Submarine", 3, 'B', 10, true);
 		Board b = new Board();
-		Result r = null;
 		assertEquals(s.isValid(), true);
 		b.placeShip(s);
-		r = b.attack('B', 10);
-	//	assertEquals(r.getResult(), Status.HIT);
-	//	r = b.attack('C', 5);
-	//	assertEquals(r.getResult(), Status.MISS);
+		Result r = b.attack('B', 10);
+		assertEquals(r.getResult(), Status.HIT);
+		r = b.attack('C', 5);
+		assertEquals(r.getResult(), Status.MISS);
 
 	}
 	
@@ -154,38 +150,54 @@ public class BoardTest {
 	
 	@Test
 	public void testSurrender() {
-//		Ship s = new Destroyer("Submarine", 3, 'A', 10, true);
+		Ship s = new Destroyer("Submarine", 3, 'A', 10, true);
 		Ship s2 = new Minesweeper("Minesweeper", 2, 'A', 1, false);
 		Ship s3 = new Battleship("Battleship", 4, 'J', 10, true);
+		assertEquals(s3.getLocation().get(0).getX(), 'J');
+		assertEquals(s3.getLocation().get(0).getY(), 10);
 		Board b = new Board();
 		Result r;
-//		b.placeShip(s);
+		b.placeShip(s);
 		b.placeShip(s2);
 		b.placeShip(s3);
-//		r = b.attack('A', 10);
-//		r = b.attack('A', 9);
-//		r = b.attack('A', 8);
-//		r = b.attack('A', 9);
-		r = b.attack('A', 1);
+		r = b.attack('A', 10);
+		assertEquals(r.getResult(), Status.HIT);
+		r = b.attack('A', 9);
+		assertEquals(r.getResult(), Status.MISS);
+		r = b.attack('A', 8);
+		assertEquals(r.getResult(), Status.HIT);
+		r = b.attack('A', 9);
+		assertEquals(r.getResult(), Status.SUNK);
 		r = b.attack('B', 1);
+		assertEquals(r.getResult(), Status.HIT);
+		r = b.attack('A', 1);
+		assertEquals(r.getResult(), Status.SUNK);
 		r = b.attack('J', 10);
+		assertEquals(r.getResult(), Status.HIT);
 		r = b.attack('J', 9);
+		assertEquals(r.getResult(), Status.HIT);
 		r = b.attack('J', 8);
+		assertEquals(r.getResult(), Status.MISS);
 		r = b.attack('J', 7);
-		
+		assertEquals(r.getResult(), Status.HIT);
+		r = b.attack('J', 8);	
+		assertEquals(b.getShipsLeft(), 0);
 		assertEquals(r.getResult(), Status.SURRENDER);
-	}
-	
+		}
 	@Test
 	public void testHitCQ() {
 		Ship s = new Destroyer("Destroyer", 3, 'A', 4, false);
+		Ship s2 = new Minesweeper("Minesweeper", 2, 'J', 10, true);
 		Board b = new Board();
 		Result r;
 		assertEquals(s.isArmor(), true);
 		b.placeShip(s);
-		r = b.attack('C', 3);
+		b.placeShip(s2);
+		r = b.attack('B', 4);
 		assertEquals(r.getResult(), Status.MISS);
 		assertEquals(r.getShip().isArmor(), false);
+		r = b.attack('B', 4);
+		assertEquals(r.getResult(), Status.SUNK);
 	}
 	
 }
