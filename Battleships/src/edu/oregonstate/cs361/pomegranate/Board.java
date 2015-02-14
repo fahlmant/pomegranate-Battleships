@@ -13,12 +13,21 @@ public class Board {
 	private List<Ship> ships;
 	private int totalShips;
 	private int shipsLeft;
+	private boolean isSunk;
+	private int sonarCounter;
 
 	public Board() {
 		grid = new Grid [10][10];
+		for(int i = 0; i < 10; i++) {
+			for(int j = 0; j < 10; j++) {
+				grid[i][j] = Grid.EMPTY;
+			}
+		}
 		ships = new ArrayList<Ship>();
 		shipsLeft = 0;
 		totalShips = 0;
+		isSunk = false;
+		sonarCounter = 2;
 	}
 	
 	public Ship getShip(int i) {
@@ -41,6 +50,9 @@ public class Board {
 			ships.add(ship);
 			shipsLeft++;
 			totalShips++;
+			for(int i = 0; i < ship.getSize(); i++) {
+				grid[ship.getLocation().get(i).getX() - 'A'][ship.getLocation().get(i).getY() - 1] = Grid.SHIP;
+			}
 			return true;
 		}
 		return false;
@@ -104,6 +116,7 @@ public class Board {
 	
 		if(r.getResult() == Status.SUNK) {
 			shipsLeft--;
+			isSunk = true;
 			r = new Result(s, x, y, shipsLeft);
 		}
 		return r;
@@ -128,6 +141,13 @@ public class Board {
 	 */
 	public List<Coordinates> sonarPulse(char x, int y) throws WeaponUnavailableException, AmmoExhaustedException {
 		
+		if(!isSunk) {
+			throw new WeaponUnavailableException();
+		}
+		
+		if(sonarCounter == 0) {
+			throw new AmmoExhaustedException();
+		}
 		List<Coordinates> list = new ArrayList<Coordinates>();
 		int xCord = x - 'A' -1;
 		int yCord = y - 1;
@@ -170,6 +190,7 @@ public class Board {
 			Coordinates c = new Coordinates((char)(x + 'A'),(y+2));
 			list.add(c);
 		}
+		sonarCounter--;
 		return list;
 	}
 	
