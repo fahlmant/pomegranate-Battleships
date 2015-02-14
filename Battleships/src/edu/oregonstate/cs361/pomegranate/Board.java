@@ -141,6 +141,8 @@ public class Board {
 	 */
 	public List<Coordinates> sonarPulse(char x, int y) throws WeaponUnavailableException, AmmoExhaustedException {
 		
+		//TODO add error checking for using sonar out of bounds
+		
 		if(!isSunk) {
 			throw new WeaponUnavailableException();
 		}
@@ -148,50 +150,45 @@ public class Board {
 		if(sonarCounter == 0) {
 			throw new AmmoExhaustedException();
 		}
+		
 		List<Coordinates> list = new ArrayList<Coordinates>();
-		int xCord = x - 'A' -1;
+		int xCord = x - 'A';
 		int yCord = y - 1;
 		
-		for(; xCord < x + 2; xCord ++)
-		{
-			for(;yCord < y + 2; yCord ++)
-			{
-				
-				if(grid[xCord - 'A'][yCord] == Grid.SHIP || grid[xCord - 'A'][yCord] == Grid.HIT)
-				{
-					Coordinates c = new Coordinates((char)(xCord + 'A'),yCord);
-					list.add(c);				
-				}
+		for(int i = yCord - 2; i < yCord + 2; i++) {
+			if(grid[xCord][i] == Grid.SHIP) {
+				Coordinates c = new Coordinates((char)(xCord + 'A'), i + 1);
+				list.add(c);				
 			}
-			
-			yCord = y -1; 
 		}
 		
-		if(grid[(x - 'A')-2][y] == Grid.SHIP)
-		{
-			Coordinates c = new Coordinates((char)(x + 'A'),y);
-			list.add(c);
+		for(int i = yCord - 1; i < yCord + 1; i++) {
+			if(grid[xCord - 1][i] == Grid.SHIP) {
+				Coordinates c = new Coordinates((char)(xCord + 'A' - 1), i + 1);
+				list.add(c);				
+			}
 		}
 		
-		if(grid[(x - 'A')+2][y] == Grid.SHIP)
-		{
-			Coordinates c = new Coordinates((char)(x + 'A'),y);
-			list.add(c);
+		for(int i = yCord - 1; i < yCord + 1; i++) {
+			if(grid[xCord + 1][i] == Grid.SHIP) {
+				Coordinates c = new Coordinates((char)(xCord + 'A' + 1), i + 1);
+				list.add(c);				
+			}
 		}
 		
-		if(grid[x - 'A'][y-2] == Grid.SHIP)
-		{
-			Coordinates c = new Coordinates((char)(x + 'A'),(y-2));
-			list.add(c);
+		if(grid[xCord - 2][yCord] == Grid.SHIP) {
+			Coordinates c = new Coordinates((char)(xCord + 'A' - 2), yCord + 1);
+			list.add(c);				
 		}
 		
-		if(grid[x - 'A'][y+2] == Grid.SHIP)
-		{
-			Coordinates c = new Coordinates((char)(x + 'A'),(y+2));
-			list.add(c);
+		if(grid[xCord + 2][yCord] == Grid.SHIP) {
+			Coordinates c = new Coordinates((char)(xCord + 'A' + 2), yCord + 1);
+			list.add(c);				
 		}
+	
 		sonarCounter--;
 		return list;
 	}
-	
+
+
 }
