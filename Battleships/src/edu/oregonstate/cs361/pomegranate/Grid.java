@@ -20,6 +20,11 @@ public enum Grid {
 	/**
 	 * Represents a ship on the grid.
 	 */
-	SHIP
+	SHIP,
+	
+	
+	SUBMERGED,
+	
+	LAYERD
 }
 
