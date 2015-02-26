@@ -30,10 +30,14 @@ public class Submarine extends Ship{
 				location.add(new Coordinates(x, y-i));
 			}
 			
+			location.add(new Coordinates((char) (x+1), y-1));
+			
 		} else {
-			for(int i = 0; i < size; i++) {
+			for(int i = 0; i < size - 1; i++) {
 				location.add(new Coordinates((char) (x+i), y));
 			}
+			
+			location.add(new Coordinates((char) (x+1), y+1));
 		}
 		return location;
 	}
