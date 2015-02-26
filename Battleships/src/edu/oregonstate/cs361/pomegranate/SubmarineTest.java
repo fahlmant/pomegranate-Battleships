@@ -42,13 +42,13 @@ public class SubmarineTest {
 	
 	@Test
 	public void testInvalidVertical() {
-		Ship s = new Submarine("Submarine", 'A', 10, true);
+		Ship s = new Submarine("Submarine", 'J', 10, true);
 		Board b = new Board();
 		assertEquals(false, b.placeShip(s));
 	}
 	@Test
 	public void testInvalidHorizontal() {
-		Ship s = new Submarine("Submarine", 'J', 10, false);
+		Ship s = new Submarine("Submarine", 'A', 10, false);
 		Board b = new Board();
 		assertEquals(false, b.placeShip(s));
 	}
