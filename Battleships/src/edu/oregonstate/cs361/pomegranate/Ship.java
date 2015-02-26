@@ -8,21 +8,17 @@ import edu.oregonstate.cs361.api.Coordinates;
 public abstract class Ship {
 	
 	private String kind;
-	private int size;
-	private int health;
-	private List<Coordinates> location;
-	private boolean valid;
-	private boolean isVertical;
+	protected int size;
+	protected int health;
+	protected List<Coordinates> location;
+	protected boolean valid;
+	protected boolean isVertical;
 	protected boolean armor;
 	protected Coordinates cq;
 
-	public Ship(String kind, int size, char x, int y, boolean isVertical) {
+	public Ship(String kind, char x, int y, boolean isVertical) {
 		this.kind = kind;
-		this.health = size;
-		this.size = size;
-		this.valid = checkInput(x, y, isVertical);
 		this.isVertical = isVertical;
-		this.location = setLocation(x, y);
 	}
 	
 	public void takeDamage() {
@@ -41,7 +37,7 @@ public abstract class Ship {
 		return location;
 	}
 	
-	private boolean checkInput(char x, int y, boolean isVertical) {
+	protected boolean checkInput(char x, int y, boolean isVertical) {
 		boolean valid = true;
 		
 		if (y > 10 || y < 1) {
@@ -63,7 +59,7 @@ public abstract class Ship {
 		return valid;
 	}
 	
-	private List<Coordinates> setLocation(char x, int y) {
+	protected List<Coordinates> setLocation(char x, int y) {
 		List<Coordinates> location = new ArrayList<Coordinates>();
 		
 		if(this.isVertical == true) {

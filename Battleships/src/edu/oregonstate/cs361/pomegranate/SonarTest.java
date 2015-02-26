@@ -18,8 +18,8 @@ public class SonarTest {
 		Coordinates c = new Coordinates('E', 3);
 		Coordinates c2 = new Coordinates('E', 4);
 		Coordinates c3 = new Coordinates('E', 5);
-		Ship s = new Destroyer("Submarine", 3, 'E', 5, true);
-		Ship s2 = new Minesweeper("Minesweeper", 2, 'A', 1, false);
+		Ship s = new Destroyer("Submarine", 'E', 5, true);
+		Ship s2 = new Minesweeper("Minesweeper", 'A', 1, false);
 		b.placeShip(s);
 		b.placeShip(s2);
 		b.attack('A', 1);

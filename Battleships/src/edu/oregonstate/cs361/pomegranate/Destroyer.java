@@ -4,8 +4,12 @@ import edu.oregonstate.cs361.api.Coordinates;
 
 public class Destroyer extends Ship{
 
-	public Destroyer(String kind, int size, char x, int y, boolean isVertical) {
-		super(kind, size, x, y, isVertical);
+	public Destroyer(String kind, char x, int y, boolean isVertical) {
+		super(kind, x, y, isVertical);
+		size = 3;
+		health = size;
+		valid = checkInput(x, y, isVertical);
+		location = setLocation(x, y);
 		if (isVertical){
 			cq = new Coordinates(x, y-1);
 		}

@@ -111,6 +111,8 @@ public class Board {
 			isHit = isHit(x, y, i); 
 		}
 		
+		List<Result> result = new ArrayList<Result>();
+		
 		Result r = new Result(s, x, y, shipsLeft);
 		r.setHit(isHit);
 	
@@ -119,7 +121,10 @@ public class Board {
 			isSunk = true;
 			r = new Result(s, x, y, shipsLeft);
 		}
-		return r;
+		
+		result.add(r);
+		
+		return result;
 	}
 	
 	private boolean isHit(char x, int y, int i) {

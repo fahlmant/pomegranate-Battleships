@@ -2,13 +2,16 @@ package edu.oregonstate.cs361.pomegranate;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
 public class BoardTest {
 	
 	@Test
 	public void testValidPlacement() {
-		Ship s = new Destroyer("Submarine", 3, 'A', 10, true);
+		Ship s = new Destroyer("Submarine", 'A', 10, true);
 		Board b = new Board();
 		boolean valid = b.placeShip(s);
 		assertEquals(true, valid);
@@ -16,7 +19,7 @@ public class BoardTest {
 	
 	@Test
 	public void testYMax() {
-		Ship s = new Destroyer("Submarine", 3, 'A', 11, true);
+		Ship s = new Destroyer("Submarine", 'A', 11, true);
 		Board b = new Board();
 		boolean valid = b.placeShip(s);
 		assertEquals(false, valid);
@@ -24,7 +27,7 @@ public class BoardTest {
 	
 	@Test
 	public void testYMin() {
-		Ship s = new Destroyer("Submarine", 3, 'A', 0, true);
+		Ship s = new Destroyer("Submarine", 'A', 0, true);
 		Board b = new Board();
 		boolean valid = b.placeShip(s);
 		assertEquals(false, valid);
@@ -32,7 +35,7 @@ public class BoardTest {
 	
 	@Test
 	public void testXMax() {
-		Ship s = new Destroyer("Submarine", 3, 'K', 1, true);
+		Ship s = new Destroyer("Submarine", 'K', 1, true);
 		Board b = new Board();
 		boolean valid = b.placeShip(s);
 		assertEquals(false, valid);
@@ -40,7 +43,7 @@ public class BoardTest {
 	
 	@Test
 	public void testXMin() {
-		Ship s = new Destroyer("Submarine", 3, 'z', 1, true);
+		Ship s = new Destroyer("Submarine", 'z', 1, true);
 		Board b = new Board();
 		boolean valid = b.placeShip(s);
 		assertEquals(false, valid);
@@ -48,7 +51,7 @@ public class BoardTest {
 	
 	@Test
 	public void testInvalidVertical() {
-		Ship s = new Destroyer("Submarine", 3, 'A', 2, true);
+		Ship s = new Destroyer("Submarine", 'A', 2, true);
 		Board b = new Board();
 		boolean valid = b.placeShip(s);
 		assertEquals(false, valid);
@@ -56,7 +59,7 @@ public class BoardTest {
 	
 	@Test
 	public void testValidVertical() {
-		Ship s = new Destroyer("Submarine", 3, 'A', 3, true);
+		Ship s = new Destroyer("Submarine", 'A', 3, true);
 		Board b = new Board();
 		boolean valid = b.placeShip(s);
 		assertEquals(true, valid);
@@ -64,7 +67,7 @@ public class BoardTest {
 	
 	@Test
 	public void testInvalidHorizontal() {
-		Ship s = new Destroyer("Submarine", 3, 'H', 1, false);
+		Ship s = new Destroyer("Submarine", 'H', 1, false);
 		Board b = new Board();
 		boolean valid = b.placeShip(s);
 		assertEquals(false, valid);
@@ -72,7 +75,7 @@ public class BoardTest {
 	
 	@Test
 	public void testValidHorizontal() {
-		Ship s = new Destroyer("Submarine", 3, 'A', 1, false);
+		Ship s = new Destroyer("Submarine", 'A', 1, false);
 		Board b = new Board();
 		boolean valid = b.placeShip(s);
 		assertEquals(true, valid);
@@ -80,7 +83,7 @@ public class BoardTest {
 	
 	@Test
 	public void testPlaceShipVertical() {
-		Ship s = new Battleship("Battleship", 4, 'A', 4, true);
+		Ship s = new Battleship("Battleship", 'A', 4, true);
 		Board b = new Board();
 		b.placeShip(s);
 		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'A');
@@ -95,7 +98,7 @@ public class BoardTest {
 
 	@Test
 	public void testPlaceShipHorizontal() {
-		Ship s = new Minesweeper("Minesweeper", 2, 'A', 3, false);
+		Ship s = new Minesweeper("Minesweeper", 'A', 3, false);
 		Board b = new Board();
 		b.placeShip(s);
 		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'A');
@@ -106,20 +109,20 @@ public class BoardTest {
 	
 	@Test
 	public void testAttackInvalid(){
-		Ship s = new Destroyer("Submarine", 3, 'B', 10, true);
+		Ship s = new Destroyer("Submarine", 'B', 10, true);
 		Board b = new Board();
 		b.placeShip(s);
-		Result r = new Result(s, 'B', 3, 3);
-		r = b.attack('Z', 10);
-		assertEquals(r.getResult(), Status.INVALID);
-		r = b.attack('B', 11);
-		assertEquals(r.getResult(), Status.INVALID);
+		List<Result> result = new ArrayList<Result>();
+		result = b.attack('Z', 10);
+		assertEquals(result.get(0).getResult(), Status.INVALID);
+		result = b.attack('B', 11);
+		assertEquals(result.get(0).getResult(), Status.INVALID);
 
 	}
 	
 	@Test
 	public void testAttackValid(){
-		Ship s = new Destroyer("Submarine", 3, 'B', 10, true);
+		Ship s = new Destroyer("Submarine", 'B', 10, true);
 		Board b = new Board();
 		assertEquals(s.isValid(), true);
 		b.placeShip(s);
@@ -132,8 +135,8 @@ public class BoardTest {
 	
 	@Test
 	public void testDestroyed() {
-		Ship s = new Destroyer("Submarine", 3, 'B', 10, true);
-		Ship s2 = new Minesweeper("Minesweeper", 2, 'A', 1, false);
+		Ship s = new Destroyer("Submarine", 'B', 10, true);
+		Ship s2 = new Minesweeper("Minesweeper", 'A', 1, false);
 		Board b = new Board();
 		Result r = null;
 		b.placeShip(s);
@@ -150,9 +153,9 @@ public class BoardTest {
 	
 	@Test
 	public void testSurrender() {
-		Ship s = new Destroyer("Submarine", 3, 'A', 10, true);
-		Ship s2 = new Minesweeper("Minesweeper", 2, 'A', 1, false);
-		Ship s3 = new Battleship("Battleship", 4, 'J', 10, true);
+		Ship s = new Destroyer("Submarine", 'A', 10, true);
+		Ship s2 = new Minesweeper("Minesweeper", 'A', 1, false);
+		Ship s3 = new Battleship("Battleship", 'J', 10, true);
 		assertEquals(s3.getLocation().get(0).getX(), 'J');
 		assertEquals(s3.getLocation().get(0).getY(), 10);
 		Board b = new Board();
@@ -186,8 +189,8 @@ public class BoardTest {
 		}
 	@Test
 	public void testHitCQ() {
-		Ship s = new Destroyer("Destroyer", 3, 'A', 4, false);
-		Ship s2 = new Minesweeper("Minesweeper", 2, 'J', 10, true);
+		Ship s = new Destroyer("Destroyer", 'A', 4, false);
+		Ship s2 = new Minesweeper("Minesweeper", 'J', 10, true);
 		Board b = new Board();
 		Result r;
 		assertEquals(s.isArmor(), true);
