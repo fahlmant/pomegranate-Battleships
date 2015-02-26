@@ -23,8 +23,9 @@ public class SubmarineTest {
 		assertEquals(b.getShip(0).getLocation().get(4).getY(), 9);
 	}
 	
+	@Test
 	public void testPlaceShipHorizontal() {
-		Ship s = new Submarine("Sumbarine",'A', 9, true);
+		Ship s = new Submarine("Sumbarine",'A', 9, false);
 		Board b = new Board();
 		b.placeShip(s);
 		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'A');

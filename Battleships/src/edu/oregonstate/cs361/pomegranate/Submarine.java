@@ -13,7 +13,7 @@ public class Submarine extends Ship{
 		health = size;
 		valid = checkInput(x, y, isVertical);
 		location = setLocation(x, y);
-		if (isVertical){
+		if (isVertical) {
 			cq = new Coordinates(x, y-3);
 		}
 		else {
