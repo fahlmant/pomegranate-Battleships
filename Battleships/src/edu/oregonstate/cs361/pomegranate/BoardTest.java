@@ -112,11 +112,11 @@ public class BoardTest {
 		Ship s = new Destroyer("Submarine", 'B', 10, true);
 		Board b = new Board();
 		b.placeShip(s);
-		List<Result> result = new ArrayList<Result>();
-		result = b.attack('Z', 10);
-		assertEquals(result.get(0).getResult(), Status.INVALID);
-		result = b.attack('B', 11);
-		assertEquals(result.get(0).getResult(), Status.INVALID);
+		List<Result> r = new ArrayList<Result>();
+		r = b.attack('Z', 10);
+		assertEquals(r.get(0).getResult(), Status.INVALID);
+		r = b.attack('B', 11);
+		assertEquals(r.get(0).getResult(), Status.INVALID);
 
 	}
 	
@@ -126,10 +126,11 @@ public class BoardTest {
 		Board b = new Board();
 		assertEquals(s.isValid(), true);
 		b.placeShip(s);
-		Result r = b.attack('B', 10);
-		assertEquals(r.getResult(), Status.HIT);
+		List<Result> r = new ArrayList<Result>();
+		r = b.attack('B', 10);
+		assertEquals(r.get(0).getResult(), Status.HIT);
 		r = b.attack('C', 5);
-		assertEquals(r.getResult(), Status.MISS);
+		assertEquals(r.get(0).getResult(), Status.MISS);
 
 	}
 	
@@ -138,17 +139,17 @@ public class BoardTest {
 		Ship s = new Destroyer("Submarine", 'B', 10, true);
 		Ship s2 = new Minesweeper("Minesweeper", 'A', 1, false);
 		Board b = new Board();
-		Result r = null;
+		List<Result> r = new ArrayList<Result>();
 		b.placeShip(s);
 		b.placeShip(s2);
 		r = b.attack('B', 10);
-		assertEquals(r.getResult(), Status.HIT);
+		assertEquals(r.get(0).getResult(), Status.HIT);
 		r = b.attack('B', 8);
-		assertEquals(r.getResult(), Status.HIT);
+		assertEquals(r.get(0).getResult(), Status.HIT);
 		r = b.attack('B', 9);
-		assertEquals(r.getResult(), Status.MISS);
+		assertEquals(r.get(0).getResult(), Status.MISS);
 		r = b.attack('B', 9);
-		assertEquals(r.getResult(), Status.SUNK);
+		assertEquals(r.get(0).getResult(), Status.SUNK);
 	}
 	
 	@Test
@@ -159,48 +160,48 @@ public class BoardTest {
 		assertEquals(s3.getLocation().get(0).getX(), 'J');
 		assertEquals(s3.getLocation().get(0).getY(), 10);
 		Board b = new Board();
-		Result r;
+		List<Result> r = new ArrayList<Result>();
 		b.placeShip(s);
 		b.placeShip(s2);
 		b.placeShip(s3);
 		r = b.attack('A', 10);
-		assertEquals(r.getResult(), Status.HIT);
+		assertEquals(r.get(0).getResult(), Status.HIT);
 		r = b.attack('A', 9);
-		assertEquals(r.getResult(), Status.MISS);
+		assertEquals(r.get(0).getResult(), Status.MISS);
 		r = b.attack('A', 8);
-		assertEquals(r.getResult(), Status.HIT);
+		assertEquals(r.get(0).getResult(), Status.HIT);
 		r = b.attack('A', 9);
-		assertEquals(r.getResult(), Status.SUNK);
+		assertEquals(r.get(0).getResult(), Status.SUNK);
 		r = b.attack('B', 1);
-		assertEquals(r.getResult(), Status.HIT);
+		assertEquals(r.get(0).getResult(), Status.HIT);
 		r = b.attack('A', 1);
-		assertEquals(r.getResult(), Status.SUNK);
+		assertEquals(r.get(0).getResult(), Status.SUNK);
 		r = b.attack('J', 10);
-		assertEquals(r.getResult(), Status.HIT);
+		assertEquals(r.get(0).getResult(), Status.HIT);
 		r = b.attack('J', 9);
-		assertEquals(r.getResult(), Status.HIT);
+		assertEquals(r.get(0).getResult(), Status.HIT);
 		r = b.attack('J', 8);
-		assertEquals(r.getResult(), Status.MISS);
+		assertEquals(r.get(0).getResult(), Status.MISS);
 		r = b.attack('J', 7);
-		assertEquals(r.getResult(), Status.HIT);
+		assertEquals(r.get(0).getResult(), Status.HIT);
 		r = b.attack('J', 8);	
 		assertEquals(b.getShipsLeft(), 0);
-		assertEquals(r.getResult(), Status.SURRENDER);
+		assertEquals(r.get(0).getResult(), Status.SURRENDER);
 		}
 	@Test
 	public void testHitCQ() {
 		Ship s = new Destroyer("Destroyer", 'A', 4, false);
 		Ship s2 = new Minesweeper("Minesweeper", 'J', 10, true);
 		Board b = new Board();
-		Result r;
+		List<Result> r = new ArrayList<Result>();
 		assertEquals(s.isArmor(), true);
 		b.placeShip(s);
 		b.placeShip(s2);
 		r = b.attack('B', 4);
-		assertEquals(r.getResult(), Status.MISS);
-		assertEquals(r.getShip().isArmor(), false);
+		assertEquals(r.get(0).getResult(), Status.MISS);
+		assertEquals(r.get(0).getShip().isArmor(), false);
 		r = b.attack('B', 4);
-		assertEquals(r.getResult(), Status.SUNK);
+		assertEquals(r.get(0).getResult(), Status.SUNK);
 	}
 	
 }
