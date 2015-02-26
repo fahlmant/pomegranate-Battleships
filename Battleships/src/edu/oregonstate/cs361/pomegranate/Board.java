@@ -197,6 +197,20 @@ public class Board {
 
 	public void moveNorth() {
 		
+		int shipSize;
+		boolean vert;
+		for(int i = 0; i < totalShips; i++)
+		{
+			shipSize = ships.get(i).getSize();
+			vert = ships.get(i).isVertical();
+			
+			//Need to check if vertical or horizontal
+			//Need to check if the move will be valid before moving
+			//If vertical, bottom coord to nothing, coord above top to ship
+			//Update coords of Ship object
+			//If horizontal, all coords go one north. 
+		}
+		
 	}
 	
 	public void moveEast() {
