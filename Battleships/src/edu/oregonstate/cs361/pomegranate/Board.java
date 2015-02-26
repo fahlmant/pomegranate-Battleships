@@ -97,7 +97,7 @@ public class Board {
 		return s;
 	}
 	
-	public Result attack(char x, int y) {
+	public List<Result> attack(char x, int y) {
 		
 		//TODO implement a way to keep track of misses
 		//     implement a way to keep track of hits
@@ -190,5 +190,28 @@ public class Board {
 		return list;
 	}
 
+	public void moveNorth() {
+		
+	}
+	
+	public void moveEast() {
+		
+	}
+	
+	public void moveWest() {
+		
+	}
+	
+	public void moveSouth() {
+		
+	}
+	
+	public void undoMove() {
+		
+	}
+	
+	public void redoMove() {
+		
+	}
 
 }
