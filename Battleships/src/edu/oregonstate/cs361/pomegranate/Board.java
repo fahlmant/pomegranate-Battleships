@@ -198,38 +198,102 @@ public class Board {
 	public void moveNorth() {
 		
 		int shipSize;
-		boolean vert;
 		for(int i = 0; i < totalShips; i++)
 		{
-			shipSize = ships.get(i).getSize();
-			vert = ships.get(i).isVertical();
+			shipSize = ships.get(i).getSize();			
+			if(ships.get(i).isVertical())
+			{
+				//check if move will be valid
+				//add 'ship' to coord above
+				//remove 'ship' from coord below
+			}
+			else
+			{
+				//check if move will be valid
+				//add 'ship' to all coords directly north of the ship
+				//remove 'ship' from the original ships coords
+			}
 			
-			//Need to check if vertical or horizontal
-			//Need to check if the move will be valid before moving
-			//If vertical, bottom coord to nothing, coord above top to ship
-			//Update coords of Ship object
-			//If horizontal, all coords go one north. 
-		}
-		
+			//Push move onto stack
+		}	
 	}
 	
 	public void moveEast() {
 		
+		int shipSize;
+		for(int i = 0; i < totalShips; i++)
+		{
+			shipSize = ships.get(i).getSize();
+			if(ships.get(i).isVertical)
+			{
+				//check if move will be valid
+				//add 'ship' to all coords east of the ship
+				//remove 'ship' from original placement
+			}
+			else
+			{
+				//check if move will be valid
+				//add 'ship' to east of coords
+				//remove 'ship' from far west coords
+			}
+		}		
 	}
 	
 	public void moveWest() {
+		int shipSize;
+		for(int i = 0; i < totalShips; i++)
+		{
+			shipSize = ships.get(i).getSize();
+			if(ships.get(i).isVertical)
+			{
+				//check if move will be valid
+				//add 'ship' to all coords west of the ship
+				//remove 'ship' from original placement
+			}
+			else
+			{
+				//check if move will be valid
+				//add 'ship' to west of coords
+				//remove 'ship' from far east coords
+			}
+		}		
 		
 	}
 	
 	public void moveSouth() {
+		int shipSize;
+		for(int i = 0; i < totalShips; i++)
+		{
+			shipSize = ships.get(i).getSize();			
+			if(ships.get(i).isVertical())
+			{
+				//check if move will be valid
+				//add 'ship' to coord below
+				//remove 'ship' from coord above
+			}
+			else
+			{
+				//check if move will be valid
+				//add 'ship' to all coords directly south of the ship
+				//remove 'ship' from the original ships coords
+			}
+			
+			//Push move onto stack
+		}	
 		
 	}
 	
 	public void undoMove() {
+		//pop last move off the stack
+		//Perform the opposite of that move (for North, perform south etc.)
+		//add to undo stack
 		
 	}
 	
 	public void redoMove() {
+		//pop last undo stack move
+		//perform opposite
+		//push move onto stack
 		
 	}
 
