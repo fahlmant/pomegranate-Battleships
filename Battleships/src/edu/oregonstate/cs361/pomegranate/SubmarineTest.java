@@ -22,4 +22,22 @@ public class SubmarineTest {
 		assertEquals(b.getShip(0).getLocation().get(4).getX(), 'B');
 		assertEquals(b.getShip(0).getLocation().get(4).getY(), 9);
 	}
+	
+	public void testPlaceShipHorizontal() {
+		Ship s = new Submarine("Sumbarine",'A', 9, true);
+		Board b = new Board();
+		b.placeShip(s);
+		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'A');
+		assertEquals(b.getShip(0).getLocation().get(0).getY(), 9);
+		assertEquals(b.getShip(0).getLocation().get(1).getX(), 'B');
+		assertEquals(b.getShip(0).getLocation().get(1).getY(), 9);
+		assertEquals(b.getShip(0).getLocation().get(2).getX(), 'C');
+		assertEquals(b.getShip(0).getLocation().get(2).getY(), 9);
+		assertEquals(b.getShip(0).getLocation().get(3).getX(), 'D');
+		assertEquals(b.getShip(0).getLocation().get(3).getY(), 9);
+		assertEquals(b.getShip(0).getLocation().get(4).getX(), 'B');
+		assertEquals(b.getShip(0).getLocation().get(4).getY(), 10);
+	}
+	
+	
 }
