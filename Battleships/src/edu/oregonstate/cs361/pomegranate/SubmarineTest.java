@@ -40,5 +40,17 @@ public class SubmarineTest {
 		assertEquals(b.getShip(0).getLocation().get(4).getY(), 10);
 	}
 	
+	@Test
+	public void testInvalidVertical() {
+		Ship s = new Submarine("Submarine", 'A', 10, true);
+		Board b = new Board();
+		assertEquals(false, b.placeShip(s));
+	}
+	@Test
+	public void testInvalidHorizontal() {
+		Ship s = new Submarine("Submarine", 'J', 10, false);
+		Board b = new Board();
+		assertEquals(false, b.placeShip(s));
+	}
 	
 }
