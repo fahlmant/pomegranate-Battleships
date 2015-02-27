@@ -75,4 +75,40 @@ public class Submarine extends Ship{
 	public boolean isSubmerged() {
 		return isSubmerged;
 	}
+	
+	public boolean checkMove(String direction) {
+		boolean valid = false;
+		switch(direction) {
+		case "North":
+			if(this.getLocation().get(0).getY() <= 9 && this.isVertical) {
+				valid = true;
+			}
+			else if(!this.isVertical && this.getLocation().get(this.size - 1).getY() <= 9){
+				valid = true;
+			}
+			break;
+		case "South":
+			if(this.getLocation().get(this.size - 2).getY() >= 2) {
+				valid = true;
+			}
+			break;
+		case "West":
+			if(this.getLocation().get(0).getX() >= 'B') {
+				valid = true;
+			}
+			break;
+		case "East":
+			if(this.isVertical && this.getLocation().get(this.size - 1).getX() <= 'I') {
+				valid = true;
+			}
+			else if(!this.isVertical && this.getLocation().get(this.size - 2).getX() <= 'I'){
+				valid = true;
+			}
+			break;
+		default: break;
+		
+		}
+		
+		return valid;
+	}
 }

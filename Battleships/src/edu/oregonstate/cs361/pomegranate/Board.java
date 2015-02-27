@@ -16,8 +16,8 @@ public class Board {
 	private int shipsLeft;
 	private boolean isSunk;
 	private int sonarCounter;
-	private Stack<String> undoStack;
-	private Stack<String> redoStack;
+	private Stack<String> undoStack = new Stack<String>();
+	private Stack<String> redoStack = new Stack<String>();
 
 	public Board() {
 		grid = new Grid [10][10];
@@ -199,7 +199,6 @@ public class Board {
 	}
 
 	public void moveNorth() {
-		
 		for(int i = 0; i < totalShips; i++)
 		{			
 			if(ships.get(i).isVertical())
@@ -220,8 +219,8 @@ public class Board {
 					}
 				}
 			}	
-			//Push move onto stack
 		}	
+		undoStack.push("North");
 	}
 	
 	public void moveEast() {
@@ -304,17 +303,21 @@ public class Board {
 		String move = undoStack.pop();
 		switch (move) {
 		case "North":
-			moveSouth();
+			this.moveSouth();
 			redoStack.push("South");
+			break;
 		case "South":
-			moveNorth();
+			this.moveNorth();
 			redoStack.push("North");
+			break;
 		case "East":
-			moveWest();
+			this.moveWest();
 			redoStack.push("West");
+			break;
 		case "West":
-			moveEast();
+			this.moveEast();
 			redoStack.push("East");
+			break;
 		default:
 			break;
 		
@@ -329,17 +332,21 @@ public class Board {
 		String move = redoStack.pop();
 		switch (move) {
 		case "North":
-			moveSouth();
+			this.moveSouth();
 			undoStack.push("South");
+			break;
 		case "South":
-			moveNorth();
+			this.moveNorth();
 			undoStack.push("North");
+			break;
 		case "East":
-			moveWest();
+			this.moveWest();
 			undoStack.push("West");
+			break;
 		case "West":
-			moveEast();
+			this.moveEast();
 			undoStack.push("East");
+			break;
 		default:
 			break;
 		
