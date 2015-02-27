@@ -18,6 +18,7 @@ public class Board {
 	private int sonarCounter;
 	private Stack<String> undoStack = new Stack<String>();
 	private Stack<String> redoStack = new Stack<String>();
+	boolean laserActive;
 
 	public Board() {
 		grid = new Grid [10][10];
@@ -114,15 +115,23 @@ public class Board {
 			isHit = isHit(x, y, i); 
 		}
 		
+		//TODO Here is logic for the Space Laser
+		if(laserActive) {
+			if(Coordinates.isSubmerged()) {
+				  isHit = isHit(x, y, i);
+			}
+		}
+		
 		List<Result> result = new ArrayList<Result>();
 		
 		Result r = new Result(s, x, y, shipsLeft);
 		r.setHit(isHit);
-	
+
 		if(r.getResult() == Status.SUNK) {
 			shipsLeft--;
 			isSunk = true;
 			r = new Result(s, x, y, shipsLeft);
+			laserActive = true;
 		}
 		
 		result.add(r);

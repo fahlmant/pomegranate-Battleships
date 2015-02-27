@@ -12,5 +12,6 @@ public class Minesweeper extends Ship {
 		location = setLocation(x, y);
 		cq = new Coordinates(x, y);
 		armor = false;
+		
 	}
 }
