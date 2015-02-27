@@ -9,25 +9,29 @@ public class Submarine extends Ship{
 	
 	private boolean isSubmerged;
 	
-	public Submarine(String kind, char x, int y, boolean isVertical, boolean isSubmerged) {
-		super(kind, x, y, isVertical);
+	public Submarine(String kind, boolean isSubmerged) {
+		super(kind);
 		size = 5;
 		health = size;
 		this.isSubmerged = isSubmerged;
-		valid = checkInput(x, y, isVertical);
-		location = this.setLocation(x, y);
+		armor = true;
+	}
+	
+	protected void setCQ(char x, int y) {
 		if (isVertical) {
 			cq = new Coordinates(x, y-3);
 		}
 		else {
 			cq = new Coordinates((char) (x+3), y);
 		}
-		armor = true;
 	}
 	
-	public List<Coordinates> setLocation(char x, int y, boolean isVertical) {
+	public void setLocation(char x, int y, boolean isVertical) {
 		List<Coordinates> location = new ArrayList<Coordinates>();
+		this.isVertical = isVertical;
+		valid = checkInput(x, y, isVertical);
 		Coordinates c;
+		setCQ(x, y);
 		
 		if(isVertical == true) {
 			for(int i = 0; i < size -1; i++) {
@@ -57,7 +61,7 @@ public class Submarine extends Ship{
 			}
 			location.add(c);
 		}
-		return location;
+		this.location = location;
 	}
 	
 	protected boolean checkInput(char x, int y, boolean isVertical) {

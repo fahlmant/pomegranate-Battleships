@@ -18,10 +18,10 @@ public class SonarTest {
 		Coordinates c = new Coordinates('E', 3);
 		Coordinates c2 = new Coordinates('E', 4);
 		Coordinates c3 = new Coordinates('E', 5);
-		Ship s = new Destroyer("Submarine", 'E', 5, true);
-		Ship s2 = new Minesweeper("Minesweeper", 'A', 1, false);
-		b.placeShip(s);
-		b.placeShip(s2);
+		Ship s = new Destroyer("Destroyer");
+		Ship s2 = new Minesweeper("Minesweeper");
+		b.placeShip(s, 'E', 5, true);
+		b.placeShip(s2, 'A', 1, false);
 		b.attack('A', 1);
 		List<Coordinates> sonarResult = b.sonarPulse('E', 5);
 		assertEquals(sonarResult.get(0).getX(), c.getX());

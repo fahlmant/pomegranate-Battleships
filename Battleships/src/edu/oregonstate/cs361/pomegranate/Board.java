@@ -47,9 +47,9 @@ public class Board {
 		return shipsLeft;
 	}
 	
-	public boolean placeShip(Ship ship) {
+	public boolean placeShip(Ship ship, char x, int y, boolean isVertical) {
 		
-		//TODO check to make sure ships aren't placed on top of each other
+		ship.setLocation(x, y, isVertical);
 		
 		if(ship.isValid() && ship.checkOverlap(ships, totalShips)) {
 			ships.add(ship);
@@ -339,19 +339,15 @@ public class Board {
 		switch (move) {
 		case "North":
 			this.moveSouth();
-//			undoStack.push("South");
 			break;
 		case "South":
 			this.moveNorth();
-//			undoStack.push("North");
 			break;
 		case "East":
 			this.moveWest();
-//			undoStack.push("West");
 			break;
 		case "West":
 			this.moveEast();
-//			undoStack.push("East");
 			break;
 		default:
 			break;

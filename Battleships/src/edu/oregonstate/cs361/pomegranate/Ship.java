@@ -16,9 +16,8 @@ public abstract class Ship {
 	protected boolean armor;
 	protected Coordinates cq;
 
-	public Ship(String kind, char x, int y, boolean isVertical) {
+	public Ship(String kind) {
 		this.kind = kind;
-		this.isVertical = isVertical;
 	}
 	
 	public void takeDamage() {
@@ -59,8 +58,11 @@ public abstract class Ship {
 		return valid;
 	}
 	
-	protected List<Coordinates> setLocation(char x, int y) {
+	public void setLocation(char x, int y, boolean isVertical) {
 		List<Coordinates> location = new ArrayList<Coordinates>();
+		this.isVertical = isVertical;
+		valid = checkInput(x, y, isVertical);
+		setCQ(x, y);
 		
 		if(this.isVertical == true) {
 			for(int i = 0; i < size; i++) {
@@ -71,7 +73,7 @@ public abstract class Ship {
 				location.add(new Coordinates((char) (x+i), y));
 			}
 		}
-		return location;
+		this.location = location;
 	}
 
 	public int getSize() {
@@ -101,6 +103,8 @@ public abstract class Ship {
 	public Coordinates getCq() {
 		return cq;
 	}
+	
+	abstract protected void setCQ(char x, int y);
 	
 	public boolean checkOverlap(List<Ship> ships, int totalShips) {
 
