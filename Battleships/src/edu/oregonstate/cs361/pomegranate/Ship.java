@@ -101,4 +101,29 @@ public abstract class Ship {
 	public Coordinates getCq() {
 		return cq;
 	}
+	
+	public boolean checkOverlap(List<Ship> ships, int totalShips) {
+
+		for(int i = 0; i < totalShips; i++) {
+			for(int j = 0; j < ships.get(i).getSize(); j++) {
+				if(j == this.size) {
+					break;
+				}
+				if(ships.get(i).getLocation().get(j).getX() == location.get(j).getX()
+						   && ships.get(i).getLocation().get(j).getY() == location.get(j).getY()
+						   && checkForSubmerged(ships, i, j)) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+	protected boolean checkForSubmerged(List<Ship> ships, int i, int j) {
+		if((ships.get(i).getLocation().get(j).isSubmerged() && !location.get(j).isSubmerged())
+				|| (!ships.get(i).getLocation().get(j).isSubmerged() && location.get(j).isSubmerged())) {
+			return false;
+		}
+		return true;
+	}
 }

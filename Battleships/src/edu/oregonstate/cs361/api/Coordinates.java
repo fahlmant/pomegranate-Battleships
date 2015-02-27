@@ -5,11 +5,13 @@ public class Coordinates {
 	private char x;
 	private int y;
 	private boolean isHit;
+	private boolean submerged;
 
 	public Coordinates(char x,int y) {
 		this.x = x;
 		this.y = y;
 		isHit = false;
+		submerged = false;
 	}
 
 	public char getX() {
@@ -34,5 +36,21 @@ public class Coordinates {
 	
 	public boolean isHit() {
 		return isHit;
+	}
+	
+	public boolean isEqual(Coordinates c) {
+		if(c.getX() != this.x || c.getY() != this.y) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public boolean isSubmerged() {
+		return submerged;
+	}
+
+	public void setSubmerged() {
+		this.submerged = true;
 	}
 }

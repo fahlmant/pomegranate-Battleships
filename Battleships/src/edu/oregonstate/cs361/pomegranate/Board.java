@@ -46,7 +46,7 @@ public class Board {
 		
 		//TODO check to make sure ships aren't placed on top of each other
 		
-		if(ship.isValid() == true) {
+		if(ship.isValid() && ship.checkOverlap(ships, totalShips)) {
 			ships.add(ship);
 			shipsLeft++;
 			totalShips++;

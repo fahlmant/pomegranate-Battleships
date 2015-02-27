@@ -204,4 +204,21 @@ public class BoardTest {
 		assertEquals(r.get(0).getResult(), Status.SUNK);
 	}
 	
+	@Test
+	public void testOverlapfailure() {
+		Ship s = new Destroyer("Destroyer", 'A', 4, false);
+		Ship s2 = new Minesweeper("Minesweeper", 'A', 4, false);
+		Board b = new Board();
+		b.placeShip(s);
+		assertEquals(false, b.placeShip(s2));
+	}
+	
+	@Test
+	public void testOverlapSuccess() {
+		Ship s = new Destroyer("Destroyer", 'A', 4, false);
+		Ship s2 = new Submarine("Submarine", 'A', 4, false, true);
+		Board b = new Board();
+		b.placeShip(s);
+		assertEquals(true, b.placeShip(s2));
+	}
 }
