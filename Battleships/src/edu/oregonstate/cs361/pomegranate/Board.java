@@ -296,23 +296,30 @@ public class Board {
 	}
 	
 	public void undoMove() {
+		if(undoStack.isEmpty()) {
+			return;
+		}
 		String move = undoStack.pop();
 		switch (move) {
 		case "North":
 			this.moveSouth();
+			undoStack.pop();
 			redoStack.push("South");
 			break;
 		case "South":
 			this.moveNorth();
 			redoStack.push("North");
+			undoStack.pop();
 			break;
 		case "East":
 			this.moveWest();
 			redoStack.push("West");
+			undoStack.pop();
 			break;
 		case "West":
 			this.moveEast();
 			redoStack.push("East");
+			undoStack.pop();
 			break;
 		default:
 			break;
@@ -325,23 +332,26 @@ public class Board {
 	}
 	
 	public void redoMove() {
+		if(redoStack.isEmpty()) {
+			return;
+		}
 		String move = redoStack.pop();
 		switch (move) {
 		case "North":
 			this.moveSouth();
-			undoStack.push("South");
+//			undoStack.push("South");
 			break;
 		case "South":
 			this.moveNorth();
-			undoStack.push("North");
+//			undoStack.push("North");
 			break;
 		case "East":
 			this.moveWest();
-			undoStack.push("West");
+//			undoStack.push("West");
 			break;
 		case "West":
 			this.moveEast();
-			undoStack.push("East");
+//			undoStack.push("East");
 			break;
 		default:
 			break;

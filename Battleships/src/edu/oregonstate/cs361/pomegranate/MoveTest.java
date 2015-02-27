@@ -239,6 +239,7 @@ public class MoveTest {
 		assertEquals(b.getShip(0).getLocation().get(0).getY(), 4);	
 	}
 	
+	@Test
 	public void redo(){
 		Ship s = new Minesweeper("Minesweeper", 'B', 4, true);
 		Board b = new Board();
@@ -249,6 +250,84 @@ public class MoveTest {
 		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'B');
 		assertEquals(b.getShip(0).getLocation().get(0).getY(), 5);
 
+	}
+	
+	@Test
+	public void redoTwice() {
+		Ship s = new Minesweeper("Minesweeper", 'B', 4, true);
+		Board b = new Board();
+		b.placeShip(s);
+		b.moveNorth();
+		b.moveNorth();
+		b.undoMove();
+		b.undoMove();
+		b.redoMove();
+		b.redoMove();
+		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'B');
+		assertEquals(b.getShip(0).getLocation().get(0).getY(), 6);
+	}
+	
+	@Test
+	public void redoTwiceThenUndoOnce() {
+		Ship s = new Minesweeper("Minesweeper", 'B', 4, true);
+		Board b = new Board();
+		b.placeShip(s);
+		b.moveNorth();
+		b.moveNorth();
+		b.undoMove();
+		b.undoMove();
+		b.redoMove();
+		b.redoMove();
+		b.undoMove();
+		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'B');
+		assertEquals(b.getShip(0).getLocation().get(0).getY(), 5);
+	}
+	
+	@Test
+	public void crazyUndoRedo() {
+		Ship s = new Minesweeper("Minesweeper", 'B', 4, true);
+		Board b = new Board();
+		b.placeShip(s);
+		b.moveNorth();
+		b.moveNorth();
+		b.undoMove();
+		b.undoMove();
+		b.redoMove();
+		b.redoMove();
+		b.undoMove();
+		b.moveEast();
+		b.moveEast();
+		b.moveSouth();
+		b.moveEast();
+		b.undoMove();
+		b.undoMove();
+		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'D');
+		assertEquals(b.getShip(0).getLocation().get(0).getY(), 5);
+		b.redoMove();
+		b.redoMove();
+		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'E');
+		assertEquals(b.getShip(0).getLocation().get(0).getY(), 4);
+		b.undoMove();
+		b.undoMove();
+		b.undoMove();
+		b.undoMove();
+		b.undoMove();
+		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'B');
+		assertEquals(b.getShip(0).getLocation().get(0).getY(), 4);
+	}
+	
+	@Test
+	public void undoRedoBeforeMove() {
+		Ship s = new Minesweeper("Minesweeper", 'B', 4, true);
+		Board b = new Board();
+		b.placeShip(s);
+		b.undoMove();
+		b.redoMove();
+		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'B');
+		assertEquals(b.getShip(0).getLocation().get(0).getY(), 4);
+		b.moveWest();
+		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'A');
+		assertEquals(b.getShip(0).getLocation().get(0).getY(), 4);
 	}
 
 }

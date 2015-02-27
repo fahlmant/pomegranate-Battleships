@@ -25,11 +25,11 @@ public class Submarine extends Ship{
 		armor = true;
 	}
 	
-	protected List<Coordinates> setLocation(char x, int y) {
+	public List<Coordinates> setLocation(char x, int y, boolean isVertical) {
 		List<Coordinates> location = new ArrayList<Coordinates>();
 		Coordinates c;
 		
-		if(this.isVertical == true) {
+		if(isVertical == true) {
 			for(int i = 0; i < size -1; i++) {
 				c = new Coordinates(x, y-i);
 				if(isSubmerged) {
