@@ -110,9 +110,10 @@ public abstract class Ship {
 					break;
 				}
 				if(ships.get(i).getLocation().get(j).getX() == location.get(j).getX()
-						   && ships.get(i).getLocation().get(j).getY() == location.get(j).getY()
-						   && checkForSubmerged(ships, i, j)) {
-					return false;
+						   && ships.get(i).getLocation().get(j).getY() == location.get(j).getY()) {
+					if(checkForSubmerged(ships, i, j)) {
+						return false;
+					}
 				}
 			}
 		}
@@ -120,10 +121,41 @@ public abstract class Ship {
 	}
 	
 	protected boolean checkForSubmerged(List<Ship> ships, int i, int j) {
+		// TODO fix this shit
 		if((ships.get(i).getLocation().get(j).isSubmerged() && !location.get(j).isSubmerged())
 				|| (!ships.get(i).getLocation().get(j).isSubmerged() && location.get(j).isSubmerged())) {
 			return false;
 		}
 		return true;
+	}
+	
+	public boolean checkMove(String direction) {
+		boolean valid = false;
+		switch(direction) {
+		case "North":
+			if(this.getLocation().get(0).getY() <= 9) {
+				valid = true;
+			}
+			break;
+		case "South":
+			if(this.getLocation().get(this.size - 1).getY() >= 2) {
+				valid = true;
+			}
+			break;
+		case "West":
+			if(this.getLocation().get(0).getX() >= 'B') {
+				valid = true;
+			}
+			break;
+		case "East":
+			if(this.getLocation().get(this.size - 1).getX() <= 'I') {
+				valid = true;
+			}
+			break;
+		default: break;
+		
+		}
+		
+		return valid;
 	}
 }

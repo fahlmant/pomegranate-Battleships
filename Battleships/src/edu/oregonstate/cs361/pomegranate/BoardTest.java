@@ -207,7 +207,7 @@ public class BoardTest {
 	@Test
 	public void testOverlapfailure() {
 		Ship s = new Destroyer("Destroyer", 'A', 4, false);
-		Ship s2 = new Minesweeper("Minesweeper", 'A', 4, false);
+		Ship s2 = new Submarine("Submarine", 'A', 4, false, false);
 		Board b = new Board();
 		b.placeShip(s);
 		assertEquals(false, b.placeShip(s2));

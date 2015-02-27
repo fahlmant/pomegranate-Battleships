@@ -2,6 +2,7 @@ package edu.oregonstate.cs361.pomegranate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import edu.oregonstate.cs361.api.AmmoExhaustedException;
 import edu.oregonstate.cs361.api.Coordinates;
@@ -15,6 +16,8 @@ public class Board {
 	private int shipsLeft;
 	private boolean isSunk;
 	private int sonarCounter;
+	private Stack<String> undoStack;
+	private Stack<String> redoStack;
 
 	public Board() {
 		grid = new Grid [10][10];
@@ -197,85 +200,99 @@ public class Board {
 
 	public void moveNorth() {
 		
-		int shipSize;
 		for(int i = 0; i < totalShips; i++)
-		{
-			shipSize = ships.get(i).getSize();			
+		{			
 			if(ships.get(i).isVertical())
 			{
-				//check if move will be valid
-				//add 'ship' to coord above
-				//remove 'ship' from coord below
+				if(ships.get(i).checkMove("North"))
+				{
+					for(int j = 0; j < ships.get(i).getSize(); j++) {
+						ships.get(i).getLocation().get(j).setY(ships.get(i).getLocation().get(j).getY() + 1); 
+					}
+				}
 			}
 			else
 			{
-				//check if move will be valid
-				//add 'ship' to all coords directly north of the ship
-				//remove 'ship' from the original ships coords
-			}
-			
+				if(ships.get(i).checkMove("North"))
+				{
+					for(int j = 0; j < ships.get(i).getSize(); j++) {
+						ships.get(i).getLocation().get(j).setY(ships.get(i).getLocation().get(j).getY() + 1); 
+					}
+				}
+			}	
 			//Push move onto stack
 		}	
 	}
 	
 	public void moveEast() {
 		
-		int shipSize;
 		for(int i = 0; i < totalShips; i++)
 		{
-			shipSize = ships.get(i).getSize();
-			if(ships.get(i).isVertical)
+			if(ships.get(i).isVertical())
 			{
-				//check if move will be valid
-				//add 'ship' to all coords east of the ship
-				//remove 'ship' from original placement
+				if(ships.get(i).checkMove("East"))
+				{
+					for(int j = 0; j < ships.get(i).getSize(); j++) {
+						ships.get(i).getLocation().get(j).setX((char) (ships.get(i).getLocation().get(j).getX() + 1)); 
+					}
+				}
 			}
 			else
 			{
-				//check if move will be valid
-				//add 'ship' to east of coords
-				//remove 'ship' from far west coords
+				if(ships.get(i).checkMove("East"))
+				{
+					for(int j = 0; j < ships.get(i).getSize(); j++) {
+						ships.get(i).getLocation().get(j).setX((char) (ships.get(i).getLocation().get(j).getX() + 1)); 
+					}
+				}
 			}
 		}		
 	}
 	
 	public void moveWest() {
-		int shipSize;
 		for(int i = 0; i < totalShips; i++)
 		{
-			shipSize = ships.get(i).getSize();
-			if(ships.get(i).isVertical)
+			if(ships.get(i).isVertical())
 			{
-				//check if move will be valid
-				//add 'ship' to all coords west of the ship
-				//remove 'ship' from original placement
+				if(ships.get(i).checkMove("West"))
+				{
+					for(int j = 0; j < ships.get(i).getSize(); j++) {
+						ships.get(i).getLocation().get(j).setX((char) (ships.get(i).getLocation().get(j).getX() - 1)); 
+					}
+				}
 			}
 			else
 			{
-				//check if move will be valid
-				//add 'ship' to west of coords
-				//remove 'ship' from far east coords
+				if(ships.get(i).checkMove("West"))
+				{
+					for(int j = 0; j < ships.get(i).getSize(); j++) {
+						ships.get(i).getLocation().get(j).setX((char) (ships.get(i).getLocation().get(j).getX() - 1)); 
+					}
+				}
 			}
-		}		
-		
+		}			
 	}
 	
 	public void moveSouth() {
-		int shipSize;
 		for(int i = 0; i < totalShips; i++)
-		{
-			shipSize = ships.get(i).getSize();			
+		{			
 			if(ships.get(i).isVertical())
 			{
-				//check if move will be valid
-				//add 'ship' to coord below
-				//remove 'ship' from coord above
+				if(ships.get(i).checkMove("South"))
+				{
+					for(int j = 0; j < ships.get(i).getSize(); j++) {
+						ships.get(i).getLocation().get(j).setY(ships.get(i).getLocation().get(j).getY() - 1); 
+					}
+				}
 			}
 			else
 			{
-				//check if move will be valid
-				//add 'ship' to all coords directly south of the ship
-				//remove 'ship' from the original ships coords
+				if(ships.get(i).checkMove("South"))
+				{
+					for(int j = 0; j < ships.get(i).getSize(); j++) {
+						ships.get(i).getLocation().get(j).setY(ships.get(i).getLocation().get(j).getY() - 1); 
+					}
+				}
 			}
 			
 			//Push move onto stack
@@ -284,16 +301,49 @@ public class Board {
 	}
 	
 	public void undoMove() {
-		//pop last move off the stack
+		String move = undoStack.pop();
+		switch (move) {
+		case "North":
+			moveSouth();
+			redoStack.push("South");
+		case "South":
+			moveNorth();
+			redoStack.push("North");
+		case "East":
+			moveWest();
+			redoStack.push("West");
+		case "West":
+			moveEast();
+			redoStack.push("East");
+		default:
+			break;
+		
+			
+		}
 		//Perform the opposite of that move (for North, perform south etc.)
 		//add to undo stack
 		
 	}
 	
 	public void redoMove() {
-		//pop last undo stack move
-		//perform opposite
-		//push move onto stack
+		String move = redoStack.pop();
+		switch (move) {
+		case "North":
+			moveSouth();
+			undoStack.push("South");
+		case "South":
+			moveNorth();
+			undoStack.push("North");
+		case "East":
+			moveWest();
+			undoStack.push("West");
+		case "West":
+			moveEast();
+			undoStack.push("East");
+		default:
+			break;
+		
+		}
 		
 	}
 

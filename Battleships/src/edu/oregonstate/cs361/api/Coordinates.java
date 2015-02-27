@@ -51,6 +51,6 @@ public class Coordinates {
 	}
 
 	public void setSubmerged() {
-		this.submerged = true;
+		submerged = true;
 	}
 }
