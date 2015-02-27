@@ -13,16 +13,16 @@ public class Submarine extends Ship{
 		super(kind, x, y, isVertical);
 		size = 5;
 		health = size;
+		this.isSubmerged = isSubmerged;
 		valid = checkInput(x, y, isVertical);
-		location = setLocation(x, y);
+		location = this.setLocation(x, y);
 		if (isVertical) {
 			cq = new Coordinates(x, y-3);
 		}
 		else {
 			cq = new Coordinates((char) (x+3), y);
-		}	
+		}
 		armor = true;
-		this.isSubmerged = isSubmerged;
 	}
 	
 	protected List<Coordinates> setLocation(char x, int y) {
@@ -37,15 +37,25 @@ public class Submarine extends Ship{
 				}
 				location.add(c);
 			}
-			
-			location.add(new Coordinates((char) (x+1), y-2));
+			c = new Coordinates((char) (x+1), y-2);
+			if(isSubmerged) {
+				c.setSubmerged();
+			}
+			location.add(c);
 			
 		} else {
 			for(int i = 0; i < size - 1; i++) {
-				location.add(new Coordinates((char) (x+i), y));
+				c = new Coordinates((char) (x + i), y);
+				if(isSubmerged) {
+					c.setSubmerged();
+				}
+				location.add(c);
 			}
-			
-			location.add(new Coordinates((char) (x+2), y+1));
+			c = new Coordinates((char) (x+2), y+1);
+			if(isSubmerged) {
+				c.setSubmerged();
+			}
+			location.add(c);
 		}
 		return location;
 	}

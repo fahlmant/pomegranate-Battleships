@@ -122,8 +122,8 @@ public abstract class Ship {
 	
 	protected boolean checkForSubmerged(List<Ship> ships, int i, int j) {
 		// TODO fix this shit
-		if((ships.get(i).getLocation().get(j).isSubmerged() && !location.get(j).isSubmerged())
-				|| (!ships.get(i).getLocation().get(j).isSubmerged() && location.get(j).isSubmerged())) {
+		if((ships.get(i).getLocation().get(j).isSubmerged() && (!location.get(j).isSubmerged()))
+				|| ((!ships.get(i).getLocation().get(j).isSubmerged()) && location.get(j).isSubmerged())) {
 			return false;
 		}
 		return true;

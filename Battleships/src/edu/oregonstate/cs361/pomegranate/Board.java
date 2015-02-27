@@ -32,6 +32,7 @@ public class Board {
 		totalShips = 0;
 		isSunk = false;
 		sonarCounter = 2;
+		laserActive = false;
 	}
 	
 	public Ship getShip(int i) {
@@ -62,21 +63,26 @@ public class Board {
 		return false;
 	}
 	
-	private int checkLocation(char x, int y) {
+	private List<Ship> checkLocation(char x, int y) {
 		Ship s;
+		List<Ship> hitShips = new ArrayList<Ship>();
 		Coordinates location = new Coordinates(x, y);
 		for(int i = 0; i < totalShips; i++) {
 			for(int j = 0; j < ships.get(i).getSize(); j++) {
 				if(ships.get(i).getLocation().get(j).getX() == location.getX()
 				   && ships.get(i).getLocation().get(j).getY() == location.getY()) {
+					if(ships.get(i).getLocation().get(j).isSubmerged()
+							&& !laserActive) {
+						break;
+					}
 					s = checkCQ(ships.get(i), location, j);
 					ships.set(i, s);
-					return i;
+					hitShips.add(s);
 				}
 			}
 		}
 
-		return -1;
+		return hitShips;
 	}
 	
 	private Ship checkCQ(Ship s, Coordinates c, int j) {
@@ -106,46 +112,27 @@ public class Board {
 		//TODO implement a way to keep track of misses
 		//     implement a way to keep track of hits
 		
-		int i = checkLocation(x, y);
-		Ship s = null;
-		boolean isHit = false; 
-		
-		if(i != -1) {
-			s = ships.get(i);
-			isHit = isHit(x, y, i); 
-		}
-		
-		//TODO Here is logic for the Space Laser
-		if(laserActive) {
-			if(Coordinates.isSubmerged()) {
-				  isHit = isHit(x, y, i);
-			}
-		}
-		
+		List<Ship> hitShips = checkLocation(x, y);
 		List<Result> result = new ArrayList<Result>();
+		Ship s = null;
 		
-		Result r = new Result(s, x, y, shipsLeft);
-		r.setHit(isHit);
-
-		if(r.getResult() == Status.SUNK) {
-			shipsLeft--;
-			isSunk = true;
-			r = new Result(s, x, y, shipsLeft);
-			laserActive = true;
+		for(int i = 0; i < hitShips.size(); i++) {
+			s = hitShips.get(i);
+			Result r = new Result(s, x, y, shipsLeft);
+			if(r.getResult() == Status.SUNK) {
+				shipsLeft--;
+				isSunk = true;
+				r = new Result(s, x, y, shipsLeft);
+				laserActive = true;
+				}
+			result.add(r);
 		}
 		
-		result.add(r);
-		
+		if(hitShips.isEmpty()) {
+			Result r = new Result(s, x, y, shipsLeft);
+			result.add(r);
+		}
 		return result;
-	}
-	
-	private boolean isHit(char x, int y, int i) {
-		for(int j = 0; j < ships.get(i).getSize(); j++) {
-			if(ships.get(i).getLocation().get(j).isHit()) {
-				return true;
-			}
-		}
-		return false;
 	}
 	
 	/**
@@ -254,7 +241,8 @@ public class Board {
 					}
 				}
 			}
-		}		
+		}
+		undoStack.push("East");
 	}
 	
 	public void moveWest() {
@@ -278,7 +266,8 @@ public class Board {
 					}
 				}
 			}
-		}			
+		}
+		undoStack.push("West");
 	}
 	
 	public void moveSouth() {
@@ -302,10 +291,8 @@ public class Board {
 					}
 				}
 			}
-			
-			//Push move onto stack
-		}	
-		
+		}
+		undoStack.push("South");
 	}
 	
 	public void undoMove() {

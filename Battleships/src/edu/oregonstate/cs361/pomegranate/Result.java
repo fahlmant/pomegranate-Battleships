@@ -10,7 +10,9 @@ public class Result {
 	Result(Ship ship, char x, int y, int shipsLeft){
 		this.ship = ship;
 		this.status = checkStatus(x, y, shipsLeft);
-		isHit = false;
+		if(ship != null) {
+			isHit = isHit();
+		}
 	}
 
 	public Status getResult() {
@@ -56,11 +58,12 @@ public class Result {
 		return false;
 	}
 
-	public boolean isHit() {
-		return isHit;
-	}
-
-	public void setHit(boolean isHit) {
-		this.isHit = isHit;
+	private boolean isHit() {
+		for(int i = 0; i < ship.getSize(); i++) {
+			if(ship.getLocation().get(i).isHit()) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

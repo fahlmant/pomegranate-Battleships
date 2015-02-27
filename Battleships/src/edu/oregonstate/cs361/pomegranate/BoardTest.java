@@ -218,7 +218,7 @@ public class BoardTest {
 		Ship s = new Destroyer("Destroyer", 'A', 4, false);
 		Ship s2 = new Submarine("Submarine", 'A', 4, false, true);
 		Board b = new Board();
-		b.placeShip(s);
 		assertEquals(true, b.placeShip(s2));
+		assertEquals(true, s2.getLocation().get(0).isSubmerged());
 	}
 }
