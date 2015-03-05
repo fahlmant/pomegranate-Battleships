@@ -54,14 +54,15 @@ public class Milestone4Tests {
 	public void testLaserEnabled() {
 		sinkMinesweeper();
 		placeSubmergedSubmarine('F', 5, true);
-		List<Result> results = board.attack('F',5);
+		board.attack('F', 5);
+		List<Result> results = board.attack('F', 5);
 		assertEquals(1, results.size());
 		Result result = results.iterator().next();
-		assertEquals(Status.HIT, result.getResult());
+		assertEquals(Status.SUNK, result.getResult());
 	}
 
 	private void sinkMinesweeper() {
-		board.attack('B', 2);
+		board.attack('B', 4);
 	}
 	
 	@Test
@@ -119,28 +120,28 @@ public class Milestone4Tests {
 	public void testUndoMoveNorth() {
 		board.moveNorth();
 		board.undoMove();
-		assertEquals(Status.SUNK, board.attack('B', 3).iterator().next().getResult());
+		assertEquals(Status.SUNK, board.attack('B', 4).iterator().next().getResult());
 	}
 	
 	@Test
 	public void testUndoMoveSouth() {
 		board.moveSouth();
 		board.undoMove();
-		assertEquals(Status.SUNK, board.attack('B', 5).iterator().next().getResult());
+		assertEquals(Status.SUNK, board.attack('B', 4).iterator().next().getResult());
 	}
 	
 	@Test
 	public void testUndoMoveEast() {
 		board.moveEast();
 		board.undoMove();
-		assertEquals(Status.SUNK, board.attack('B', 3).iterator().next().getResult());
+		assertEquals(Status.SUNK, board.attack('B', 4).iterator().next().getResult());
 	}
 	
 	@Test
 	public void testUndoMoveWest() {
 		board.moveWest();
 		board.undoMove();
-		assertEquals(Status.SUNK, board.attack('B', 3).iterator().next().getResult());
+		assertEquals(Status.SUNK, board.attack('B', 4).iterator().next().getResult());
 	}
 	
 	@Test
@@ -149,7 +150,7 @@ public class Milestone4Tests {
 		board.moveNorth();
 		board.moveNorth();
 		board.undoMove();
-		assertEquals(Status.SUNK, board.attack('B', 1).iterator().next().getResult());
+		assertEquals(Status.SUNK, board.attack('B', 2).iterator().next().getResult());
 	}
 	
 	@Test
@@ -157,6 +158,6 @@ public class Milestone4Tests {
 		board.moveNorth();
 		board.undoMove();
 		board.redoMove();
-		assertEquals(Status.SUNK, board.attack('B', 2).iterator().next().getResult());
+		assertEquals(Status.SUNK, board.attack('B', 3).iterator().next().getResult());
 	}
 }

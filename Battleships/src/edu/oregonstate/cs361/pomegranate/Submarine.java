@@ -17,13 +17,8 @@ public class Submarine extends Ship{
 		armor = true;
 	}
 	
-	protected void setCQ(char x, int y) {
-		if (isVertical) {
-			cq = new Coordinates(x, y-3);
-		}
-		else {
-			cq = new Coordinates((char) (x+3), y);
-		}
+	protected void initCQ(char x, int y) {
+		cq = new Coordinates(x, y);
 	}
 	
 	public void setLocation(char x, int y, boolean isVertical) {
@@ -31,17 +26,17 @@ public class Submarine extends Ship{
 		this.isVertical = isVertical;
 		valid = checkInput(x, y, isVertical);
 		Coordinates c;
-		setCQ(x, y);
+		initCQ(x, y);
 		
 		if(isVertical == true) {
 			for(int i = 0; i < size -1; i++) {
-				c = new Coordinates(x, y-i);
+				c = new Coordinates(x, y+i);
 				if(isSubmerged) {
 					c.setSubmerged();
 				}
 				location.add(c);
 			}
-			c = new Coordinates((char) (x+1), y-2);
+			c = new Coordinates((char) (x+1), y+2);
 			if(isSubmerged) {
 				c.setSubmerged();
 			}
@@ -49,13 +44,13 @@ public class Submarine extends Ship{
 			
 		} else {
 			for(int i = 0; i < size - 1; i++) {
-				c = new Coordinates((char) (x + i), y);
+				c = new Coordinates((char) (x+i), y);
 				if(isSubmerged) {
 					c.setSubmerged();
 				}
 				location.add(c);
 			}
-			c = new Coordinates((char) (x+2), y+1);
+			c = new Coordinates((char) (x+2), y-1);
 			if(isSubmerged) {
 				c.setSubmerged();
 			}
@@ -75,11 +70,11 @@ public class Submarine extends Ship{
 			valid = false;
 		}
 		
-		if((y - size + 1 < 0 || x == 'J') && isVertical == true) {
+		if((y + (size - 1) > 11 || x == 'J') && isVertical == true) {
 			valid = false;
 		}
 		
-		if((x + size - 1 > 'J' || y == 10) && isVertical == false) {
+		if((x + (size - 1) > 'K' || y == 1) && isVertical == false) {
 			valid = false;
 		}
 		
@@ -94,15 +89,15 @@ public class Submarine extends Ship{
 		boolean valid = false;
 		switch(direction) {
 		case "North":
-			if(this.getLocation().get(0).getY() <= 9 && this.isVertical) {
+			if(this.getLocation().get(0).getY() >= 2 && this.isVertical) {
 				valid = true;
 			}
-			else if(!this.isVertical && this.getLocation().get(this.size - 1).getY() <= 9){
+			else if(!this.isVertical && this.getLocation().get(this.size - 1).getY() >= 2){
 				valid = true;
 			}
 			break;
 		case "South":
-			if(this.getLocation().get(this.size - 2).getY() >= 2) {
+			if(this.getLocation().get(this.size - 2).getY() <= 9) {
 				valid = true;
 			}
 			break;

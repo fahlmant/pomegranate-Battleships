@@ -47,11 +47,11 @@ public abstract class Ship {
 			valid = false;
 		}
 		
-		if(y - size < 0 && isVertical == true) {
+		if(y + size > 11 && isVertical == true) {
 			valid = false;
 		}
 		
-		if(x + size > 'J' && isVertical == false) {
+		if(x + size > 'K' && isVertical == false) {
 			valid = false;
 		}
 		
@@ -62,11 +62,11 @@ public abstract class Ship {
 		List<Coordinates> location = new ArrayList<Coordinates>();
 		this.isVertical = isVertical;
 		valid = checkInput(x, y, isVertical);
-		setCQ(x, y);
+		initCQ(x, y);
 		
 		if(this.isVertical == true) {
 			for(int i = 0; i < size; i++) {
-				location.add(new Coordinates(x, y-i));
+				location.add(new Coordinates(x, y+i));
 			}
 		} else {
 			for(int i = 0; i < size; i++) {
@@ -104,7 +104,18 @@ public abstract class Ship {
 		return cq;
 	}
 	
-	abstract protected void setCQ(char x, int y);
+	public void setCQ(char x, int y) {
+		cq = new Coordinates(x, y);
+	}
+	
+	protected void initCQ(char x, int y) {
+		if (isVertical) {
+			cq = new Coordinates(x, y+1);
+		}
+		else {
+			cq = new Coordinates((char) (x+1), y);
+		}
+	}
 	
 	public boolean checkOverlap(List<Ship> ships, int totalShips) {
 
@@ -125,7 +136,6 @@ public abstract class Ship {
 	}
 	
 	protected boolean checkForSubmerged(List<Ship> ships, int i, int j) {
-		// TODO fix this shit
 		if((ships.get(i).getLocation().get(j).isSubmerged() && (!location.get(j).isSubmerged()))
 				|| ((!ships.get(i).getLocation().get(j).isSubmerged()) && location.get(j).isSubmerged())) {
 			return false;
@@ -137,12 +147,12 @@ public abstract class Ship {
 		boolean valid = false;
 		switch(direction) {
 		case "North":
-			if(this.getLocation().get(0).getY() <= 9) {
+			if(this.getLocation().get(0).getY() >= 2) {
 				valid = true;
 			}
 			break;
 		case "South":
-			if(this.getLocation().get(this.size - 1).getY() >= 2) {
+			if(this.getLocation().get(this.size - 1).getY() <= 9) {
 				valid = true;
 			}
 			break;

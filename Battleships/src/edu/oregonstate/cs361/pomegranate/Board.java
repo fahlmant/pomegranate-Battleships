@@ -202,8 +202,9 @@ public class Board {
 				if(ships.get(i).checkMove("North"))
 				{
 					for(int j = 0; j < ships.get(i).getSize(); j++) {
-						ships.get(i).getLocation().get(j).setY(ships.get(i).getLocation().get(j).getY() + 1); 
+						ships.get(i).getLocation().get(j).setY(ships.get(i).getLocation().get(j).getY() - 1); 
 					}
+					ships.get(i).setCQ(ships.get(i).getCq().getX(), ships.get(i).getCq().getY() - 1);
 				}
 			}
 			else
@@ -211,8 +212,9 @@ public class Board {
 				if(ships.get(i).checkMove("North"))
 				{
 					for(int j = 0; j < ships.get(i).getSize(); j++) {
-						ships.get(i).getLocation().get(j).setY(ships.get(i).getLocation().get(j).getY() + 1); 
+						ships.get(i).getLocation().get(j).setY(ships.get(i).getLocation().get(j).getY() - 1); 
 					}
+					ships.get(i).setCQ(ships.get(i).getCq().getX(), ships.get(i).getCq().getY() - 1);
 				}
 			}	
 		}	
@@ -230,6 +232,7 @@ public class Board {
 					for(int j = 0; j < ships.get(i).getSize(); j++) {
 						ships.get(i).getLocation().get(j).setX((char) (ships.get(i).getLocation().get(j).getX() + 1)); 
 					}
+					ships.get(i).setCQ((char) (ships.get(i).getCq().getX() + 1), ships.get(i).getCq().getY());
 				}
 			}
 			else
@@ -239,6 +242,7 @@ public class Board {
 					for(int j = 0; j < ships.get(i).getSize(); j++) {
 						ships.get(i).getLocation().get(j).setX((char) (ships.get(i).getLocation().get(j).getX() + 1)); 
 					}
+					ships.get(i).setCQ((char) (ships.get(i).getCq().getX() + 1), ships.get(i).getCq().getY());
 				}
 			}
 		}
@@ -255,6 +259,7 @@ public class Board {
 					for(int j = 0; j < ships.get(i).getSize(); j++) {
 						ships.get(i).getLocation().get(j).setX((char) (ships.get(i).getLocation().get(j).getX() - 1)); 
 					}
+					ships.get(i).setCQ((char) (ships.get(i).getCq().getX() - 1), ships.get(i).getCq().getY());
 				}
 			}
 			else
@@ -264,6 +269,7 @@ public class Board {
 					for(int j = 0; j < ships.get(i).getSize(); j++) {
 						ships.get(i).getLocation().get(j).setX((char) (ships.get(i).getLocation().get(j).getX() - 1)); 
 					}
+					ships.get(i).setCQ((char) (ships.get(i).getCq().getX() - 1), ships.get(i).getCq().getY());
 				}
 			}
 		}
@@ -278,8 +284,9 @@ public class Board {
 				if(ships.get(i).checkMove("South"))
 				{
 					for(int j = 0; j < ships.get(i).getSize(); j++) {
-						ships.get(i).getLocation().get(j).setY(ships.get(i).getLocation().get(j).getY() - 1); 
+						ships.get(i).getLocation().get(j).setY(ships.get(i).getLocation().get(j).getY() + 1); 
 					}
+					ships.get(i).setCQ(ships.get(i).getCq().getX(), ships.get(i).getCq().getY() + 1);
 				}
 			}
 			else
@@ -287,8 +294,9 @@ public class Board {
 				if(ships.get(i).checkMove("South"))
 				{
 					for(int j = 0; j < ships.get(i).getSize(); j++) {
-						ships.get(i).getLocation().get(j).setY(ships.get(i).getLocation().get(j).getY() - 1); 
+						ships.get(i).getLocation().get(j).setY(ships.get(i).getLocation().get(j).getY() + 1); 
 					}
+					ships.get(i).setCQ(ships.get(i).getCq().getX(), ships.get(i).getCq().getY() + 1);
 				}
 			}
 		}
