@@ -17,8 +17,8 @@ public class Board {
 	private int shipsLeft;
 	private boolean isSunk;
 	private int sonarCounter;
-	private Stack<Move> undoStack = new Stack<Move>();
-	private Stack<Move> redoStack = new Stack<Move>();
+	Stack<Move> undoStack = new Stack<Move>();
+	Stack<Move> redoStack = new Stack<Move>();
 	boolean laserActive;
 
 	public Board() {
@@ -140,25 +140,22 @@ public class Board {
 	public void moveNorth() {
 		MoveNorth north = new MoveNorth(this);
 		north.moveIt();
-		undoStack.push(north);
 	}
 	
 	public void moveEast() {	
 		MoveEast east = new MoveEast(this);
 		east.moveIt();
-		undoStack.push(east);
 	}
 	
 	public void moveWest() {
 		MoveWest west = new MoveWest(this);
 		west.moveIt();
-		undoStack.push(west);
 	}
 	
 	public void moveSouth() {
 		MoveSouth south = new MoveSouth(this);
 		south.moveIt();
-		undoStack.push(south);
+
 	}
 	
 	public void undoMove() {
@@ -168,6 +165,7 @@ public class Board {
 		Move move = undoStack.pop();
 		Move undo = move.undo();
 		undo.moveIt();
+		undoStack.pop();
 		redoStack.push(undo);
 	}
 	
@@ -178,6 +176,7 @@ public class Board {
 		Move move = redoStack.pop();
 		Move redo = move.undo();
 		redo.moveIt();
+		
 	}
 
 }

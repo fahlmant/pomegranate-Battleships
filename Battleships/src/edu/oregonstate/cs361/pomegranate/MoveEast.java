@@ -32,6 +32,7 @@ public class MoveEast extends Move{
 				}
 			}
 		}
+		b.undoStack.push(this);
 	}
 	
 	public Move undo() {

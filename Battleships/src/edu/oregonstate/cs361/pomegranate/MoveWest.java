@@ -32,6 +32,7 @@ public class MoveWest extends Move {
 				}
 			}
 		}
+		b.undoStack.push(this);
 		
 	}
 	

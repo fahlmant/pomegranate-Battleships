@@ -32,6 +32,7 @@ public class MoveNorth extends Move {
 				}
 			}	
 		}
+		b.undoStack.push(this);
 	}
 	
 	public Move undo()

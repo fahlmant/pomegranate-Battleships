@@ -32,13 +32,13 @@ public class MoveSouth extends Move{
 				}
 			}
 		}
+		b.undoStack.push(this);
 	}
 	
 	public Move undo()
 	{
 		undoType = new MoveNorth(b);
 		return undoType;
-		
 	}
 
 }
