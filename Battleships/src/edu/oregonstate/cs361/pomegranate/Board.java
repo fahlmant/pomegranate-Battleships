@@ -12,14 +12,15 @@ import java.lang.Math;
 public class Board {
 	
 	private Grid[][] grid;
-	List<Ship> ships;
-	int totalShips;
+	private List<Ship> ships;
+	private int totalShips;
 	private int shipsLeft;
 	private boolean isSunk;
 	private int sonarCounter;
-	Stack<Move> undoStack = new Stack<Move>();
-	Stack<Move> redoStack = new Stack<Move>();
-	boolean laserActive;
+	private boolean laserActive;
+	private Stack<Move> undoStack;
+	private Stack<Move> redoStack;
+
 
 	public Board() {
 		grid = new Grid [10][10];
@@ -34,6 +35,8 @@ public class Board {
 		isSunk = false;
 		sonarCounter = 2;
 		laserActive = false;
+		undoStack = new Stack<Move>();
+		redoStack = new Stack<Move>();
 	}
 	
 	public Ship getShip(int i) {
@@ -138,23 +141,23 @@ public class Board {
 	}
 
 	public void moveNorth() {
-		MoveNorth north = new MoveNorth(this);
-		north.moveIt();
+		MoveNorth north = new MoveNorth(undoStack, ships, totalShips);
+		undoStack = north.moveIt();
 	}
 	
 	public void moveEast() {	
-		MoveEast east = new MoveEast(this);
-		east.moveIt();
+		MoveEast east = new MoveEast(undoStack, ships, totalShips);
+		undoStack = east.moveIt();
 	}
 	
 	public void moveWest() {
-		MoveWest west = new MoveWest(this);
-		west.moveIt();
+		MoveWest west = new MoveWest(undoStack, ships, totalShips);
+		undoStack = west.moveIt();
 	}
 	
 	public void moveSouth() {
-		MoveSouth south = new MoveSouth(this);
-		south.moveIt();
+		MoveSouth south = new MoveSouth(undoStack, ships, totalShips);
+		undoStack = south.moveIt();
 
 	}
 	
@@ -179,4 +182,11 @@ public class Board {
 		
 	}
 
+	public List<Ship> getShips() {
+		return ships;
+	}
+
+	public int getTotalShips() {
+		return totalShips;
+	}
 }

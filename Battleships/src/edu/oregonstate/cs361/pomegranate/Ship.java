@@ -20,8 +20,12 @@ public abstract class Ship {
 		this.kind = kind;
 	}
 	
-	public void takeDamage() {
+	public Ship takeDamage(int j) {
 		health--;
+		Coordinates c = location.get(j);
+		c.hit();
+		location.set(j, c);
+		return this;
 	}
 
 	public String getKind() {
@@ -89,12 +93,19 @@ public abstract class Ship {
 		return isVertical;
 	}
 
-	public void cqDestroyed() {
+	public Ship cqDestroyed() {
 		health = 0;
+		for(int i = 0; i < size; i++) {
+			Coordinates c = location.get(i);
+			c.hit();
+			location.set(i, c);
+		}
+		return this;
 	}
 	
-	public void destroyArmor() {
+	public Ship destroyArmor() {
 		armor = false;
+		return this;
 	}
 	
 	public boolean isArmor() {

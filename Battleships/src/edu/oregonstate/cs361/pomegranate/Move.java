@@ -1,22 +1,22 @@
 package edu.oregonstate.cs361.pomegranate;
 
-public class Move {
+import java.util.List;
+import java.util.Stack;
+
+abstract public class Move {
 
 	protected Move undoType;
-	protected Board b;
+	protected Stack<Move> undoStack;
+	protected List<Ship> ships;
+	protected int totalShips;
 	
-	public Move(Board b) {
-		this.b = b;
+	public Move(Stack<Move> undoStack, List<Ship> ships, int totalShips) {
+		this.undoStack = undoStack;
+		this.ships = ships;
+		this.totalShips = totalShips;
 	}
 
-	public void moveIt()
-	{
-		
-	}
+	abstract public Stack<Move> moveIt();
 	
-	public Move undo()
-	{
-		return undoType;
-		
-	}
+	abstract public Move undo();
 }

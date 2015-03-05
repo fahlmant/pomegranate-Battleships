@@ -10,6 +10,7 @@ public class RegularAttack {
 	protected Ship s;
 	protected List<Ship> hitShips;
 	protected Coordinates location;
+	protected Board b;
 	protected List<Ship> ships;
 	protected int totalShips;
 	
@@ -24,12 +25,11 @@ public class RegularAttack {
 		for(int i = 0; i < totalShips; i++) {
 			for(int j = 0; j < ships.get(i).getSize(); j++) {
 				if(ships.get(i).getLocation().get(j).isEqual(location)) {
-					if(ships.get(i).getLocation().get(j).isSubmerged()) {
-						break;
+					if(!ships.get(i).getLocation().get(j).isSubmerged()) {
+						s = checkCQ(ships.get(i), j);
+						ships.set(i, s);
+						hitShips.add(s);
 					}
-					s = checkCQ(ships.get(i), j);
-					ships.set(i, s);
-					hitShips.add(s);
 				}
 			}
 		}
@@ -37,26 +37,14 @@ public class RegularAttack {
 	}
 	
 	protected Ship checkCQ(Ship s, int j) {
-		Coordinates c;
 		if(s.getCq().isEqual(location)) {
 			if(s.isArmor()) {
-				s.destroyArmor();
-				return s;
+				return s.destroyArmor();
 			} else {
-				s.cqDestroyed();
-				for(int i = 0; i < s.getSize(); i++) {
-					c = s.getLocation().get(i);
-					c.hit();
-					s.getLocation().set(i, c);
-				}
-				return s;
+				return s.cqDestroyed();
 			}
 		} else {
-			s.takeDamage();
-			c = s.getLocation().get(j);
-			c.hit();
-			s.getLocation().set(j, c);
-			return s;
+			return s.takeDamage(j);
 		}
 	}
 }
