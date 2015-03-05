@@ -62,6 +62,7 @@ public abstract class Ship {
 		List<Coordinates> location = new ArrayList<Coordinates>();
 		this.isVertical = isVertical;
 		valid = checkInput(x, y, isVertical);
+		
 		initCQ(x, y);
 		
 		if(this.isVertical == true) {

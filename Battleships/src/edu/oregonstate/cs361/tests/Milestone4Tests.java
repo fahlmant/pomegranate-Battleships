@@ -26,7 +26,7 @@ public class Milestone4Tests {
 	}
 
 	private Submarine createSurfaceSubmarine() {
-		return new Submarine("", true);
+		return new Submarine("", false);
 	}
 	
 	private Submarine createSubmergedSubmarine() {

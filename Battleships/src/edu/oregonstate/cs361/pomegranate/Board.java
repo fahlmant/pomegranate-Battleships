@@ -60,57 +60,23 @@ public class Board {
 			}
 			return true;
 		}
+		
 		return false;
 	}
 	
 	private List<Ship> checkLocation(char x, int y) {
-		Ship s;
-		List<Ship> hitShips = new ArrayList<Ship>();
-		Coordinates location = new Coordinates(x, y);
-		for(int i = 0; i < totalShips; i++) {
-			for(int j = 0; j < ships.get(i).getSize(); j++) {
-				if(ships.get(i).getLocation().get(j).getX() == location.getX()
-				   && ships.get(i).getLocation().get(j).getY() == location.getY()) {
-					if(ships.get(i).getLocation().get(j).isSubmerged()
-							&& !laserActive) {
-						break;
-					}
-					s = checkCQ(ships.get(i), location, j);
-					ships.set(i, s);
-					hitShips.add(s);
-				}
-			}
+		List<Ship> hitShips;
+		if(laserActive) {
+			LaserAttack l = new LaserAttack(x, y, ships, totalShips);
+			hitShips = l.hitShips();
+		} else {
+			RegularAttack r = new RegularAttack(x, y, ships, totalShips);
+			hitShips = r.hitShips();
 		}
-
 		return hitShips;
 	}
 	
-	private Ship checkCQ(Ship s, Coordinates c, int j) {
-		if(s.getCq().getX() == c.getX() && s.getCq().getY() == c.getY()) {
-			if(s.isArmor()) {
-				s.destroyArmor();
-				return s;
-			} else {
-				s.cqDestroyed();
-				for(int i = 0; i < s.getSize(); i++) {
-					c = s.getLocation().get(i);
-					c.hit();
-					s.getLocation().set(i, c);
-				}
-				return s;
-			}
-		}
-		s.takeDamage();
-		c = s.getLocation().get(j);
-		c.hit();
-		s.getLocation().set(j, c);
-		return s;
-	}
-	
 	public List<Result> attack(char x, int y) {
-		
-		//TODO implement a way to keep track of misses
-		//     implement a way to keep track of hits
 		
 		List<Ship> hitShips = checkLocation(x, y);
 		List<Result> result = new ArrayList<Result>();
