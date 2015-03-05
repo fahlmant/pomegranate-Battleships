@@ -7,6 +7,7 @@ import java.util.Stack;
 import edu.oregonstate.cs361.api.AmmoExhaustedException;
 import edu.oregonstate.cs361.api.Coordinates;
 import edu.oregonstate.cs361.api.WeaponUnavailableException;
+import java.lang.Math;
 
 public class Board {
 	
@@ -113,6 +114,9 @@ public class Board {
 		
 		//TODO add error checking for using sonar out of bounds
 		
+		Coordinates c;
+		List<Coordinates> list = new ArrayList<Coordinates>();
+		
 		if(!isSunk) {
 			throw new WeaponUnavailableException();
 		}
@@ -121,41 +125,14 @@ public class Board {
 			throw new AmmoExhaustedException();
 		}
 		
-		List<Coordinates> list = new ArrayList<Coordinates>();
-		int xCord = x - 'A';
-		int yCord = y - 1;
-		
-		if(grid[xCord - 2][yCord] == Grid.SHIP) {
-			Coordinates c = new Coordinates((char)(xCord + 'A' - 2), yCord + 1);
-			list.add(c);				
-		}
-		
-		for(int i = yCord + 1; i > yCord - 1; i--) {
-			if(grid[xCord - 1][i] == Grid.SHIP) {
-				Coordinates c = new Coordinates((char)(xCord + 'A' - 1), i + 1);
-				list.add(c);				
+		for(int i = -2; i <= 2; i++) {
+			for(int j = 0; j < 5 - (2 * Math.abs(i)); j++) {
+				if(grid[x - 'A' + i][y + j - 3 + Math.abs(i)] == Grid.SHIP) {
+					c = new Coordinates((char) (x + i), y + j - 2 + Math.abs(i));
+					list.add(c);
+				}
 			}
 		}
-		
-		for(int i = yCord + 2; i > yCord - 2; i--) {
-			if(grid[xCord][i] == Grid.SHIP) {
-				Coordinates c = new Coordinates((char)(xCord + 'A'), i + 1);
-				list.add(c);				
-			}
-		}
-		
-		for(int i = yCord + 1; i > yCord - 1; i--) {
-			if(grid[xCord + 1][i] == Grid.SHIP) {
-				Coordinates c = new Coordinates((char)(xCord + 'A' + 1), i + 1);
-				list.add(c);				
-			}
-		}
-		
-		if(grid[xCord + 2][yCord] == Grid.SHIP) {
-			Coordinates c = new Coordinates((char)(xCord + 'A' + 2), yCord + 1);
-			list.add(c);				
-		}
-	
 		sonarCounter--;
 		return list;
 	}

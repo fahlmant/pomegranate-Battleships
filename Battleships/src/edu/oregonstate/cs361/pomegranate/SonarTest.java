@@ -15,9 +15,9 @@ public class SonarTest {
 	
 	public void testSonar() throws WeaponUnavailableException, AmmoExhaustedException{
 		Board b = new Board();
-		Coordinates c = new Coordinates('E', 7);
+		Coordinates c = new Coordinates('E', 5);
 		Coordinates c2 = new Coordinates('E', 6);
-		Coordinates c3 = new Coordinates('E', 5);
+		Coordinates c3 = new Coordinates('E', 7);
 		Ship s = new Destroyer("Destroyer");
 		Ship s2 = new Minesweeper("Minesweeper");
 		b.placeShip(s, 'E', 5, true);
