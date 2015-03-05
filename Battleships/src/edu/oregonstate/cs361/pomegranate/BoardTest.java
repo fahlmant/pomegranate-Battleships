@@ -69,7 +69,7 @@ public class BoardTest {
 	public void testInvalidHorizontal() {
 		Ship s = new Destroyer("Destroyer");
 		Board b = new Board();
-		boolean valid = b.placeShip(s, 'H', 1, false);
+		boolean valid = b.placeShip(s, 'K', 1, false);
 		assertEquals(false, valid);
 	}
 	
@@ -89,11 +89,11 @@ public class BoardTest {
 		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'A');
 		assertEquals(b.getShip(0).getLocation().get(0).getY(), 4);
 		assertEquals(b.getShip(0).getLocation().get(1).getX(), 'A');
-		assertEquals(b.getShip(0).getLocation().get(1).getY(), 3);
+		assertEquals(b.getShip(0).getLocation().get(1).getY(), 5);
 		assertEquals(b.getShip(0).getLocation().get(2).getX(), 'A');
-		assertEquals(b.getShip(0).getLocation().get(2).getY(), 2);
+		assertEquals(b.getShip(0).getLocation().get(2).getY(), 6);
 		assertEquals(b.getShip(0).getLocation().get(3).getX(), 'A');
-		assertEquals(b.getShip(0).getLocation().get(3).getY(), 1);
+		assertEquals(b.getShip(0).getLocation().get(3).getY(), 7);
 	}
 
 	@Test
@@ -124,11 +124,11 @@ public class BoardTest {
 	public void testAttackValid(){
 		Ship s = new Destroyer("Destroyer");
 		Board b = new Board();
-		b.placeShip(s, 'B', 10, true);
+		b.placeShip(s, 'B', 1, true);
 		List<Result> r = new ArrayList<Result>();
-		r = b.attack('B', 10);
+		r = b.attack('B', 1);
 		assertEquals(r.get(0).getResult(), Status.HIT);
-		r = b.attack('C', 5);
+		r = b.attack('C', 1);
 		assertEquals(r.get(0).getResult(), Status.MISS);
 
 	}
@@ -139,15 +139,15 @@ public class BoardTest {
 		Ship s2 = new Minesweeper("Minesweeper");
 		Board b = new Board();
 		List<Result> r = new ArrayList<Result>();
-		b.placeShip(s, 'B', 10, true);
-		b.placeShip(s2, 'A', 1, false);
-		r = b.attack('B', 10);
+		b.placeShip(s, 'B', 1, true);
+		b.placeShip(s2, 'A', 10, false);
+		r = b.attack('B', 1);
 		assertEquals(r.get(0).getResult(), Status.HIT);
-		r = b.attack('B', 8);
+		r = b.attack('B', 3);
 		assertEquals(r.get(0).getResult(), Status.HIT);
-		r = b.attack('B', 9);
+		r = b.attack('B', 2);
 		assertEquals(r.get(0).getResult(), Status.MISS);
-		r = b.attack('B', 9);
+		r = b.attack('B', 2);
 		assertEquals(r.get(0).getResult(), Status.SUNK);
 	}
 	
@@ -158,30 +158,30 @@ public class BoardTest {
 		Ship s3 = new Battleship("Battleship");
 		Board b = new Board();
 		List<Result> r = new ArrayList<Result>();
-		b.placeShip(s, 'A', 10, true);
-		b.placeShip(s2, 'A', 1, false);
-		b.placeShip(s3, 'J', 10, true);
+		b.placeShip(s, 'A', 1, true);
+		b.placeShip(s2, 'A', 10, false);
+		b.placeShip(s3, 'J', 1, true);
+		r = b.attack('A', 1);
+		assertEquals(r.get(0).getResult(), Status.HIT);
+		r = b.attack('A', 2);
+		assertEquals(r.get(0).getResult(), Status.MISS);
+		r = b.attack('A', 3);
+		assertEquals(r.get(0).getResult(), Status.HIT);
+		r = b.attack('A', 2);
+		assertEquals(r.get(0).getResult(), Status.SUNK);
 		r = b.attack('A', 10);
 		assertEquals(r.get(0).getResult(), Status.HIT);
-		r = b.attack('A', 9);
-		assertEquals(r.get(0).getResult(), Status.MISS);
-		r = b.attack('A', 8);
-		assertEquals(r.get(0).getResult(), Status.HIT);
-		r = b.attack('A', 9);
+		r = b.attack('B', 10);
 		assertEquals(r.get(0).getResult(), Status.SUNK);
-		r = b.attack('B', 1);
+		r = b.attack('J', 1);
 		assertEquals(r.get(0).getResult(), Status.HIT);
-		r = b.attack('A', 1);
-		assertEquals(r.get(0).getResult(), Status.SUNK);
-		r = b.attack('J', 10);
-		assertEquals(r.get(0).getResult(), Status.HIT);
-		r = b.attack('J', 9);
-		assertEquals(r.get(0).getResult(), Status.HIT);
-		r = b.attack('J', 8);
+		r = b.attack('J', 2);
 		assertEquals(r.get(0).getResult(), Status.MISS);
-		r = b.attack('J', 7);
+		r = b.attack('J', 3);
 		assertEquals(r.get(0).getResult(), Status.HIT);
-		r = b.attack('J', 8);	
+		r = b.attack('J', 4);
+		assertEquals(r.get(0).getResult(), Status.HIT);
+		r = b.attack('J', 2);	
 		assertEquals(b.getShipsLeft(), 0);
 		assertEquals(r.get(0).getResult(), Status.SURRENDER);
 		}
@@ -193,7 +193,7 @@ public class BoardTest {
 		List<Result> r = new ArrayList<Result>();
 		assertEquals(s.isArmor(), true);
 		b.placeShip(s, 'A', 4, false);
-		b.placeShip(s2, 'J', 10, true);
+		b.placeShip(s2, 'J', 1, true);
 		r = b.attack('B', 4);
 		assertEquals(r.get(0).getResult(), Status.MISS);
 		assertEquals(r.get(0).getShip().isArmor(), false);

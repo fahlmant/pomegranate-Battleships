@@ -125,30 +125,30 @@ public class Board {
 		int xCord = x - 'A';
 		int yCord = y - 1;
 		
-		for(int i = yCord - 2; i < yCord + 2; i++) {
-			if(grid[xCord][i] == Grid.SHIP) {
-				Coordinates c = new Coordinates((char)(xCord + 'A'), i + 1);
-				list.add(c);				
-			}
+		if(grid[xCord - 2][yCord] == Grid.SHIP) {
+			Coordinates c = new Coordinates((char)(xCord + 'A' - 2), yCord + 1);
+			list.add(c);				
 		}
 		
-		for(int i = yCord - 1; i < yCord + 1; i++) {
+		for(int i = yCord + 1; i > yCord - 1; i--) {
 			if(grid[xCord - 1][i] == Grid.SHIP) {
 				Coordinates c = new Coordinates((char)(xCord + 'A' - 1), i + 1);
 				list.add(c);				
 			}
 		}
 		
-		for(int i = yCord - 1; i < yCord + 1; i++) {
-			if(grid[xCord + 1][i] == Grid.SHIP) {
-				Coordinates c = new Coordinates((char)(xCord + 'A' + 1), i + 1);
+		for(int i = yCord + 2; i > yCord - 2; i--) {
+			if(grid[xCord][i] == Grid.SHIP) {
+				Coordinates c = new Coordinates((char)(xCord + 'A'), i + 1);
 				list.add(c);				
 			}
 		}
 		
-		if(grid[xCord - 2][yCord] == Grid.SHIP) {
-			Coordinates c = new Coordinates((char)(xCord + 'A' - 2), yCord + 1);
-			list.add(c);				
+		for(int i = yCord + 1; i > yCord - 1; i--) {
+			if(grid[xCord + 1][i] == Grid.SHIP) {
+				Coordinates c = new Coordinates((char)(xCord + 'A' + 1), i + 1);
+				list.add(c);				
+			}
 		}
 		
 		if(grid[xCord + 2][yCord] == Grid.SHIP) {

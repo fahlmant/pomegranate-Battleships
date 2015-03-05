@@ -13,7 +13,7 @@ public class MoveTest {
 		b.placeShip(s, 'A', 3, true);
 		b.moveNorth();
 		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'A');
-		assertEquals(b.getShip(0).getLocation().get(0).getY(), 4);
+		assertEquals(b.getShip(0).getLocation().get(0).getY(), 2);
 		assertEquals(b.getShip(0).getLocation().get(1).getX(), 'A');
 		assertEquals(b.getShip(0).getLocation().get(1).getY(), 3);
 		
@@ -26,9 +26,9 @@ public class MoveTest {
 		b.placeShip(s, 'A', 3, false);
 		b.moveNorth();
 		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'A');
-		assertEquals(b.getShip(0).getLocation().get(0).getY(), 4);
+		assertEquals(b.getShip(0).getLocation().get(0).getY(), 2);
 		assertEquals(b.getShip(0).getLocation().get(1).getX(), 'B');
-		assertEquals(b.getShip(0).getLocation().get(1).getY(), 4);
+		assertEquals(b.getShip(0).getLocation().get(1).getY(), 2);
 		
 	}
 	
@@ -41,7 +41,7 @@ public class MoveTest {
 		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'B');
 		assertEquals(b.getShip(0).getLocation().get(0).getY(), 3);
 		assertEquals(b.getShip(0).getLocation().get(1).getX(), 'B');
-		assertEquals(b.getShip(0).getLocation().get(1).getY(), 2);
+		assertEquals(b.getShip(0).getLocation().get(1).getY(), 4);
 		
 	}
 	
@@ -67,7 +67,7 @@ public class MoveTest {
 		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'A');
 		assertEquals(b.getShip(0).getLocation().get(0).getY(), 3);
 		assertEquals(b.getShip(0).getLocation().get(1).getX(), 'A');
-		assertEquals(b.getShip(0).getLocation().get(1).getY(), 2);
+		assertEquals(b.getShip(0).getLocation().get(1).getY(), 4);
 		
 	}
 	
@@ -91,9 +91,9 @@ public class MoveTest {
 		b.placeShip(s, 'A', 3, true);
 		b.moveSouth();
 		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'A');
-		assertEquals(b.getShip(0).getLocation().get(0).getY(), 2);
+		assertEquals(b.getShip(0).getLocation().get(0).getY(), 4);
 		assertEquals(b.getShip(0).getLocation().get(1).getX(), 'A');
-		assertEquals(b.getShip(0).getLocation().get(1).getY(), 1);
+		assertEquals(b.getShip(0).getLocation().get(1).getY(), 5);
 		
 	}
 	
@@ -104,9 +104,9 @@ public class MoveTest {
 		b.placeShip(s, 'A', 3, false);
 		b.moveSouth();
 		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'A');
-		assertEquals(b.getShip(0).getLocation().get(0).getY(), 2);
+		assertEquals(b.getShip(0).getLocation().get(0).getY(), 4);
 		assertEquals(b.getShip(0).getLocation().get(1).getX(), 'B');
-		assertEquals(b.getShip(0).getLocation().get(1).getY(), 2);
+		assertEquals(b.getShip(0).getLocation().get(1).getY(), 4);
 		
 	}
 	
@@ -114,10 +114,10 @@ public class MoveTest {
 	public void testMoveFailure() {
 		Ship s = new Minesweeper("Minespweepr");
 		Board b = new Board();
-		b.placeShip(s, 'A', 10, true);
+		b.placeShip(s, 'A', 1, true);
 		b.moveNorth();
 		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'A');
-		assertEquals(b.getShip(0).getLocation().get(0).getY(), 10);
+		assertEquals(b.getShip(0).getLocation().get(0).getY(), 1);
 	}
 	
 	@Test
@@ -127,7 +127,7 @@ public class MoveTest {
 		b.placeShip(s, 'A', 4, true);
 		b.moveNorth();
 		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'A');
-		assertEquals(b.getShip(0).getLocation().get(0).getY(), 5);
+		assertEquals(b.getShip(0).getLocation().get(0).getY(), 3);
 		assertEquals(b.getShip(0).getLocation().get(1).getX(), 'A');
 		assertEquals(b.getShip(0).getLocation().get(1).getY(), 4);	
 	}
@@ -139,9 +139,9 @@ public class MoveTest {
 		b.placeShip(s, 'A', 5, true);
 		b.moveSouth();
 		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'A');
-		assertEquals(b.getShip(0).getLocation().get(0).getY(), 4);
+		assertEquals(b.getShip(0).getLocation().get(0).getY(), 6);
 		assertEquals(b.getShip(0).getLocation().get(1).getX(), 'A');
-		assertEquals(b.getShip(0).getLocation().get(1).getY(), 3);		
+		assertEquals(b.getShip(0).getLocation().get(1).getY(), 7);		
 	}
 	
 	@Test
@@ -153,7 +153,7 @@ public class MoveTest {
 		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'B');
 		assertEquals(b.getShip(0).getLocation().get(0).getY(), 5);
 		assertEquals(b.getShip(0).getLocation().get(1).getX(), 'B');
-		assertEquals(b.getShip(0).getLocation().get(1).getY(), 4);	
+		assertEquals(b.getShip(0).getLocation().get(1).getY(), 6);	
 	}
 	
 	@Test
@@ -165,7 +165,7 @@ public class MoveTest {
 		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'A');
 		assertEquals(b.getShip(0).getLocation().get(0).getY(), 5);
 		assertEquals(b.getShip(0).getLocation().get(1).getX(), 'A');
-		assertEquals(b.getShip(0).getLocation().get(1).getY(), 4);	
+		assertEquals(b.getShip(0).getLocation().get(1).getY(), 6);	
 	}
 
 	@Test
@@ -199,9 +199,9 @@ public class MoveTest {
 		b.placeShip(s, 'A', 4, false);
 		b.moveNorth();
 		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'A');
-		assertEquals(b.getShip(0).getLocation().get(0).getY(), 5);
+		assertEquals(b.getShip(0).getLocation().get(0).getY(), 3);
 		assertEquals(b.getShip(0).getLocation().get(1).getX(), 'B');
-		assertEquals(b.getShip(0).getLocation().get(1).getY(), 5);	
+		assertEquals(b.getShip(0).getLocation().get(1).getY(), 3);	
 	}
 	@Test
 	public void testMoveSubSouthHoriz() {
@@ -210,9 +210,9 @@ public class MoveTest {
 		b.placeShip(s, 'A', 4, false);
 		b.moveSouth();
 		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'A');
-		assertEquals(b.getShip(0).getLocation().get(0).getY(), 3);
+		assertEquals(b.getShip(0).getLocation().get(0).getY(), 5);
 		assertEquals(b.getShip(0).getLocation().get(1).getX(), 'B');
-		assertEquals(b.getShip(0).getLocation().get(1).getY(), 3);	
+		assertEquals(b.getShip(0).getLocation().get(1).getY(), 5);	
 	}
 	
 	@Test
@@ -248,7 +248,7 @@ public class MoveTest {
 		b.undoMove();
 		b.redoMove();
 		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'B');
-		assertEquals(b.getShip(0).getLocation().get(0).getY(), 5);
+		assertEquals(b.getShip(0).getLocation().get(0).getY(), 3);
 
 	}
 	
@@ -264,7 +264,7 @@ public class MoveTest {
 		b.redoMove();
 		b.redoMove();
 		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'B');
-		assertEquals(b.getShip(0).getLocation().get(0).getY(), 6);
+		assertEquals(b.getShip(0).getLocation().get(0).getY(), 2);
 	}
 	
 	@Test
@@ -280,40 +280,7 @@ public class MoveTest {
 		b.redoMove();
 		b.undoMove();
 		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'B');
-		assertEquals(b.getShip(0).getLocation().get(0).getY(), 5);
-	}
-	
-	@Test
-	public void crazyUndoRedo() {
-		Ship s = new Minesweeper("Minesweeper");
-		Board b = new Board();
-		b.placeShip(s, 'B', 4, true);
-		b.moveNorth();
-		b.moveNorth();
-		b.undoMove();
-		b.undoMove();
-		b.redoMove();
-		b.redoMove();
-		b.undoMove();
-		b.moveEast();
-		b.moveEast();
-		b.moveSouth();
-		b.moveEast();
-		b.undoMove();
-		b.undoMove();
-		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'D');
-		assertEquals(b.getShip(0).getLocation().get(0).getY(), 5);
-		b.redoMove();
-		b.redoMove();
-		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'E');
-		assertEquals(b.getShip(0).getLocation().get(0).getY(), 4);
-		b.undoMove();
-		b.undoMove();
-		b.undoMove();
-		b.undoMove();
-		b.undoMove();
-		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'B');
-		assertEquals(b.getShip(0).getLocation().get(0).getY(), 4);
+		assertEquals(b.getShip(0).getLocation().get(0).getY(), 3);
 	}
 	
 	@Test
