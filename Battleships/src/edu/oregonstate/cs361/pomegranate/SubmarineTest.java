@@ -12,17 +12,17 @@ public class SubmarineTest {
 	public void testPlaceShipVertical() {
 		Ship s = new Submarine("Sumbarine", false);
 		Board b = new Board();
-		b.placeShip(s, 'A', 10, true);
+		b.placeShip(s, 'A', 1, true);
 		assertEquals(b.getShip(0).getLocation().get(0).getX(), 'A');
-		assertEquals(b.getShip(0).getLocation().get(0).getY(), 10);
+		assertEquals(b.getShip(0).getLocation().get(0).getY(), 1);
 		assertEquals(b.getShip(0).getLocation().get(1).getX(), 'A');
-		assertEquals(b.getShip(0).getLocation().get(1).getY(), 9);
+		assertEquals(b.getShip(0).getLocation().get(1).getY(), 2);
 		assertEquals(b.getShip(0).getLocation().get(2).getX(), 'A');
-		assertEquals(b.getShip(0).getLocation().get(2).getY(), 8);
+		assertEquals(b.getShip(0).getLocation().get(2).getY(), 3);
 		assertEquals(b.getShip(0).getLocation().get(3).getX(), 'A');
-		assertEquals(b.getShip(0).getLocation().get(3).getY(), 7);
+		assertEquals(b.getShip(0).getLocation().get(3).getY(), 4);
 		assertEquals(b.getShip(0).getLocation().get(4).getX(), 'B');
-		assertEquals(b.getShip(0).getLocation().get(4).getY(), 8);
+		assertEquals(b.getShip(0).getLocation().get(4).getY(), 3);
 	}
 	
 	@Test
@@ -39,7 +39,7 @@ public class SubmarineTest {
 		assertEquals(b.getShip(0).getLocation().get(3).getX(), 'D');
 		assertEquals(b.getShip(0).getLocation().get(3).getY(), 9);
 		assertEquals(b.getShip(0).getLocation().get(4).getX(), 'C');
-		assertEquals(b.getShip(0).getLocation().get(4).getY(), 10);
+		assertEquals(b.getShip(0).getLocation().get(4).getY(), 8);
 	}
 	
 	@Test
@@ -53,7 +53,7 @@ public class SubmarineTest {
 	public void testInvalidHorizontal() {
 		Ship s = new Submarine("Submarine", false);
 		Board b = new Board();
-		assertEquals(false, b.placeShip(s, 'A', 10, false));
+		assertEquals(false, b.placeShip(s, 'A', 1, false));
 	}
 	
 	@Test
@@ -66,8 +66,8 @@ public class SubmarineTest {
 		b.placeShip(s, 'A', 1, false);
 		b.placeShip(s2, 'D', 4, false);
 		b.placeShip(s3, 'D', 4, false);
-		b.attack('A', 1);
-		r = b.attack('D', 4);
+		b.attack('B', 1);
+		r = b.attack('F', 4);
 		assertEquals(r.get(0).getResult(), Status.HIT);
 		assertEquals(r.get(1).getResult(), Status.HIT);
 	}
