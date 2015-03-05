@@ -13,7 +13,7 @@ public class BoardTest {
 	public void testValidPlacement() {
 		Ship s = new Destroyer("Destroyer");
 		Board b = new Board();
-		boolean valid = b.placeShip(s, 'A', 10, true);
+		boolean valid = b.placeShip(s, 'A', 1, true);
 		assertEquals(true, valid);
 	}
 	
@@ -53,7 +53,7 @@ public class BoardTest {
 	public void testInvalidVertical() {
 		Ship s = new Destroyer("Destroyer");
 		Board b = new Board();
-		boolean valid = b.placeShip(s, 'A', 2, true);
+		boolean valid = b.placeShip(s, 'A', 9, true);
 		assertEquals(false, valid);
 	}
 	
