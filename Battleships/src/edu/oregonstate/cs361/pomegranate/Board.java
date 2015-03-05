@@ -12,13 +12,13 @@ import java.lang.Math;
 public class Board {
 	
 	private Grid[][] grid;
-	private List<Ship> ships;
-	private int totalShips;
+	List<Ship> ships;
+	int totalShips;
 	private int shipsLeft;
 	private boolean isSunk;
 	private int sonarCounter;
-	private Stack<String> undoStack = new Stack<String>();
-	private Stack<String> redoStack = new Stack<String>();
+	private Stack<Move> undoStack = new Stack<Move>();
+	private Stack<Move> redoStack = new Stack<Move>();
 	boolean laserActive;
 
 	public Board() {
@@ -138,173 +138,46 @@ public class Board {
 	}
 
 	public void moveNorth() {
-		for(int i = 0; i < totalShips; i++)
-		{			
-			if(ships.get(i).isVertical())
-			{
-				if(ships.get(i).checkMove("North"))
-				{
-					for(int j = 0; j < ships.get(i).getSize(); j++) {
-						ships.get(i).getLocation().get(j).setY(ships.get(i).getLocation().get(j).getY() - 1); 
-					}
-					ships.get(i).setCQ(ships.get(i).getCq().getX(), ships.get(i).getCq().getY() - 1);
-				}
-			}
-			else
-			{
-				if(ships.get(i).checkMove("North"))
-				{
-					for(int j = 0; j < ships.get(i).getSize(); j++) {
-						ships.get(i).getLocation().get(j).setY(ships.get(i).getLocation().get(j).getY() - 1); 
-					}
-					ships.get(i).setCQ(ships.get(i).getCq().getX(), ships.get(i).getCq().getY() - 1);
-				}
-			}	
-		}	
-		undoStack.push("North");
+		MoveNorth north = new MoveNorth(this);
+		north.moveIt();
+		undoStack.push(north);
 	}
 	
-	public void moveEast() {
-		
-		for(int i = 0; i < totalShips; i++)
-		{
-			if(ships.get(i).isVertical())
-			{
-				if(ships.get(i).checkMove("East"))
-				{
-					for(int j = 0; j < ships.get(i).getSize(); j++) {
-						ships.get(i).getLocation().get(j).setX((char) (ships.get(i).getLocation().get(j).getX() + 1)); 
-					}
-					ships.get(i).setCQ((char) (ships.get(i).getCq().getX() + 1), ships.get(i).getCq().getY());
-				}
-			}
-			else
-			{
-				if(ships.get(i).checkMove("East"))
-				{
-					for(int j = 0; j < ships.get(i).getSize(); j++) {
-						ships.get(i).getLocation().get(j).setX((char) (ships.get(i).getLocation().get(j).getX() + 1)); 
-					}
-					ships.get(i).setCQ((char) (ships.get(i).getCq().getX() + 1), ships.get(i).getCq().getY());
-				}
-			}
-		}
-		undoStack.push("East");
+	public void moveEast() {	
+		MoveEast east = new MoveEast(this);
+		east.moveIt();
+		undoStack.push(east);
 	}
 	
 	public void moveWest() {
-		for(int i = 0; i < totalShips; i++)
-		{
-			if(ships.get(i).isVertical())
-			{
-				if(ships.get(i).checkMove("West"))
-				{
-					for(int j = 0; j < ships.get(i).getSize(); j++) {
-						ships.get(i).getLocation().get(j).setX((char) (ships.get(i).getLocation().get(j).getX() - 1)); 
-					}
-					ships.get(i).setCQ((char) (ships.get(i).getCq().getX() - 1), ships.get(i).getCq().getY());
-				}
-			}
-			else
-			{
-				if(ships.get(i).checkMove("West"))
-				{
-					for(int j = 0; j < ships.get(i).getSize(); j++) {
-						ships.get(i).getLocation().get(j).setX((char) (ships.get(i).getLocation().get(j).getX() - 1)); 
-					}
-					ships.get(i).setCQ((char) (ships.get(i).getCq().getX() - 1), ships.get(i).getCq().getY());
-				}
-			}
-		}
-		undoStack.push("West");
+		MoveWest west = new MoveWest(this);
+		west.moveIt();
+		undoStack.push(west);
 	}
 	
 	public void moveSouth() {
-		for(int i = 0; i < totalShips; i++)
-		{			
-			if(ships.get(i).isVertical())
-			{
-				if(ships.get(i).checkMove("South"))
-				{
-					for(int j = 0; j < ships.get(i).getSize(); j++) {
-						ships.get(i).getLocation().get(j).setY(ships.get(i).getLocation().get(j).getY() + 1); 
-					}
-					ships.get(i).setCQ(ships.get(i).getCq().getX(), ships.get(i).getCq().getY() + 1);
-				}
-			}
-			else
-			{
-				if(ships.get(i).checkMove("South"))
-				{
-					for(int j = 0; j < ships.get(i).getSize(); j++) {
-						ships.get(i).getLocation().get(j).setY(ships.get(i).getLocation().get(j).getY() + 1); 
-					}
-					ships.get(i).setCQ(ships.get(i).getCq().getX(), ships.get(i).getCq().getY() + 1);
-				}
-			}
-		}
-		undoStack.push("South");
+		MoveSouth south = new MoveSouth(this);
+		south.moveIt();
+		undoStack.push(south);
 	}
 	
 	public void undoMove() {
 		if(undoStack.isEmpty()) {
 			return;
 		}
-		String move = undoStack.pop();
-		switch (move) {
-		case "North":
-			this.moveSouth();
-			undoStack.pop();
-			redoStack.push("South");
-			break;
-		case "South":
-			this.moveNorth();
-			redoStack.push("North");
-			undoStack.pop();
-			break;
-		case "East":
-			this.moveWest();
-			redoStack.push("West");
-			undoStack.pop();
-			break;
-		case "West":
-			this.moveEast();
-			redoStack.push("East");
-			undoStack.pop();
-			break;
-		default:
-			break;
-		
-			
-		}
-		//Perform the opposite of that move (for North, perform south etc.)
-		//add to undo stack
-		
+		Move move = undoStack.pop();
+		Move undo = move.undo();
+		undo.moveIt();
+		redoStack.push(undo);
 	}
 	
 	public void redoMove() {
 		if(redoStack.isEmpty()) {
 			return;
 		}
-		String move = redoStack.pop();
-		switch (move) {
-		case "North":
-			this.moveSouth();
-			break;
-		case "South":
-			this.moveNorth();
-			break;
-		case "East":
-			this.moveWest();
-			break;
-		case "West":
-			this.moveEast();
-			break;
-		default:
-			break;
-		
-		}
-		
+		Move move = redoStack.pop();
+		Move redo = move.undo();
+		redo.moveIt();
 	}
 
 }
