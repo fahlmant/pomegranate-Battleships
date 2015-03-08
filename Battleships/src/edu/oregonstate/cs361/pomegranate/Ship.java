@@ -15,10 +15,11 @@ public abstract class Ship {
 	protected boolean isVertical;
 	protected boolean armor;
 	protected Coordinates cq;
-	protected boolean moved = false; 
+	protected boolean moved; 
 
 	public Ship(String kind) {
 		this.kind = kind;
+		moved = false;
 	}
 	
 	public Ship takeDamage(int j) {
