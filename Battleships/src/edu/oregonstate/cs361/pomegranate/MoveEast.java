@@ -18,6 +18,7 @@ public class MoveEast extends Move{
 						ships.get(i).getLocation().get(j).setX((char) (ships.get(i).getLocation().get(j).getX() + 1)); 
 					}
 					ships.get(i).setCQ((char) (ships.get(i).getCq().getX() + 1), ships.get(i).getCq().getY());
+					ships.get(i).movedTrue();
 				}
 			} else {
 				if(ships.get(i).checkMove("East")) {
@@ -25,6 +26,7 @@ public class MoveEast extends Move{
 						ships.get(i).getLocation().get(j).setX((char) (ships.get(i).getLocation().get(j).getX() + 1)); 
 					}
 					ships.get(i).setCQ((char) (ships.get(i).getCq().getX() + 1), ships.get(i).getCq().getY());
+					ships.get(i).movedTrue();
 				}
 			}
 		}

@@ -15,6 +15,7 @@ public abstract class Ship {
 	protected boolean isVertical;
 	protected boolean armor;
 	protected Coordinates cq;
+	protected boolean moved = false; 
 
 	public Ship(String kind) {
 		this.kind = kind;
@@ -183,5 +184,15 @@ public abstract class Ship {
 		}
 		
 		return valid;
+	}
+	
+	public boolean hasMoved()
+	{
+		return moved;
+	}
+	
+	public void movedTrue()
+	{
+		moved = true;
 	}
 }

@@ -18,6 +18,8 @@ public class MoveNorth extends Move {
 						ships.get(i).getLocation().get(j).setY(ships.get(i).getLocation().get(j).getY() - 1); 
 					}
 					ships.get(i).setCQ(ships.get(i).getCq().getX(), ships.get(i).getCq().getY() - 1);
+					ships.get(i).movedTrue();
+
 				}
 			} else {
 				if(ships.get(i).checkMove("North")) {
@@ -25,6 +27,7 @@ public class MoveNorth extends Move {
 						ships.get(i).getLocation().get(j).setY(ships.get(i).getLocation().get(j).getY() - 1); 
 					}
 					ships.get(i).setCQ(ships.get(i).getCq().getX(), ships.get(i).getCq().getY() - 1);
+					ships.get(i).movedTrue();
 				}
 			}	
 		}
