@@ -171,37 +171,6 @@ public abstract class Ship {
 		return true;
 	}
 	
-	/**Checks that a given move is valid*/
-	public boolean checkMove(String direction) {
-		boolean valid = false;
-		switch(direction) {
-		case "North":
-			if(this.getLocation().get(0).getY() >= 2) {
-				valid = true;
-			}
-			break;
-		case "South":
-			if(this.getLocation().get(this.size - 1).getY() <= 9) {
-				valid = true;
-			}
-			break;
-		case "West":
-			if(this.getLocation().get(0).getX() >= 'B') {
-				valid = true;
-			}
-			break;
-		case "East":
-			if(this.getLocation().get(this.size - 1).getX() <= 'I') {
-				valid = true;
-			}
-			break;
-		default: break;
-		
-		}
-		
-		return valid;
-	}
-	
 	/**Returns if the ship moved on the last move*/
 	public boolean hasMoved()
 	{
