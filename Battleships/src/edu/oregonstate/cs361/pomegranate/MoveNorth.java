@@ -5,8 +5,14 @@ import java.util.Stack;
 
 import edu.oregonstate.cs361.api.Coordinates;
 
+/**Moves all ships North if possible*/
 public class MoveNorth extends Move {
 
+	/**Creates a moveNorth object
+	 * @param undoStack		The stack of coords from the last move
+	 * @param ships			The list of ships to move
+	 * @param totalShips	The number of totalships on the board
+	 */
 	public MoveNorth(Stack<List<Coordinates>> undoStack, List<Ship> ships, int totalShips) {
 		super(undoStack, ships, totalShips);
 	}

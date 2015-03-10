@@ -22,6 +22,7 @@ public abstract class Ship {
 		moved = false;
 	}
 	
+	/**Decrements the health of a ship*/
 	public Ship takeDamage(int j) {
 		health--;
 		Coordinates c = location.get(j);
@@ -30,14 +31,17 @@ public abstract class Ship {
 		return this;
 	}
 
+	/**Returns the kind of ship*/
 	public String getKind() {
 		return kind;
 	}
 
+	/**Returns the health of ship*/
 	public int getHealth() {
 		return health;
 	}
 
+	/**Returns the list of coords the ship is at*/
 	public List<Coordinates> getLocation() {
 		return location;
 	}
@@ -64,6 +68,7 @@ public abstract class Ship {
 		return valid;
 	}
 	
+	/**Sets the location of the ships*/
 	public void setLocation(char x, int y, boolean isVertical) {
 		List<Coordinates> location = new ArrayList<Coordinates>();
 		this.isVertical = isVertical;
@@ -83,18 +88,22 @@ public abstract class Ship {
 		this.location = location;
 	}
 
+	/**Returns the size of the ship*/
 	public int getSize() {
 		return size;
 	}
-
+	
+	/**Returns if ths ship placement is valid*/
 	public boolean isValid() {
 		return valid;
 	}
 
+	/**Returns if the ship is vertical*/
 	public boolean isVertical() {
 		return isVertical;
 	}
 
+	/**Checks that the captain's quarters was destroyed*/
 	public Ship cqDestroyed() {
 		health = 0;
 		for(int i = 0; i < size; i++) {
@@ -105,19 +114,23 @@ public abstract class Ship {
 		return this;
 	}
 	
+	/**Destroys a ships armor*/
 	public Ship destroyArmor() {
 		armor = false;
 		return this;
 	}
 	
+	/**Returns armor status*/
 	public boolean isArmor() {
 		return armor;
 	}
 	
+	/**Returns coords of CQ*/
 	public Coordinates getCq() {
 		return cq;
 	}
 	
+	/**Sets coords of CQ*/
 	public void setCQ(char x, int y) {
 		cq = new Coordinates(x, y);
 	}
@@ -131,6 +144,7 @@ public abstract class Ship {
 		}
 	}
 	
+	/**Check is two ships overlap. It's ok if one is submerged*/
 	public boolean checkOverlap(List<Ship> ships, int totalShips) {
 
 		for(int i = 0; i < totalShips; i++) {
@@ -157,8 +171,8 @@ public abstract class Ship {
 		return true;
 	}
 	
+	/**Checks that a given move is valid*/
 	public boolean checkMove(String direction) {
-		
 		boolean valid = false;
 		switch(direction) {
 		case "North":
@@ -188,18 +202,23 @@ public abstract class Ship {
 		return valid;
 	}
 	
-	public boolean hasMoved() {
+	/**Returns if the ship moved on the last move*/
+	public boolean hasMoved()
+	{
 		return moved;
 	}
 	
-	public void movedTrue() {
+	/**Sets the move status to true*/
+	public void movedTrue()
+	{
 		moved = true;
 	}
-
+	/**Sets the move status to false*/
 	public void movedFalse() {
 		moved = false;
 	}
 	
+	/**Returns the tail coord*/
 	public int getTail() {
 		return size;
 	}

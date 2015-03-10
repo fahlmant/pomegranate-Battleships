@@ -1,5 +1,5 @@
 package edu.oregonstate.cs361.pomegranate;
-
+/**Enum of the various statuses*/
 public enum Status {
 
 	/**

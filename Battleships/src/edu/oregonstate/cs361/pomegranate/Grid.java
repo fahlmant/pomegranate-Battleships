@@ -1,5 +1,6 @@
 package edu.oregonstate.cs361.pomegranate;
 
+/**Enum for the statuses held by the Grid*/
 public enum Grid {
 
 	/**

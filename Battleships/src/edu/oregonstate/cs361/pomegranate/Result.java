@@ -1,5 +1,6 @@
 package edu.oregonstate.cs361.pomegranate;
 
+/**Holds the various results of an attack*/
 public class Result {
 	
 
@@ -7,6 +8,7 @@ public class Result {
 	private Ship ship;
 	private boolean isHit;
 	
+	/**Creates a result object*/
 	Result(Ship ship, char x, int y, int shipsLeft){
 		this.ship = ship;
 		this.status = checkStatus(x, y, shipsLeft);
@@ -15,10 +17,12 @@ public class Result {
 		}
 	}
 
+	/** Returns the status of an attack*/
 	public Status getResult() {
 		return status;
 	}
 	
+	/** Returns the ship that got attacked*/
 	public Ship getShip() {
 		return ship;
 	}

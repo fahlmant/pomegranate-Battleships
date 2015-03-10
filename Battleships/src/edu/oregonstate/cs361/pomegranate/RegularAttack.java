@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.oregonstate.cs361.api.Coordinates;
-
+/**Normal attack*/
 public class RegularAttack {
 	
 	protected Ship s;
@@ -14,6 +14,12 @@ public class RegularAttack {
 	protected List<Ship> ships;
 	protected int totalShips;
 	
+	/** Attacks ships
+	 * @param x					X coord
+	 * @param y					Y coord
+	 * @param ships				A list of all the ships on the board
+	 * @param totalShips		A total number of ships on the board
+	 */
 	public RegularAttack(char x, int y, List<Ship> ships, int totalShips) {
 		hitShips = new ArrayList<Ship>();
 		location = new Coordinates(x, y);
@@ -21,6 +27,9 @@ public class RegularAttack {
 		this.totalShips = totalShips;		
 	}
 	
+	/**Applies the attack to a location
+	 * @return 	The list of ships that got hit. 
+	 */
 	public List<Ship> hitShips() {
 		for(int i = 0; i < totalShips; i++) {
 			for(int j = 0; j < ships.get(i).getSize(); j++) {

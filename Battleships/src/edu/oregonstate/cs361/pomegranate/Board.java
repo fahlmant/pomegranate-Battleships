@@ -10,6 +10,10 @@ import edu.oregonstate.cs361.api.WeaponUnavailableException;
 
 import java.lang.Math;
 
+/** Creates and manipulates the board 
+ * @author Pomegranate
+ * @version FinalSubmission
+ */
 public class Board {
 	
 	private Grid[][] grid;
@@ -22,7 +26,7 @@ public class Board {
 	private Stack<List<Coordinates>> undoStack;
 	private Stack<List<Coordinates>> redoStack;
 
-
+	/**Creates the board*/
 	public Board() {
 		grid = new Grid [10][10];
 		for(int i = 0; i < 10; i++) {
@@ -40,18 +44,28 @@ public class Board {
 		redoStack = new Stack<List<Coordinates>>();
 	}
 	
+	/**Returns a ship on the board*/
 	public Ship getShip(int i) {
 		return ships.get(i);
 	}
 	
+	/**Returns the grid*/
 	public Grid[][] getGrid() {
 		return grid;
 	}
 	
+	/**Returns the number of ships left on the board*/
 	public int getShipsLeft() {
 		return shipsLeft;
 	}
 	
+	/**Places a ship on the board
+	 * @param ship				The ship object to place
+	 * @param x					The x coord
+	 * @param y					The y coord
+	 * @param isVertical		If the ship is vertical or not
+	 * @return					If the place was valid, then true
+	 */
 	public boolean placeShip(Ship ship, char x, int y, boolean isVertical) {
 		
 		ship.setLocation(x, y, isVertical);
@@ -81,6 +95,12 @@ public class Board {
 		return hitShips;
 	}
 	
+	/**Attacks a given spot
+	 * 
+	 * @param x		The x coord to attack
+	 * @param y		The y coord to attack
+	 * @return		The result of the attack, (HIT, MISS)
+	 */
 	public List<Result> attack(char x, int y) {
 		
 		List<Ship> hitShips = checkLocation(x, y);
@@ -116,7 +136,6 @@ public class Board {
 	 */
 	public List<Coordinates> sonarPulse(char x, int y) throws WeaponUnavailableException, AmmoExhaustedException {
 		
-		//TODO add error checking for using sonar out of bounds
 		
 		Coordinates c;
 		List<Coordinates> list = new ArrayList<Coordinates>();
@@ -153,27 +172,32 @@ public class Board {
 		return true;
 	}
 
+	/**Moves all ships North if possible*/
 	public void moveNorth() {
 		MoveNorth north = new MoveNorth(undoStack, ships, totalShips);
 		undoStack = north.moveIt();
 	}
 	
+	/**Moves all ships East if possible*/
 	public void moveEast() {	
 		MoveEast east = new MoveEast(undoStack, ships, totalShips);
 		undoStack = east.moveIt();
 	}
 	
+	/**Moves all ships West if possible*/
 	public void moveWest() {
 		MoveWest west = new MoveWest(undoStack, ships, totalShips);
 		undoStack = west.moveIt();
 	}
 	
+	/**Moves all ships South if possible*/
 	public void moveSouth() {
 		MoveSouth south = new MoveSouth(undoStack, ships, totalShips);
 		undoStack = south.moveIt();
 
 	}
 	
+	/** The last move will be undone if a ship moved*/
 	public void undoMove() {
 		List<Coordinates> move;
 		char x;
@@ -190,6 +214,7 @@ public class Board {
 		}
 	}
 	
+	/** The last move that was undone will be redone */
 	public void redoMove() {
 		List<Coordinates> move;
 		char x;
