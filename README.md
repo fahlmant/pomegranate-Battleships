@@ -13,7 +13,10 @@ Taylor Fahlman
 The Program
 -----------
 
-This Battleship implementation has the following features::
+This Battleship implementation has the following features:
+
+
+.. code-block::
 
   Place different ships, including Submarines, Minesweeper, Destroyer, and Battleships.
   Ships may be placed horizontally or vertiacally on a 10x10 board.
