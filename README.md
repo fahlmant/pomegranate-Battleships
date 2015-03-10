@@ -27,9 +27,9 @@ This Battleship implementation has the following features:
 
   6. Submergion of Submaries and the ability to place one under other ships.
   
-  7.Space laser, unlocked after one ship is sunk, which will hit submerged ships, and any ship over them as well.
+  7. Space laser, unlocked after one ship is sunk, which will hit submerged ships, and any ship over them as well.
 
-  8.Move, where all ships on the board will move one space in a given direction if possible. 
+  8. Move, where all ships on the board will move one space in a given direction if possible. 
   
   
 
