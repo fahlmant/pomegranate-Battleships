@@ -158,6 +158,7 @@ public abstract class Ship {
 	}
 	
 	public boolean checkMove(String direction) {
+		
 		boolean valid = false;
 		switch(direction) {
 		case "North":
@@ -187,13 +188,19 @@ public abstract class Ship {
 		return valid;
 	}
 	
-	public boolean hasMoved()
-	{
+	public boolean hasMoved() {
 		return moved;
 	}
 	
-	public void movedTrue()
-	{
+	public void movedTrue() {
 		moved = true;
+	}
+
+	public void movedFalse() {
+		moved = false;
+	}
+	
+	public int getTail() {
+		return size;
 	}
 }

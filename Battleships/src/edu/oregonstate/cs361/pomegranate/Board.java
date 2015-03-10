@@ -7,6 +7,7 @@ import java.util.Stack;
 import edu.oregonstate.cs361.api.AmmoExhaustedException;
 import edu.oregonstate.cs361.api.Coordinates;
 import edu.oregonstate.cs361.api.WeaponUnavailableException;
+
 import java.lang.Math;
 
 public class Board {
@@ -18,8 +19,8 @@ public class Board {
 	private boolean isSunk;
 	private int sonarCounter;
 	private boolean laserActive;
-	private Stack<Move> undoStack;
-	private Stack<Move> redoStack;
+	private Stack<List<Coordinates>> undoStack;
+	private Stack<List<Coordinates>> redoStack;
 
 
 	public Board() {
@@ -35,8 +36,8 @@ public class Board {
 		isSunk = false;
 		sonarCounter = 2;
 		laserActive = false;
-		undoStack = new Stack<Move>();
-		redoStack = new Stack<Move>();
+		undoStack = new Stack<List<Coordinates>>();
+		redoStack = new Stack<List<Coordinates>>();
 	}
 	
 	public Ship getShip(int i) {
@@ -128,16 +129,28 @@ public class Board {
 			throw new AmmoExhaustedException();
 		}
 		
-		for(int i = -2; i <= 2; i++) {
-			for(int j = 0; j < 5 - (2 * Math.abs(i)); j++) {
-				if(grid[x - 'A' + i][y + j - 3 + Math.abs(i)] == Grid.SHIP) {
-					c = new Coordinates((char) (x + i), y + j - 2 + Math.abs(i));
-					list.add(c);
+		if(checkSonar(x, y)) {
+			for(int i = -2; i <= 2; i++) {
+				for(int j = 0; j < 5 - (2 * Math.abs(i)); j++) {
+					if(grid[x - 'A' + i][y + j - 3 + Math.abs(i)] == Grid.SHIP) {
+						c = new Coordinates((char) (x + i), y + j - 2 + Math.abs(i));
+						list.add(c);
+					}
 				}
 			}
 		}
 		sonarCounter--;
 		return list;
+	}
+	
+	private boolean checkSonar(char x, int y) {
+		if(x < 'C' || x > 'H') {
+			return false;
+		}
+		if(y < 3 || y > 8) {
+			return false;
+		}
+		return true;
 	}
 
 	public void moveNorth() {
@@ -162,31 +175,46 @@ public class Board {
 	}
 	
 	public void undoMove() {
+		List<Coordinates> move;
+		char x;
+		int y;
 		if(undoStack.isEmpty()) {
 			return;
 		}
-		Move move = undoStack.pop();
-		Move undo = move.undo();
-		undo.moveIt();
-		undoStack.pop();
-		redoStack.push(undo);
+		for(int i = totalShips - 1; i >= 0; i--) {
+			move = undoStack.pop();
+			x = move.get(0).getX();
+			y = move.get(0).getY();
+			redoStack.push(copyLocation(ships.get(i)));
+			ships.get(i).setLocation(x, y, ships.get(i).isVertical());
+		}
 	}
 	
 	public void redoMove() {
+		List<Coordinates> move;
+		char x;
+		int y;
 		if(redoStack.isEmpty()) {
 			return;
 		}
-		Move move = redoStack.pop();
-		Move redo = move.undo();
-		redo.moveIt();
-		
+		for(int i = 0; i < totalShips; i++) {
+			move = redoStack.pop();
+			x = move.get(0).getX();
+			y = move.get(0).getY();
+			undoStack.push(copyLocation(ships.get(i)));
+			ships.get(i).setLocation(x, y, ships.get(i).isVertical());
+		}
 	}
-
-	public List<Ship> getShips() {
-		return ships;
-	}
-
-	public int getTotalShips() {
-		return totalShips;
+	
+	private List<Coordinates> copyLocation(Ship s) {
+		List<Coordinates> location = new ArrayList<Coordinates>();
+		char x;
+		int y;
+		for(int i = 0; i < s.getSize(); i++) {
+			x = s.getLocation().get(i).getX();
+			y = s.getLocation().get(i).getY();
+			location.add(new Coordinates(x, y));
+		}
+		return location;
 	}
 }

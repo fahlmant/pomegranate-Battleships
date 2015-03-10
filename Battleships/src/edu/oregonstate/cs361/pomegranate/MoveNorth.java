@@ -3,41 +3,37 @@ package edu.oregonstate.cs361.pomegranate;
 import java.util.List;
 import java.util.Stack;
 
+import edu.oregonstate.cs361.api.Coordinates;
+
 public class MoveNorth extends Move {
 
-	public MoveNorth(Stack<Move> undoStack, List<Ship> ships, int totalShips) {
+	public MoveNorth(Stack<List<Coordinates>> undoStack, List<Ship> ships, int totalShips) {
 		super(undoStack, ships, totalShips);
-		undoType = null;
 	}
 	
-	public Stack<Move> moveIt() {
-		for(int i = 0; i < totalShips; i++) {			
-			if(ships.get(i).isVertical()) {
-				if(ships.get(i).checkMove("North")) {
-					for(int j = 0; j < ships.get(i).getSize(); j++) {
-						ships.get(i).getLocation().get(j).setY(ships.get(i).getLocation().get(j).getY() - 1); 
-					}
-					ships.get(i).setCQ(ships.get(i).getCq().getX(), ships.get(i).getCq().getY() - 1);
-					ships.get(i).movedTrue();
-
-				}
+	protected boolean checkMove(Ship s) {
+		if(s.isVertical()) {
+			if(s.getLocation().get(0).getY() >= 2) {
+				s.movedTrue();
 			} else {
-				if(ships.get(i).checkMove("North")) {
-					for(int j = 0; j < ships.get(i).getSize(); j++) {
-						ships.get(i).getLocation().get(j).setY(ships.get(i).getLocation().get(j).getY() - 1); 
-					}
-					ships.get(i).setCQ(ships.get(i).getCq().getX(), ships.get(i).getCq().getY() - 1);
-					ships.get(i).movedTrue();
-				}
-			}	
+				s.movedFalse();
+			}
+		} else {
+			if(s.getLocation().get(s.getSize() - 1).getY() >= 2) {
+				s.movedTrue();
+			} else {
+				s.movedFalse();
+			}
 		}
-		undoStack.push(this);
-		return undoStack;
+		return s.hasMoved();
 	}
 	
-	public Move undo() {
-		undoType = new MoveSouth(undoStack, ships, totalShips);
-		return undoType;
+	protected void moveShip(Ship s) {
+		if(checkMove(s)) {	
+			for(int j = 0; j < s.getSize(); j++) {
+				s.getLocation().get(j).setY(s.getLocation().get(j).getY() - 1); 
+			}
+			s.setCQ(s.getCq().getX(), s.getCq().getY() - 1);
+		}
 	}
-
 }

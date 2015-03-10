@@ -120,4 +120,8 @@ public class Submarine extends Ship{
 		
 		return valid;
 	}
+	
+	public int getTail() {
+		return size - 1;
+	}
 }

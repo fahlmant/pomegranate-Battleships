@@ -11,9 +11,9 @@ import edu.oregonstate.cs361.api.Coordinates;
 import edu.oregonstate.cs361.api.WeaponUnavailableException;
 
 public class SonarTest {
-	@Test
 	
-	public void testSonar() throws WeaponUnavailableException, AmmoExhaustedException{
+	@Test
+	public void testSonar() throws WeaponUnavailableException, AmmoExhaustedException {
 		Board b = new Board();
 		Coordinates c = new Coordinates('E', 5);
 		Coordinates c2 = new Coordinates('E', 6);
@@ -34,5 +34,15 @@ public class SonarTest {
 		assertEquals(sonarResult.get(2).getY(), c3.getY());
 	}
 	
-
+	@Test
+	public void testSonarOutOfBounds() throws WeaponUnavailableException, AmmoExhaustedException {
+		Board b = new Board();
+		Ship s = new Destroyer("Destroyer");
+		Ship s2 = new Minesweeper("Minesweeper");
+		b.placeShip(s, 'E', 5, true);
+		b.placeShip(s2, 'A', 1, false);
+		b.attack('B', 1);
+		List<Coordinates> sonarResult = b.sonarPulse('A', 5);
+		assertEquals(sonarResult.isEmpty(), true);
+	}
 }
